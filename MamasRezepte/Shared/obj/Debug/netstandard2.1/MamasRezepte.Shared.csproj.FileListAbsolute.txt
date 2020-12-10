@@ -6,3 +6,4 @@ F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Shared\obj\Debug\netst
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Shared\obj\Debug\netstandard2.1\MamasRezepte.Shared.AssemblyInfo.cs
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Shared\obj\Debug\netstandard2.1\MamasRezepte.Shared.dll
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Shared\obj\Debug\netstandard2.1\MamasRezepte.Shared.pdb
+F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Shared\obj\Debug\netstandard2.1\MamasRezepte.Shared.csproj.CoreCompileInputs.cache
