@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MamasRezepte.Server", "Server\MamasRezepte.Server.csproj", "{609C547B-2FBD-4C33-9CA7-902C70A666A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MamasRezepte.Server", "Server\MamasRezepte.Server.csproj", "{609C547B-2FBD-4C33-9CA7-902C70A666A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MamasRezepte.Client", "Client\MamasRezepte.Client.csproj", "{AC457994-61C2-472E-A803-685264386FB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MamasRezepte.Client", "Client\MamasRezepte.Client.csproj", "{AC457994-61C2-472E-A803-685264386FB1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MamasRezepte.Shared", "Shared\MamasRezepte.Shared.csproj", "{94375331-DB2A-4784-8FC3-8F0B9482B316}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MamasRezepte.Shared", "Shared\MamasRezepte.Shared.csproj", "{94375331-DB2A-4784-8FC3-8F0B9482B316}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "n0pShqrB6Si8p3z0dbMeA/QDSzLUNGWem8u/X1/NYgMhpljEXoYWtpWgE/Iej6lKWyOxSMtoxqSSn8IgLRR4cA==",
+  "dgSpecHash": "aNRayA9mK0uh0fmcsjKsnjeUDSQLwpvm0U3eHeVK6KpMA+Abvcxm3j5opJeaELE5VwCO6WqyusBjNN9Gj2Gk4g==",
   "success": true,
   "projectFilePath": "F:\\Programmieren\\dotnet\\mamas_rezepte_blazor\\MamasRezepte\\Client\\MamasRezepte.Client.csproj",
   "expectedPackageFiles": [
@@ -59,7 +59,7 @@
     "C:\\Users\\Lukas\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\system.collections.concurrent\\4.3.0\\system.collections.concurrent.4.3.0.nupkg.sha512",
-    "C:\\Users\\Lukas\\.nuget\\packages\\system.componentmodel.annotations\\4.7.0\\system.componentmodel.annotations.4.7.0.nupkg.sha512",
+    "C:\\Users\\Lukas\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\system.console\\4.3.0\\system.console.4.3.0.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\system.diagnostics.debug\\4.3.0\\system.diagnostics.debug.4.3.0.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\system.diagnostics.diagnosticsource\\4.3.0\\system.diagnostics.diagnosticsource.4.3.0.nupkg.sha512",

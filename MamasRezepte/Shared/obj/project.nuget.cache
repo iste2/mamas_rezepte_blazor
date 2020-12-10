@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "FWYGE6uYiuMJRucXOwd9pg9Ati041D57Alk0Kj5ek5Uwd7pmxb6x7zWQlQ6+3UE++e6I0JGV0M2wAtRlZPUkpA==",
+  "dgSpecHash": "Eqen1wWczcQTLtqSqr4oF3BiEjozf6V1mUyzYyDlwt8Y70xwO7AsB+5TUK2kkY+kf0wQ0pPNErYXRObc3zYqUA==",
   "success": true,
   "projectFilePath": "F:\\Programmieren\\dotnet\\mamas_rezepte_blazor\\MamasRezepte\\Shared\\MamasRezepte.Shared.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Lukas\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512"
+  ],
   "logs": []
 }
