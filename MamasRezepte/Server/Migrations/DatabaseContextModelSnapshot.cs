@@ -14,7 +14,7 @@ namespace MamasRezepte.Server.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "5.0.1");
+                .HasAnnotation("ProductVersion", "3.1.10");
 
             modelBuilder.Entity("MamasRezepte.Shared.Models.Category", b =>
                 {
@@ -53,10 +53,10 @@ namespace MamasRezepte.Server.Migrations
                     b.Property<double>("Amount")
                         .HasColumnType("REAL");
 
-                    b.Property<long?>("ProductId")
+                    b.Property<long>("ProductId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<long?>("RecipeId")
+                    b.Property<long>("RecipeId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Unit")
@@ -91,13 +91,13 @@ namespace MamasRezepte.Server.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<long?>("CategoryId")
+                    b.Property<long>("CategoryId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Clicks")
                         .HasColumnType("INTEGER");
 
-                    b.Property<long?>("DurationCategoryId")
+                    b.Property<long>("DurationCategoryId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Instruction")
@@ -134,7 +134,7 @@ namespace MamasRezepte.Server.Migrations
                     b.Property<byte[]>("ImageData")
                         .HasColumnType("BLOB");
 
-                    b.Property<long?>("RecipeId")
+                    b.Property<long>("RecipeId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -142,6 +142,27 @@ namespace MamasRezepte.Server.Migrations
                     b.HasIndex("RecipeId");
 
                     b.ToTable("RecipeImages");
+                });
+
+            modelBuilder.Entity("MamasRezepte.Shared.Models.RecipeToTagRelation", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("RecipeId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("TagId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipeId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("RecipeToTagRelations");
                 });
 
             modelBuilder.Entity("MamasRezepte.Shared.Models.Tag", b =>
@@ -153,12 +174,7 @@ namespace MamasRezepte.Server.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<long?>("RecipeId")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("RecipeId");
 
                     b.ToTable("Tags");
                 });
@@ -166,56 +182,51 @@ namespace MamasRezepte.Server.Migrations
             modelBuilder.Entity("MamasRezepte.Shared.Models.Ingredient", b =>
                 {
                     b.HasOne("MamasRezepte.Shared.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
+                        .WithMany("Ingredients")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("MamasRezepte.Shared.Models.Recipe", "Recipe")
                         .WithMany("Ingredients")
-                        .HasForeignKey("RecipeId");
-
-                    b.Navigation("Product");
-
-                    b.Navigation("Recipe");
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MamasRezepte.Shared.Models.Recipe", b =>
                 {
                     b.HasOne("MamasRezepte.Shared.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId");
+                        .WithMany("Recipes")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("MamasRezepte.Shared.Models.DurationCategory", "DurationCategory")
-                        .WithMany()
-                        .HasForeignKey("DurationCategoryId");
-
-                    b.Navigation("Category");
-
-                    b.Navigation("DurationCategory");
+                        .WithMany("Recipes")
+                        .HasForeignKey("DurationCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MamasRezepte.Shared.Models.RecipeImage", b =>
                 {
                     b.HasOne("MamasRezepte.Shared.Models.Recipe", "Recipe")
                         .WithMany("Images")
-                        .HasForeignKey("RecipeId");
-
-                    b.Navigation("Recipe");
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("MamasRezepte.Shared.Models.Tag", b =>
+            modelBuilder.Entity("MamasRezepte.Shared.Models.RecipeToTagRelation", b =>
                 {
-                    b.HasOne("MamasRezepte.Shared.Models.Recipe", null)
+                    b.HasOne("MamasRezepte.Shared.Models.Recipe", "Recipe")
                         .WithMany("Tags")
                         .HasForeignKey("RecipeId");
-                });
 
-            modelBuilder.Entity("MamasRezepte.Shared.Models.Recipe", b =>
-                {
-                    b.Navigation("Images");
-
-                    b.Navigation("Ingredients");
-
-                    b.Navigation("Tags");
+                    b.HasOne("MamasRezepte.Shared.Models.Tag", "Tag")
+                        .WithMany("Recipes")
+                        .HasForeignKey("TagId");
                 });
 #pragma warning restore 612, 618
         }

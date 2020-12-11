@@ -17,10 +17,26 @@ namespace MamasRezepte.Server
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<RecipeImage> RecipeImages { get; set; }
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<RecipeToTagRelation> RecipeToTagRelations { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=Database.db");
+            optionsBuilder
+                .UseLazyLoadingProxies()
+                .UseSqlite("Data Source=Database.db");
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Category>().ToTable("Categories");
+            modelBuilder.Entity<DurationCategory>().ToTable("DurationCategories");
+            modelBuilder.Entity<Ingredient>().ToTable("Ingredients");
+            modelBuilder.Entity<Product>().ToTable("Products");
+            modelBuilder.Entity<Recipe>().ToTable("Recipes");
+            modelBuilder.Entity<RecipeImage>().ToTable("RecipeImages");
+            modelBuilder.Entity<Tag>().ToTable("Tags");
+            modelBuilder.Entity<RecipeToTagRelation>().ToTable("RecipeToTagRelations");
+
         }
 
     }

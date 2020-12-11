@@ -12,11 +12,13 @@ namespace MamasRezepte.Shared.Models
         public string Instruction { get; set; }
         public List<RecipeImage> Images { get; set; }
         public string Subtitle { get; set; }
+        public long DurationCategoryId { get; set; }
         public DurationCategory DurationCategory { get; set; }
         public int NumberOfPersons { get; set; }
         public List<Ingredient> Ingredients { get; set; }
+        public long CategoryId { get; set; }
         public Category Category { get; set; }
-        public List<Tag> Tags { get; set; }
+        public List<RecipeToTagRelation> Tags { get; set; }
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public DateTime PublishDate { get; set; }
         public int Clicks { get; set; }
