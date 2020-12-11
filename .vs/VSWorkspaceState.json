@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\MamasRezepte"
+    "\\MamasRezepte",
+    "\\MamasRezepte\\Client"
   ],
+  "SelectedNode": "\\README.md",
   "PreviewInSolutionExplorer": false
 }
