@@ -28,10 +28,10 @@ namespace MamasRezepte.Server.Controllers
         }
 
         // GET api/<DurationCategoriesController>/5
-        [HttpGet("{id}")]
+        [HttpGet("{_Id}")]
         public async Task<DurationCategory> Get(long _Id)
         {
-            return await FDb.DurationCategories.FindAsync(_Id);
+            return await FDb.DurationCategories.FirstOrDefaultAsync(_ => _.Id == _Id);
         }
 
         // POST api/<DurationCategoriesController>
@@ -55,7 +55,7 @@ namespace MamasRezepte.Server.Controllers
         }
 
         // PUT api/<DurationCategoriesController>/5
-        [HttpPut("{id}")]
+        [HttpPut("{_Id}")]
         public async Task<bool> Put(long _Id, [FromBody] DurationCategory _Value)
         {
             if (_Id != _Value.Id) return false;
@@ -65,7 +65,7 @@ namespace MamasRezepte.Server.Controllers
         }
 
         // DELETE api/<DurationCategoriesController>/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{_Id}")]
         public async Task<bool> Delete(int _Id)
         {
             var hValue = await FDb.DurationCategories.FindAsync(_Id);

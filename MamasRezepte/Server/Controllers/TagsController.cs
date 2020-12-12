@@ -28,7 +28,7 @@ namespace MamasRezepte.Server.Controllers
         }
 
         // GET api/<TagsController>/5
-        [HttpGet("{id}")]
+        [HttpGet("{_Id}")]
         public async Task<Tag> Get(long _Id)
         {
             return await FDb.Tags.FindAsync(_Id);
@@ -55,7 +55,7 @@ namespace MamasRezepte.Server.Controllers
         }
 
         // PUT api/<TagsController>/5
-        [HttpPut("{id}")]
+        [HttpPut("{_Id}")]
         public async Task<bool> Put(long _Id, [FromBody] Tag _Value)
         {
             if (_Id != _Value.Id) return false;
@@ -65,7 +65,7 @@ namespace MamasRezepte.Server.Controllers
         }
 
         // DELETE api/<TagsController>/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{_Id}")]
         public async Task<bool> Delete(int _Id)
         {
             var hValue = await FDb.Tags.FindAsync(_Id);

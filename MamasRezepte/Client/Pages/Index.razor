@@ -1,7 +1,76 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
+@using AntDesign
+@using MamasRezepte.Shared.Models
 
-Welcome to your new app.
+@inject HttpClient HttpClient
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+
+<h1>Mamas Rezepte</h1>
+
+<h3>Probier doch mal...</h3>
+<Skeleton></Skeleton>
+
+<h3>Beliebte Rezepte</h3>
+@if (!FLoading)
+{
+    <div style=" width: inherit;">
+        <div class="" style="overflow:auto; white-space:nowrap;">
+            @foreach (var hRecipe in FPopularRecipes)
+            {
+                <div style="display:inline-block;">
+                    <RecipeCardSmall Recipe="@hRecipe" />
+                </div>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <Skeleton Loading="true"></Skeleton>
+}
+
+<h3>Neue Rezepte</h3>
+@if (!FLoading)
+{
+    <div style=" width: inherit;">
+        <div class="" style="overflow:auto; white-space:nowrap;">
+            @foreach (var hRecipe in FPopularRecipes)
+            {
+                <div style="display:inline-block;">
+                    <RecipeCardSmall Recipe="@hRecipe" />
+                </div>
+            }
+        </div>
+    </div>
+} else
+{
+    <Skeleton Loading="true"></Skeleton>
+}
+
+
+@code {
+    private IEnumerable<Recipe> FPopularRecipes { get; set; }
+    private IEnumerable<Recipe> FNewRecipes { get; set; }
+    private IEnumerable<Recipe> FQuicklyDoneReicpes { get; set; }
+
+    private IEnumerable<Recipe> FRandomRecipes { get; set; }
+
+
+    private bool FLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        FRandomRecipes = (await HttpClient.GetFromJsonAsync<IEnumerable<Recipe>>("/api/Recipes")).Take(1);
+        FPopularRecipes = await HttpClient.GetFromJsonAsync<IEnumerable<Recipe>>("/api/Recipes");
+
+        for(var i = 0; i < 7; i++)
+        {
+            FPopularRecipes.Append(FPopularRecipes.First());
+        }
+
+        FLoading = false;
+    }
+
+}
+

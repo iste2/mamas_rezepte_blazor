@@ -11,6 +11,6 @@ namespace MamasRezepte.Shared.Models
         public long Id { get; set; }
         public long RecipeId { get; set; }
         public Recipe Recipe { get; set; }
-        public byte[] ImageData { get; set; }
+        public string ImageData { get; set; }
     }
 }

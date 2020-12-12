@@ -36,7 +36,6 @@ F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netst
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\MamasRezepte.Client.AssemblyInfo.cs
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\MamasRezepte.Client.RazorComponent.input.cache
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\RazorDeclaration\App.razor.g.cs
-F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\RazorDeclaration\Pages\Counter.razor.g.cs
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\RazorDeclaration\Pages\FetchData.razor.g.cs
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\RazorDeclaration\Pages\Index.razor.g.cs
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\RazorDeclaration\Shared\MainLayout.razor.g.cs
@@ -201,7 +200,6 @@ F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netst
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\MamasRezepte.Client.TagHelpers.output.cache
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\MamasRezepte.Client.RazorCoreGenerate.cache
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\Razor\App.razor.g.cs
-F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\Razor\Pages\Counter.razor.g.cs
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\Razor\Pages\FetchData.razor.g.cs
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\Razor\Pages\Index.razor.g.cs
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\Razor\Shared\MainLayout.razor.g.cs
@@ -394,8 +392,6 @@ F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netst
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\MamasRezepte.Client.pdb
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\blazor\serviceworkers\wwwroot\service-worker.js
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\blazor\service-worker-assets.js
-F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\integrity\a6JrGf-WXyi4a21-UEIF819fbApqMsOBz5DSGQbACYg=.hash
-F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\integrity\dS4C8bCT08-vKaPtRpO4SrNDFlzTnzn04lAWbZA3f-g=.hash
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\bin\Debug\netstandard2.1\wwwroot\_framework\_bin\AntDesign.dll
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\bin\Debug\netstandard2.1\wwwroot\_framework\_bin\Microsoft.AspNetCore.Components.DataAnnotations.Validation.dll
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\bin\Debug\netstandard2.1\wwwroot\_framework\_bin\OneOf.dll
@@ -416,8 +412,16 @@ F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netst
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\Microsoft.AspNetCore.Components.DataAnnotations.Validation.dll.br
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\OneOf.dll.br
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\System.Runtime.dll.br
-F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\integrity\iBHB3fMqfBFJ3puxfgriCk4xxhGkh3OCfHAlAHd64JY=.hash
-F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\integrity\yAVxJZ5FOiEKCfFx19siDy0yfRqZ6peNmfeVCbltLO8=.hash
-F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\integrity\iGPk8tYmx_ByZ1Zz5kQGqq4TyH4wHdWE-yM6G-ypI58=.hash
-F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\integrity\bnGhKZ3HVXq-zh4MMX5vxv6TWx3QnQ7vbtJ-W3TBz08=.hash
-F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\integrity\Tt0SPA_x3E4JGRsmRY96H7zuQ7_RaoHm6F3QKqBLBes=.hash
+F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\RazorDeclaration\Shared\RecipeListItemBig.razor.g.cs
+F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\Razor\Shared\RecipeListItemBig.razor.g.cs
+F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\RazorDeclaration\Pages\SearchResults.razor.g.cs
+F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\Razor\Pages\SearchResults.razor.g.cs
+F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\integrity\TTyFTkLVA4qW1KrTTsnFg70q2IVoZJn7H6SGKWKum00=.hash
+F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\integrity\7uTvKSTxuuFgR3nDJrY3KrXWrFrmAaUMiCH4hGtJeZk=.hash
+F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\RazorDeclaration\Shared\RecipeCardSmall.razor.g.cs
+F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\Razor\Shared\RecipeCardSmall.razor.g.cs
+F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\integrity\9gMEzdT3TiDD9uvW2bmPw1dz0oFc3KVZ_2sou33rZxg=.hash
+F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\integrity\MNt90-etxuEUSHk3r1S-LUD-BlkrzTVUwrNEEb4MrKA=.hash
+F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\integrity\Uhxs8a6zTu_Q8hK168I1UvJ4jAvB2o4LRh_IOfIPKeY=.hash
+F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\integrity\7_XzcrCqx9lkUQLD2Z3mMtWZ_l-smAcxO9znueU3CjA=.hash
+F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\obj\Debug\netstandard2.1\integrity\jPydRF7Xv-ir8wfbe0sB-rRpbHJMepgHnOSe_0lZeI0=.hash

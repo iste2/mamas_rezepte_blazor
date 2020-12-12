@@ -10,7 +10,7 @@ namespace MamasRezepte.Shared.Models
         public long Id { get; set; }
         public string Name { get; set; }
         public string Instruction { get; set; }
-        public List<RecipeImage> Images { get; set; }
+        public IEnumerable<RecipeImage> Images { get; set; }
         public string Subtitle { get; set; }
         public long DurationCategoryId { get; set; }
         public DurationCategory DurationCategory { get; set; }
