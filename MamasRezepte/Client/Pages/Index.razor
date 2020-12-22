@@ -1,7 +1,77 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
+<div style="padding-top: 32px; "></div>
 
-Welcome to your new app.
+@* Headline *@
+@*
+<div style="margin-bottom: 32px;">
+    <h1 style="margin-bottom:12px; font-weight:bold;">Mamas Rezepte</h1>
+    <p style="color:gray; font-weight:bold;"> Hier sind all die leckeren Rezepte von Mama gesammelt. Suche nach bestimmten Rezepten oder durchstöbere den Feed. Guten Appetit! :)</p>
+</div>*@
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+<div class="row d-flex justify-content-center" style="margin-bottom:48px;">
+    <div class="col-12 col-sm-4">
+        <div class="d-flex justify-content-center">
+            <img src="/Assets/logo.png" alt="" style="height:150px;">
+        </div>
+    </div>
+    <div class="col-12 col-sm-8">
+        <h1 style="margin-bottom:12px; font-weight:bold;">Mamas Rezepte</h1>
+        <p style="color:gray; font-weight:bold;"> Hier sind all die leckeren Rezepte von Mama gesammelt. Suche nach bestimmten Rezepten oder durchstöbere den Feed. Guten Appetit! :)</p>
+    </div>
+</div>
+
+@* SearchBar *@
+<div style="margin-bottom: 64px;">
+    <div class="p-2 rounded rounded-pill shadow mb-4">
+        <div class="input-group">
+            <input type="search" placeholder="Wonach suchst du?" aria-describedby="button-addon1" class="form-control border-0">
+            <div class="input-group-append">
+                <button id="button-addon1" type="submit" class="btn btn-link" style="color:orange;"><i class="fa fa-search"></i></button>
+                <button id="button-addon2" rimary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample" class="btn btn-link" style="color:orange;"><i class="fa fa-filter"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Filter *@
+<div class="collapse" style="margin-bottom:32px;margin-top:-32px;" id="collapseExample">
+    <div class="card card-body">
+        <div>
+            <p>Kategorien</p>
+            @foreach (var hElement in Categories)
+            {
+                <div class="badge rounded-pill bg-secondary">@hElement</div>
+            }
+            <p>Tags</p>
+            @foreach (var hElement in Tags)
+            {
+                <div class="badge rounded-pill bg-secondary">@hElement</div>
+            }
+        </div>
+
+    </div>
+</div>
+
+
+@* Masonry *@
+<Masonry FElements="Elements" />
+
+@code {
+
+    private List<string> Elements = new List<string> {
+        "Soße", "Hamburger", "Spinat", "Gulasch", "Fritten", "Fischstäbchen", "Frikadellen", "Kartoffelsuppe", "Entenbrust", "Blutwurst",
+        "Kartoffelsalat", "Erbsensalat", "Fondue", "Lachs", "Nudeln",
+        "Soße", "Hamburger", "Spinat", "Gulasch", "Fritten", "Fischstäbchen", "Frikadellen", "Kartoffelsuppe", "Entenbrust", "Blutwurst",
+        "Kartoffelsalat", "Erbsensalat", "Fondue", "Lachs", "Nudeln",
+    };
+
+    private List<string> Categories = new List<string> {
+        "Hauptspeise", "Vorspeise", "Nachspeise", "Kuchen und Gebäck", "Salate", "Beilagen"
+    };
+
+    private List<string> Tags = new List<string> {
+        "Alltag", "Festtag", "Weihnachten", "einfach", "schwierig"
+    };
+
+}

@@ -22,7 +22,6 @@ namespace MamasRezepte.Server
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
-                .UseLazyLoadingProxies()
                 .UseSqlite("Data Source=Database.db");
         }
 
