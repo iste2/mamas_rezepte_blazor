@@ -163,10 +163,8 @@ F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Server\bin\Debug\netco
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Server\bin\Debug\netcoreapp3.1\MamasRezepte.Server.pdb
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Server\bin\Debug\netcoreapp3.1\MamasRezepte.Server.Views.dll
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Server\bin\Debug\netcoreapp3.1\MamasRezepte.Server.Views.pdb
-F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Server\bin\Debug\netcoreapp3.1\AntDesign.dll
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Server\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authorization.dll
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Server\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Components.dll
-F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Server\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Components.DataAnnotations.Validation.dll
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Server\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Components.Forms.dll
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Server\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Components.Web.dll
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Server\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Components.WebAssembly.dll
@@ -187,7 +185,6 @@ F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Server\bin\Debug\netco
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Server\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Primitives.dll
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Server\bin\Debug\netcoreapp3.1\Microsoft.JSInterop.dll
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Server\bin\Debug\netcoreapp3.1\Microsoft.JSInterop.WebAssembly.dll
-F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Server\bin\Debug\netcoreapp3.1\OneOf.dll
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Server\bin\Debug\netcoreapp3.1\System.Net.Http.Json.dll
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Server\bin\Debug\netcoreapp3.1\System.Text.Json.dll
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Server\bin\Debug\netcoreapp3.1\MamasRezepte.Client.dll
@@ -344,3 +341,4 @@ F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Server\bin\Debug\netco
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Server\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Server\obj\Debug\netcoreapp3.1\MamasRezepte.Server.csproj.CoreCompileInputs.cache
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Server\obj\Debug\netcoreapp3.1\MamasRezepte.Server.MvcApplicationPartsAssemblyInfo.cache
+F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Server\bin\Debug\netcoreapp3.1\BlazorInputFile.dll

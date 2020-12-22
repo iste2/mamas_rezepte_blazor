@@ -1,0 +1,9 @@
+F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Shared\bin\Release\netstandard2.1\MamasRezepte.Shared.deps.json
+F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Shared\bin\Release\netstandard2.1\MamasRezepte.Shared.dll
+F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Shared\bin\Release\netstandard2.1\MamasRezepte.Shared.pdb
+F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Shared\obj\Release\netstandard2.1\MamasRezepte.Shared.csprojAssemblyReference.cache
+F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Shared\obj\Release\netstandard2.1\MamasRezepte.Shared.AssemblyInfoInputs.cache
+F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Shared\obj\Release\netstandard2.1\MamasRezepte.Shared.AssemblyInfo.cs
+F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Shared\obj\Release\netstandard2.1\MamasRezepte.Shared.csproj.CoreCompileInputs.cache
+F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Shared\obj\Release\netstandard2.1\MamasRezepte.Shared.dll
+F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Shared\obj\Release\netstandard2.1\MamasRezepte.Shared.pdb

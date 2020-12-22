@@ -301,20 +301,19 @@
           "MamasRezepte.Server.dll": {}
         }
       },
-      "AntDesign/0.4.1": {
+      "BlazorInputFile/0.2.0": {
         "dependencies": {
-          "Microsoft.AspNetCore.Components.DataAnnotations.Validation": "3.2.0-rc1.20223.4",
-          "Microsoft.AspNetCore.Components.Web": "3.1.6",
-          "OneOf": "2.1.151"
+          "Microsoft.AspNetCore.Components": "3.1.6",
+          "Microsoft.AspNetCore.Components.Web": "3.1.6"
         },
         "runtime": {
-          "lib/netstandard2.1/AntDesign.dll": {
+          "lib/netstandard2.1/BlazorInputFile.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
         },
         "compile": {
-          "lib/netstandard2.1/AntDesign.dll": {}
+          "lib/netstandard2.1/BlazorInputFile.dll": {}
         }
       },
       "Castle.Core/4.4.0": {
@@ -373,20 +372,6 @@
         }
       },
       "Microsoft.AspNetCore.Components.Analyzers/3.1.6": {},
-      "Microsoft.AspNetCore.Components.DataAnnotations.Validation/3.2.0-rc1.20223.4": {
-        "dependencies": {
-          "Microsoft.AspNetCore.Components.Forms": "3.1.6"
-        },
-        "runtime": {
-          "lib/netstandard2.1/Microsoft.AspNetCore.Components.DataAnnotations.Validation.dll": {
-            "assemblyVersion": "3.2.0.0",
-            "fileVersion": "3.200.20.22304"
-          }
-        },
-        "compile": {
-          "lib/netstandard2.1/Microsoft.AspNetCore.Components.DataAnnotations.Validation.dll": {}
-        }
-      },
       "Microsoft.AspNetCore.Components.Forms/3.1.6": {
         "dependencies": {
           "Microsoft.AspNetCore.Components": "3.1.6"
@@ -1530,20 +1515,6 @@
         },
         "compile": {
           "lib/netstandard1.6/NuGet.Frameworks.dll": {}
-        }
-      },
-      "OneOf/2.1.151": {
-        "dependencies": {
-          "NETStandard.Library": "1.6.1"
-        },
-        "runtime": {
-          "lib/netstandard1.3/OneOf.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        },
-        "compile": {
-          "lib/netstandard1.3/OneOf.dll": {}
         }
       },
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {},
@@ -2751,7 +2722,6 @@
       },
       "MamasRezepte.Client/1.0.0": {
         "dependencies": {
-          "AntDesign": "0.4.1",
           "MamasRezepte.Shared": "1.0.0",
           "Microsoft.AspNetCore.Components.WebAssembly": "3.2.1",
           "System.Net.Http.Json": "3.2.0"
@@ -2765,6 +2735,7 @@
       },
       "MamasRezepte.Shared/1.0.0": {
         "dependencies": {
+          "BlazorInputFile": "0.2.0",
           "System.ComponentModel.Annotations": "5.0.0"
         },
         "runtime": {
@@ -4312,12 +4283,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "AntDesign/0.4.1": {
+    "BlazorInputFile/0.2.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-7NKkHJlrQ1QV6uqM0QHFwQli4ScC++E7dmuQi4AEN4HBqnMj5FNwjiCKUkpnqCsCn/xJx9fBwhrXDcvjxisIVg==",
-      "path": "antdesign/0.4.1",
-      "hashPath": "antdesign.0.4.1.nupkg.sha512"
+      "sha512": "sha512-wsPTwoA9fkHOxjEh0W0brNeTaVBaMCFwfBLehbRhfW+RzlIrYtlJ5qFpT5f377Ej6ELk+xeoUrkDBx9c8JF7DQ==",
+      "path": "blazorinputfile/0.2.0",
+      "hashPath": "blazorinputfile.0.2.0.nupkg.sha512"
     },
     "Castle.Core/4.4.0": {
       "type": "package",
@@ -4346,13 +4317,6 @@
       "sha512": "sha512-uX+Dl3uPqlGmKBmQRn9QKfx0cgXXyfr9JF8aaBKgi+mexwyGEYFTMXleb9AHK9aofwwMivwfUHi/OmxgcB4YYw==",
       "path": "microsoft.aspnetcore.components.analyzers/3.1.6",
       "hashPath": "microsoft.aspnetcore.components.analyzers.3.1.6.nupkg.sha512"
-    },
-    "Microsoft.AspNetCore.Components.DataAnnotations.Validation/3.2.0-rc1.20223.4": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-VyZAAbuXuAVrh4Vii5Aq1N841iVhSjE4mTf/lVh+AgrKinaltE0IeEWPKv889j4ineX7i9BUiAqlGP7UpZwlnQ==",
-      "path": "microsoft.aspnetcore.components.dataannotations.validation/3.2.0-rc1.20223.4",
-      "hashPath": "microsoft.aspnetcore.components.dataannotations.validation.3.2.0-rc1.20223.4.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Components.Forms/3.1.6": {
       "type": "package",
@@ -4871,13 +4835,6 @@
       "sha512": "sha512-qbXaB76XYUVLocLBs8Z9TS/ERGK2wm797feO+0JEPFvT7o7MRadOR77mqaSD4J1k8G+DlZQyq+MlkCuxrkr3ag==",
       "path": "nuget.frameworks/4.7.0",
       "hashPath": "nuget.frameworks.4.7.0.nupkg.sha512"
-    },
-    "OneOf/2.1.151": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-FzxOPV99ChA2VBtXNnysfarco2ORJdiS+EJoMRFqaPfJRGIXNkS0/SL7sUFQa8Jo6/QMMKNJKdPNkis86LFAsA==",
-      "path": "oneof/2.1.151",
-      "hashPath": "oneof.2.1.151.nupkg.sha512"
     },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
       "type": "package",

@@ -1,0 +1,130 @@
+﻿@page "/editor"
+
+@using BlazorInputFile
+
+<div style="padding-top: 32px; "></div>
+
+<h1 style="margin-bottom:12px; font-weight:bold;">Editor</h1>
+
+<form class="row g-3">
+    <div class="col-12">
+        <label for="inputName" class="form-label">Name</label>
+        <input type="text" class="form-control" id="inputName">
+    </div>
+    <div class="col-12">
+        <label for="inputSubtitle" class="form-label">Kurzbeschreibung</label>
+        <input type="text" class="form-control" id="inputSubtitle">
+    </div>
+    <div class="col-12">
+        <label for="inputDuration" class="form-label">Zubereitungsdauer</label>
+        <select id="inputDuration" class="form-select">
+            <option selected>Choose...</option>
+            <option>...</option>
+        </select>
+    </div>
+    <div class="col-12">
+        <label for="inputCategory" class="form-label">Kategorie</label>
+        <select id="inputCategory" class="form-select">
+            <option selected>Choose...</option>
+            <option>...</option>
+        </select>
+    </div>
+    <div class="col-12">
+        <label for="inputTags" class="form-label">Tags: </label>
+        <input class="form-control" list="datalistOptions" id="inputTags" placeholder="Type to search...">
+        <datalist id="datalistOptions">
+            <option value="San Francisco" />
+            <option value="New York" />
+            <option value="Seattle" />
+            <option value="Los Angeles" />
+            <option value="Chicago" />
+        </datalist>
+    </div>
+    <div class="col-12">
+        <label for="inputPersons" class="form-label">Anzahl Personen</label>
+        <input type="number" class="form-control" id="inputPersons">
+    </div>
+    <div class="col-12">
+        <div class="row">
+            <label for="inputAmount" class="form-label">Zutaten: </label>
+            <div class="col-2">
+                <label for="inputAmount" class="form-label">Menge</label>
+                <input type="number" class="form-control" id="inputAmount">
+            </div>
+            <div class="col-2">
+                <label for="inputUnit" class="form-label">Einheit</label>
+                <input type="text" class="form-control" id="inputUnit">
+            </div>
+            <div class="col-8">
+                <label for="inputProduct" class="form-label">Zutat</label>
+                <input class="form-control" list="datalistOptions" id="inputProduct" placeholder="Type to search...">
+                <datalist id="datalistOptions">
+                    <option value="San Francisco" />
+                    <option value="New York" />
+                    <option value="Seattle" />
+                    <option value="Los Angeles" />
+                    <option value="Chicago" />
+                </datalist>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <label for="inputInstruction" class="form-label">Zubereitung</label>
+        <textarea class="form-control" id="inputInstruction" rows="8" />
+    </div>
+    <div class="col-12">
+        <label for="inputImages" class="form-label">Bilder</label>
+        <div class="dropzone" id="inputImages">
+            <InputFile OnChange="DragDropOnChange" />
+            Bilder hochladen
+        </div>
+    </div>
+</form>
+
+<div class="" style="margin-bottom:32px;"></div>
+
+<style>
+
+    .dropzone {
+        border: 3px dashed orangered;
+        padding: 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #eee;
+        box-shadow: inset 0 0 8px rgba(0,0,0,0.2);
+        color: #444;
+        font-size: 1.5rem;
+        cursor: pointer;
+        position: relative;
+    }
+
+        .dropzone:hover {
+            background-color: #f3f3f3;
+            color: #333;
+            border: 3px dashed orange;
+        }
+
+        .dropzone input[type=file] {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+    .dropzone-drag {
+        background-color: palegreen;
+    }
+
+</style>
+
+@code {
+
+
+    public async Task DragDropOnChange(IFileListEntry[] files)
+    {
+
+    }
+
+}

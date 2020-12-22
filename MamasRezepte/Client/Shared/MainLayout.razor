@@ -1,60 +1,11 @@
 ﻿@inherits LayoutComponentBase
 
-@using AntDesign
 
-@code
-    {
-    bool collapsed;
-
-    void toggle()
-    {
-        collapsed = !collapsed;
-    }
-
-    void OnCollapse(bool isCollapsed)
-    {
-        Console.WriteLine($"Collapsed: {isCollapsed}");
-    }
-
-}
-
-<div class="main">
-
-    <Layout Class="layout">
-        <Header>
-            <div class="logo" />
-            <Menu Theme="MenuTheme.Dark" Mode="MenuMode.Horizontal" DefaultSelectedKeys=@(new[]{"2"})>
-                <MenuItem Key="1">nav 1</MenuItem>
-                <MenuItem Key="2">nav 2</MenuItem>
-                <MenuItem Key="3">nav 3</MenuItem>
-            </Menu>
-        </Header>
-        <Content Style="padding: 0 50px;">
-            <Breadcrumb Style="margin: 16px 0;">
-                <BreadcrumbItem>Home</BreadcrumbItem>
-                <BreadcrumbItem>List</BreadcrumbItem>
-                <BreadcrumbItem>App</BreadcrumbItem>
-            </Breadcrumb>
-            <div class="site-layout-content">
-                @Body
-            </div>
-        </Content>
-        <Footer Style="text-align: center; ">Mamas Rezepte ©2020 Created by Lukas</Footer>
-    </Layout>
-
-    <style>
-        .site-layout-content {
-            background: #fff;
-            padding: 24px;
-        }
-
-        .logo {
-            width: 120px;
-            height: 31px;
-            background: rgba(255, 255, 255, 0.2);
-            margin: 16px 24px 16px 0;
-            float: left;
-        }
-    </style>
-
+<div class="container" >
+    <div class="row justify-content-center" style="">
+        <div class="col" style="max-width: 750px; padding-left: 12px; padding-right:12px;margin-bottom:50px;">
+            @Body
+        </div>
+    </div>
+    <MenuBottom/>
 </div>

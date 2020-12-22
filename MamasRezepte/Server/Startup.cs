@@ -25,7 +25,6 @@ namespace MamasRezepte.Server
 
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddAntDesign();
             services.AddDbContext<DatabaseContext>();
         }
 

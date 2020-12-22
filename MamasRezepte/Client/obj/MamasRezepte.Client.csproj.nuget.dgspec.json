@@ -42,10 +42,6 @@
       "frameworks": {
         "netstandard2.1": {
           "dependencies": {
-            "AntDesign": {
-              "target": "Package",
-              "version": "[0.4.1, )"
-            },
             "Microsoft.AspNetCore.Components.WebAssembly": {
               "target": "Package",
               "version": "[3.2.1, )"
@@ -118,6 +114,10 @@
       "frameworks": {
         "netstandard2.1": {
           "dependencies": {
+            "BlazorInputFile": {
+              "target": "Package",
+              "version": "[0.2.0, )"
+            },
             "System.ComponentModel.Annotations": {
               "target": "Package",
               "version": "[5.0.0, )"

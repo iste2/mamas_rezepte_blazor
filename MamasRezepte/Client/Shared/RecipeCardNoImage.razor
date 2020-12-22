@@ -1,0 +1,18 @@
+﻿
+
+<div class="card shadow-sm" style="background:@FColor; color:grey; border:hidden; width:100%;">
+    <div class="card-body">
+        <h6 class="card-title">@FTitle</h6>
+    </div>
+</div>
+
+
+@code {
+
+    [Parameter]
+    public string FColor { get; set; }
+
+    [Parameter]
+    public string FTitle { get; set; }
+
+}

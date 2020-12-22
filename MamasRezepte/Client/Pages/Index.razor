@@ -1,76 +1,77 @@
 ﻿@page "/"
 
-@using AntDesign
-@using MamasRezepte.Shared.Models
+<div style="padding-top: 32px; "></div>
 
-@inject HttpClient HttpClient
+@* Headline *@
+@*
+<div style="margin-bottom: 32px;">
+    <h1 style="margin-bottom:12px; font-weight:bold;">Mamas Rezepte</h1>
+    <p style="color:gray; font-weight:bold;"> Hier sind all die leckeren Rezepte von Mama gesammelt. Suche nach bestimmten Rezepten oder durchstöbere den Feed. Guten Appetit! :)</p>
+</div>*@
 
-
-<h1>Mamas Rezepte</h1>
-
-<h3>Probier doch mal...</h3>
-<Skeleton></Skeleton>
-
-<h3>Beliebte Rezepte</h3>
-@if (!FLoading)
-{
-    <div style=" width: inherit;">
-        <div class="" style="overflow:auto; white-space:nowrap;">
-            @foreach (var hRecipe in FPopularRecipes)
-            {
-                <div style="display:inline-block;">
-                    <RecipeCardSmall Recipe="@hRecipe" />
-                </div>
-            }
+<div class="row d-flex justify-content-center" style="margin-bottom:48px;">
+    <div class="col-12 col-sm-4">
+        <div class="d-flex justify-content-center">
+            <img src="/Assets/logo.png" alt="" style="height:150px;">
         </div>
     </div>
-}
-else
-{
-    <Skeleton Loading="true"></Skeleton>
-}
+    <div class="col-12 col-sm-8">
+        <h1 style="margin-bottom:12px; font-weight:bold;">Mamas Rezepte</h1>
+        <p style="color:gray; font-weight:bold;"> Hier sind all die leckeren Rezepte von Mama gesammelt. Suche nach bestimmten Rezepten oder durchstöbere den Feed. Guten Appetit! :)</p>
+    </div>
+</div>
 
-<h3>Neue Rezepte</h3>
-@if (!FLoading)
-{
-    <div style=" width: inherit;">
-        <div class="" style="overflow:auto; white-space:nowrap;">
-            @foreach (var hRecipe in FPopularRecipes)
-            {
-                <div style="display:inline-block;">
-                    <RecipeCardSmall Recipe="@hRecipe" />
-                </div>
-            }
+@* SearchBar *@
+<div style="margin-bottom: 64px;">
+    <div class="p-2 rounded rounded-pill shadow mb-4">
+        <div class="input-group">
+            <input type="search" placeholder="Wonach suchst du?" aria-describedby="button-addon1" class="form-control border-0">
+            <div class="input-group-append">
+                <button id="button-addon1" type="submit" class="btn btn-link" style="color:orange;"><i class="fa fa-search"></i></button>
+                <button id="button-addon2" rimary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample" class="btn btn-link" style="color:orange;"><i class="fa fa-filter"></i></button>
+            </div>
         </div>
     </div>
-} else
-{
-    <Skeleton Loading="true"></Skeleton>
-}
+</div>
 
+@* Filter *@
+<div class="collapse" style="margin-bottom:32px;margin-top:-32px;" id="collapseExample">
+    <div class="card card-body">
+        <div>
+            <p>Kategorien</p>
+            @foreach (var hElement in Categories)
+            {
+                <div class="badge rounded-pill bg-secondary">@hElement</div>
+            }
+            <p>Tags</p>
+            @foreach (var hElement in Tags)
+            {
+                <div class="badge rounded-pill bg-secondary">@hElement</div>
+            }
+        </div>
+
+    </div>
+</div>
+
+
+@* Masonry *@
+<Masonry FElements="Elements" />
 
 @code {
-    private IEnumerable<Recipe> FPopularRecipes { get; set; }
-    private IEnumerable<Recipe> FNewRecipes { get; set; }
-    private IEnumerable<Recipe> FQuicklyDoneReicpes { get; set; }
 
-    private IEnumerable<Recipe> FRandomRecipes { get; set; }
+    private List<string> Elements = new List<string> {
+        "Soße", "Hamburger", "Spinat", "Gulasch", "Fritten", "Fischstäbchen", "Frikadellen", "Kartoffelsuppe", "Entenbrust", "Blutwurst",
+        "Kartoffelsalat", "Erbsensalat", "Fondue", "Lachs", "Nudeln",
+        "Soße", "Hamburger", "Spinat", "Gulasch", "Fritten", "Fischstäbchen", "Frikadellen", "Kartoffelsuppe", "Entenbrust", "Blutwurst",
+        "Kartoffelsalat", "Erbsensalat", "Fondue", "Lachs", "Nudeln",
+    };
 
+    private List<string> Categories = new List<string> {
+        "Hauptspeise", "Vorspeise", "Nachspeise", "Kuchen und Gebäck", "Salate", "Beilagen"
+    };
 
-    private bool FLoading = true;
-
-    protected override async Task OnInitializedAsync()
-    {
-        FRandomRecipes = (await HttpClient.GetFromJsonAsync<IEnumerable<Recipe>>("/api/Recipes")).Take(1);
-        FPopularRecipes = await HttpClient.GetFromJsonAsync<IEnumerable<Recipe>>("/api/Recipes");
-
-        for(var i = 0; i < 7; i++)
-        {
-            FPopularRecipes.Append(FPopularRecipes.First());
-        }
-
-        FLoading = false;
-    }
+    private List<string> Tags = new List<string> {
+        "Alltag", "Festtag", "Weihnachten", "einfach", "schwierig"
+    };
 
 }
-
