@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MamasRezepte.Server.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class Clicks : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -71,8 +71,7 @@ namespace MamasRezepte.Server.Migrations
                     DurationCategoryId = table.Column<long>(nullable: false),
                     NumberOfPersons = table.Column<int>(nullable: false),
                     CategoryId = table.Column<long>(nullable: false),
-                    PublishDate = table.Column<DateTime>(nullable: false),
-                    Clicks = table.Column<int>(nullable: false)
+                    PublishDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -87,6 +86,26 @@ namespace MamasRezepte.Server.Migrations
                         name: "FK_Recipes_DurationCategories_DurationCategoryId",
                         column: x => x.DurationCategoryId,
                         principalTable: "DurationCategories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Clicks",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    RecipeId = table.Column<long>(nullable: false),
+                    Time = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Clicks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Clicks_Recipes_RecipeId",
+                        column: x => x.RecipeId,
+                        principalTable: "Recipes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -166,6 +185,11 @@ namespace MamasRezepte.Server.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Clicks_RecipeId",
+                table: "Clicks",
+                column: "RecipeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Ingredients_ProductId",
                 table: "Ingredients",
                 column: "ProductId");
@@ -203,6 +227,9 @@ namespace MamasRezepte.Server.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Clicks");
+
             migrationBuilder.DropTable(
                 name: "Ingredients");
 

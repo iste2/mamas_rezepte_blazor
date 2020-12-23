@@ -18,6 +18,7 @@ namespace MamasRezepte.Server
         public DbSet<RecipeImage> RecipeImages { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<RecipeToTagRelation> RecipeToTagRelations { get; set; }
+        public DbSet<Click> Clicks { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -35,6 +36,7 @@ namespace MamasRezepte.Server
             modelBuilder.Entity<RecipeImage>().ToTable("RecipeImages");
             modelBuilder.Entity<Tag>().ToTable("Tags");
             modelBuilder.Entity<RecipeToTagRelation>().ToTable("RecipeToTagRelations");
+            modelBuilder.Entity<Click>().ToTable("Clicks");
 
         }
 

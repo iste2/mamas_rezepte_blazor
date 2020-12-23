@@ -19,9 +19,8 @@ namespace MamasRezepte.Shared.Models
         public long CategoryId { get; set; }
         public Category Category { get; set; }
         public List<RecipeToTagRelation> Tags { get; set; }
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public DateTime PublishDate { get; set; }
-        public int Clicks { get; set; }
+        public List<Click> Clicks { get; set; }
 
     }
 }

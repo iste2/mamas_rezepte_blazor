@@ -52,7 +52,6 @@ namespace MamasRezepte.Server.Controllers
                         Instruction = _Value.Instruction,
                         CategoryId = _Value.CategoryId,
                         DurationCategoryId = _Value.DurationCategoryId,
-                        Clicks = 0,
                     };
                     FDb.Add(hRecipe);
                     await FDb.SaveChangesAsync();
