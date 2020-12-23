@@ -1,5 +1,6 @@
 ﻿<StaticWebAssets Version="1.0">
   <ContentRoot BasePath="/" Path="F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\wwwroot\" />
   <ContentRoot BasePath="/" Path="F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Client\bin\Debug\netstandard2.1\wwwroot\" />
+  <ContentRoot BasePath="_content/Blazored.Toast" Path="C:\Users\Lukas\.nuget\packages\blazored.toast\3.1.2\build\..\staticwebassets\" />
   <ContentRoot BasePath="_content/BlazorInputFile" Path="C:\Users\Lukas\.nuget\packages\blazorinputfile\0.2.0\build\..\staticwebassets\" />
 </StaticWebAssets>

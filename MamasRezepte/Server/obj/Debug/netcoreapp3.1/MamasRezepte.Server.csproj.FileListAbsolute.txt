@@ -342,3 +342,4 @@ F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Server\bin\Debug\netco
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Server\obj\Debug\netcoreapp3.1\MamasRezepte.Server.csproj.CoreCompileInputs.cache
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Server\obj\Debug\netcoreapp3.1\MamasRezepte.Server.MvcApplicationPartsAssemblyInfo.cache
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Server\bin\Debug\netcoreapp3.1\BlazorInputFile.dll
+F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Server\bin\Debug\netcoreapp3.1\Blazored.Toast.dll

@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "jAQmItrcCxuDcmL/Mw8KSlQKmOhphJ8yJDwcLqJyVYOnEID1B9AuGHWMOva9FiyIwG8gc6g9kym9nYGHP/MgeQ==",
+  "dgSpecHash": "KjC7DWO5BLkhnP4BbFq3mPZR6nz8nmmuDCV1Vbd4M7FDLWT/UWxGnv/VVKa1XZWPh40bkDch/LuMo6bW6E2wqQ==",
   "success": true,
   "projectFilePath": "F:\\Programmieren\\dotnet\\mamas_rezepte_blazor\\MamasRezepte\\Server\\MamasRezepte.Server.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Lukas\\.nuget\\packages\\blazored.toast\\3.1.2\\blazored.toast.3.1.2.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\blazorinputfile\\0.2.0\\blazorinputfile.0.2.0.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\castle.core\\4.4.0\\castle.core.4.4.0.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\microsoft.aspnetcore.authorization\\3.1.6\\microsoft.aspnetcore.authorization.3.1.6.nupkg.sha512",
