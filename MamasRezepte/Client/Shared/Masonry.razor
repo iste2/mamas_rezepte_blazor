@@ -1,19 +1,19 @@
 ﻿
 @using Const
+@using MamasRezepte.Shared.Models
 
 <div class="row" data-masonry='{"percentPosition": true }'>
-    
-    @foreach(var hElement in FElements)
+
+    @foreach (var hElement in FElements)
     {
-        var hRandom = new Random();
-        var hNumber = hRandom.NextDouble();
         <div class="col col-12 col-sm-6 col-lg-4 mb-4">
-            @if(hNumber > 0.5){
-                <RecipeCardImage FTitle="@hElement" />
+            @if (@hElement.Images != null &&  @hElement.Images.Any())
+            {
+                <RecipeCardImage FTitle="@hElement.Name" FImageData="@hElement.Images.FirstOrDefault().ImageData" />
             }
             else
             {
-                <RecipeCardNoImage FTitle="@hElement" FColor="@ColorConsts.RandomColor()" />
+                <RecipeCardNoImage FTitle="@hElement.Name" FColor="@ColorConsts.RandomColor()" />
             }
 
         </div>
@@ -25,7 +25,7 @@
 @code {
 
     [Parameter]
-    public IEnumerable<string> FElements { get; set; }
+    public IEnumerable<Recipe> FElements { get; set; }
 
     [Parameter]
     public int FNumCols { get; set; }

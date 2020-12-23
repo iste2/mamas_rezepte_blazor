@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MamasRezepte.Shared.Helper;
 using MamasRezepte.Shared.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +25,9 @@ namespace MamasRezepte.Server.Controllers
         [HttpGet]
         public async Task<List<Recipe>> Get()
         {
-            return await FDb.Recipes.ToListAsync();
+            return await FDb.Recipes
+                .Include(_ => _.Images)
+                .ToListAsync();
         }
 
         // GET api/<RecipesController>/5
@@ -32,6 +35,18 @@ namespace MamasRezepte.Server.Controllers
         public async Task<Recipe> Get(long _Id)
         {
             return await FDb.Recipes.FindAsync(_Id);
+        }
+
+        // GET api/<RecipesController>/Feed
+        [HttpGet("Feed")]
+        public async Task<IAsyncEnumerable<Recipe>> GetFeed()
+        {
+            var hClicks = FDb.Clicks.AsEnumerable();
+            return FDb.Recipes
+                .Include(_ => _.Images)
+                .Include(_ => _.Clicks)
+                //.OrderByDescending(_ => _.Name) // FeedCalculator.CalculateScore(hClicks.Where(_0 => _0.RecipeId == _.Id).ToList())
+                .AsAsyncEnumerable();
         }
 
         // POST api/<RecipesController>
