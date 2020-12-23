@@ -4,10 +4,13 @@
 @using State
 @using Const
 @using MamasRezepte.Shared.Models
+@using System.IO
 
 @implements IDisposable
 
 @inject DataStateEditor State
+@inject HttpClient Http
+@inject NavigationManager Nav
 
 <div style="padding-top: 32px; "></div>
 
@@ -36,14 +39,20 @@ else if (State.FEditorMode == EditorMode.Edit)
     </div>
 
     @* DurationCategory *@
-    @*
-        <div class="col-12">
-            <label for="inputDuration" class="form-label">Zubereitungsdauer</label>
-            <select @bind="@State.FRecipe.DurationCategory" id="inputDuration" class="form-select">
-                <option selected>Choose...</option>
-                <option value="obj">display</option>
-            </select>
-        </div>*@
+    <div class="col-12">
+        <label for="inputDuration" class="form-label">Zubereitungsdauer</label>
+        <select @bind="@State.FRecipe.DurationCategoryId" id="inputDuration" class="form-select">
+            <option value="0" selected>...</option>
+            @if (FDurationCategories != null)
+            {
+                @foreach (var hDurationCategory in FDurationCategories)
+                {
+                    <option value="@hDurationCategory.Id">@hDurationCategory.Name</option>
+                }
+            }
+
+        </select>
+    </div>
 
     @* Category *@
     @*
@@ -58,19 +67,27 @@ else if (State.FEditorMode == EditorMode.Edit)
     @* Tags *@
     <div class="col-12">
         <label for="inputTags" class="form-label">Tags: </label>
-        <input class="form-control" list="datalistOptions" id="inputTags" placeholder="Type to search...">
-        <datalist id="datalistOptions">
-            <option value="San Francisco" />
-            <option value="New York" />
-            <option value="Seattle" />
-            <option value="Los Angeles" />
-            <option value="Chicago" />
-        </datalist>
+        <div class="input-group">
+            <button @onclick="SubmitNewTag" class="btn btn-outline-secondary" id="button-addon1">Button</button>
+            <input @bind="@FCurrentTag" class="form-control" list="datalistOptions" id="inputTags" placeholder="...">
+            <datalist id="datalistOptions">
+                @if (FTags != null)
+                {
+                    var hTags = FCurrentTag != null && FCurrentTag != "" ? FTags.Where(_ => _.Name.Contains(FCurrentTag)).Take(5) : FTags.Take(5);
+                    @foreach (var hTag in hTags)
+                    {
+                        <option value="@hTag.Name" />
+                    }
+
+                }
+            </datalist>
+        </div>
+        
     </div>
     <div class="col-12">
-        @foreach (var hTag in State.FRecipe.Tags)
+        @foreach (var hTag in FSelectedTags)
         {
-            <div class="badge rounded-pill bg-secondary">@hTag.Tag.Name</div>
+            <div class="badge rounded-pill bg-secondary">@hTag.Name</div>
         }
     </div>
 
@@ -146,6 +163,7 @@ else if (State.FEditorMode == EditorMode.Edit)
 
 <div class="" style="margin-bottom:32px;"></div>
 
+@* Style image dropzone *@
 <style>
 
     .dropzone {
@@ -183,12 +201,45 @@ else if (State.FEditorMode == EditorMode.Edit)
 
 @code {
 
+    private List<DurationCategory> FDurationCategories { get; set; }
+
+    private string FCurrentTag { get; set; }
+    private List<Tag> FTags { get; set; }
+    private List<Tag> FSelectedTags => State.FRecipe.Tags.Select(_ => _.Tag).ToList();
+
 
     protected override void OnInitialized()
     {
         State.UpdateEditorMode();
         State.OnChange += StateHasChanged;
-        Console.WriteLine("Editor opendend for Recipe " + State.FRecipe.Id);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        FDurationCategories =
+            await Http.GetFromJsonAsync<List<DurationCategory>>(Path.Combine(Nav.BaseUri, "api/DurationCategories"));
+
+        FTags =
+            await Http.GetFromJsonAsync<List<Tag>>(Path.Combine(Nav.BaseUri, "api/Tags/ByUsageFrequency"));
+    }
+
+    public void SubmitNewTag()
+    {
+        if (FCurrentTag == "") return;
+        Console.WriteLine("Submitting new tag.");
+
+        var hTag = FTags.FirstOrDefault(_ => _.Name == FCurrentTag);
+        if(hTag == null)
+        {
+            hTag = new Tag { Name = FCurrentTag };
+        }
+        //State.FRecipe.Tags = State.FRecipe.Tags.ToList().Append(new RecipeToTagRelation() { Tag = hTag });
+
+        FCurrentTag = "";
+
+        State.OnChange += StateHasChanged;
+        State.NotifyStateChanged();
+        //this.StateHasChanged();
     }
 
     public async Task DragDropOnChange(IFileListEntry[] _Files)
