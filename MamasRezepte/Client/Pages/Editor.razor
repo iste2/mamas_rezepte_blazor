@@ -25,7 +25,7 @@ else if (State.FEditorMode == EditorMode.Edit)
 }
 
 @* Form *@
-<form class="row g-3">
+<div class="row g-3">
     @* Name *@
     <div class="col-12">
         <label for="inputName" class="form-label">Name</label>
@@ -36,6 +36,47 @@ else if (State.FEditorMode == EditorMode.Edit)
     <div class="col-12">
         <label for="inputSubtitle" class="form-label">Kurzbeschreibung</label>
         <input @bind="@State.FRecipe.Subtitle" type="text" class="form-control" id="inputSubtitle">
+    </div>
+
+    @* Category *@
+    <div class="col-12">
+        <label for="inputCategory" class="form-label">Kategorie</label>
+        <select @bind="@State.FRecipe.CategoryId" id="inputCategory" class="form-select">
+            <option value="0" selected>...</option>
+            @if (FCategories != null)
+            {
+                @foreach (var hCategory in FCategories)
+                {
+                    <option value="@hCategory.Id">@hCategory.Name</option>
+                }
+            }
+        </select>
+    </div>
+
+    @* Tags *@
+    <div class="col-12">
+        <label for="inputTags" class="form-label">Tags: </label>
+        <div class="input-group">
+            <input @bind="@FCurrentTag" class="form-control" list="datalistOptions" id="inputTags" placeholder="...">
+            <datalist id="datalistOptions">
+                @if (FTags != null)
+                {
+                    var hTags = FCurrentTag != null && FCurrentTag != "" ? FTags.Where(_ => _.Name.Contains(FCurrentTag)).Take(5) : FTags.Take(5);
+                    @foreach (var hTag in hTags)
+                    {
+                        <option value="@hTag.Name" />
+                    }
+
+                }
+            </datalist>
+            <button @onclick="SubmitNewTag" type="button" class="btn btn-outline-secondary" id="button-addon1">Tag hinzufügen</button>
+        </div>
+    </div>
+    <div class="col-12">
+        @foreach (var hTag in FSelectedTags)
+        {
+            <div class="badge rounded-pill bg-secondary">@hTag.Name</div>
+        }
     </div>
 
     @* DurationCategory *@
@@ -54,43 +95,6 @@ else if (State.FEditorMode == EditorMode.Edit)
         </select>
     </div>
 
-    @* Category *@
-    @*
-        <div class="col-12">
-            <label for="inputCategory" class="form-label">Kategorie</label>
-            <select @bind="@State.FRecipe.DurationCategory.Name" id="inputCategory" class="form-select">
-                <option value="@(null)" selected>Choose...</option>
-                <option value="bis zu 30 min">bis zu 30 min</option>
-            </select>
-        </div>*@
-
-    @* Tags *@
-    <div class="col-12">
-        <label for="inputTags" class="form-label">Tags: </label>
-        <div class="input-group">
-            <button @onclick="SubmitNewTag" class="btn btn-outline-secondary" id="button-addon1">Button</button>
-            <input @bind="@FCurrentTag" class="form-control" list="datalistOptions" id="inputTags" placeholder="...">
-            <datalist id="datalistOptions">
-                @if (FTags != null)
-                {
-                    var hTags = FCurrentTag != null && FCurrentTag != "" ? FTags.Where(_ => _.Name.Contains(FCurrentTag)).Take(5) : FTags.Take(5);
-                    @foreach (var hTag in hTags)
-                    {
-                        <option value="@hTag.Name" />
-                    }
-
-                }
-            </datalist>
-        </div>
-        
-    </div>
-    <div class="col-12">
-        @foreach (var hTag in FSelectedTags)
-        {
-            <div class="badge rounded-pill bg-secondary">@hTag.Name</div>
-        }
-    </div>
-
     @* NumPersons *@
     <div class="col-12">
         <label for="inputPersons" class="form-label">Anzahl Personen</label>
@@ -99,46 +103,56 @@ else if (State.FEditorMode == EditorMode.Edit)
 
     @* Ingredients *@
     <div class="col-12">
-        <div class="row">
+        <div class="row justify-content-center">
             <label for="inputAmount" class="form-label">Zutaten: </label>
             <div class="col-2">
                 <label for="inputAmount" class="form-label">Menge</label>
-                <input type="number" class="form-control" id="inputAmount">
+                <input @bind="FCurrentAmount" type="number" class="form-control" id="inputAmount">
             </div>
             <div class="col-2">
                 <label for="inputUnit" class="form-label">Einheit</label>
-                <input type="text" class="form-control" id="inputUnit">
+                <input @bind="FCurrentUnit" type="text" class="form-control" id="inputUnit">
             </div>
             <div class="col-8">
                 <label for="inputProduct" class="form-label">Zutat</label>
-                <input class="form-control" list="datalistOptions" id="inputProduct" placeholder="Type to search...">
-                <datalist id="datalistOptions">
-                    <option value="San Francisco" />
-                    <option value="New York" />
-                    <option value="Seattle" />
-                    <option value="Los Angeles" />
-                    <option value="Chicago" />
+                <input @bind="FCurrentProduct" class="form-control" list="datalistOptions1" id="inputProduct" placeholder="Type to search...">
+                <datalist id="datalistOptions1">
+                    @if(FProducts != null)
+                    {
+                        var hProducts =
+                            FCurrentProduct != null && FCurrentProduct != "" ? FProducts.Where(_ => _.Name.Contains(FCurrentProduct)).Take(5) : FProducts.Take(5);
+                        foreach (var hProduct in hProducts)
+                        {
+                            <option value="@hProduct.Name">@hProduct.Name</option>
+                        }
+                    }
                 </datalist>
+            </div>
+            <div class="col-6" style="margin-top:16px;">
+                <button @onclick="SubmitNewIngredient" type="button" class="btn btn-outline-secondary" id="button-addingr">Zutat hinzufügen</button>
             </div>
         </div>
     </div>
     <div class="col-12">
         <ul>
-            @foreach (var hIngredient in State.FRecipe.Ingredients)
+            @foreach (var hIngredient in FIngredients)
             {
                 <li>
-                    @(hIngredient.Amount + " " + hIngredient.Unit + " " + hIngredient.Product.Name + " ")
-                    <a><i class="fa fa-plus-circle fs-3"></i></a>
+                    <a>@(hIngredient.Amount + " " + hIngredient.Unit + " " + hIngredient.Product.Name + " ")</a>
+                    <button @onclick="@(() => DeleteIngredient(hIngredient))" type="button" class="btn btn-outline-secondary"><i class="fa fa-trash fs-3"></i></button>
                 </li>
             }
         </ul>
 
     </div>
 
+    @* Instruction *@
     <div class="col-12">
         <label for="inputInstruction" class="form-label">Zubereitung</label>
-        <textarea class="form-control" id="inputInstruction" rows="8" />
+        <textarea @bind="State.FRecipe.Instruction" class="form-control" id="inputInstruction" rows="8" />
     </div>
+
+    @* Images *@
     <div class="col-12">
         <label for="inputImages" class="form-label">Bilder</label>
         <div class="dropzone" id="inputImages">
@@ -150,16 +164,23 @@ else if (State.FEditorMode == EditorMode.Edit)
             {
                 var hImageSource = $"data:image/jpeg;base64,{ hImage.ImageData }";
                 <li class="list-group-item" style="margin-top:6px;">
-                    <div class="row align-items-center">
+                    <div class="row align-items-center mt-1">
                         <img src="@hImageSource" class="col-3" alt="image">
                         <button @onclick="@(() => DeleteImage(@hImage.ImageData))" type="button" class="btn btn-outline-danger col-3"><i class="fa fa-trash fs-3"></i></button>
                     </div>
                 </li>
             }
         </ul>
-            
+
     </div>
-</form>
+
+    <div class="col-12" style="margin-top:16px;">
+        <button @onclick="UploadRecipe" type="button" class="btn btn-outline-success" style="width:100%;">
+            @(State.FEditorMode == EditorMode.Edit ? "Änderungen speichern" : "Rezept speichern")
+        </button>
+    </div>
+
+</div>
 
 <div class="" style="margin-bottom:32px;"></div>
 
@@ -201,11 +222,19 @@ else if (State.FEditorMode == EditorMode.Edit)
 
 @code {
 
-    private List<DurationCategory> FDurationCategories { get; set; }
+    private List<Category> FCategories { get; set; }
 
     private string FCurrentTag { get; set; }
     private List<Tag> FTags { get; set; }
     private List<Tag> FSelectedTags => State.FRecipe.Tags.Select(_ => _.Tag).ToList();
+
+    private List<DurationCategory> FDurationCategories { get; set; }
+
+    private int FCurrentAmount { get; set; }
+    private string FCurrentUnit { get; set; }
+    private string FCurrentProduct { get; set; }
+    private List<Product> FProducts { get; set; }
+    private List<Ingredient> FIngredients => State.FRecipe.Ingredients.ToList();
 
 
     protected override void OnInitialized()
@@ -221,11 +250,19 @@ else if (State.FEditorMode == EditorMode.Edit)
 
         FTags =
             await Http.GetFromJsonAsync<List<Tag>>(Path.Combine(Nav.BaseUri, "api/Tags/ByUsageFrequency"));
+
+        FCategories =
+            await Http.GetFromJsonAsync<List<Category>>(Path.Combine(Nav.BaseUri, "api/Categories/ByUsageFrequency"));
+
+        FProducts =
+            await Http.GetFromJsonAsync<List<Product>>(Path.Combine(Nav.BaseUri, "api/Products/ByUsageFrequency"));
+
     }
 
     public void SubmitNewTag()
     {
-        if (FCurrentTag == "") return;
+
+        if (FCurrentTag == "" || FSelectedTags.Select(_ => _.Name).Contains(FCurrentTag)) return;
         Console.WriteLine("Submitting new tag.");
 
         var hTag = FTags.FirstOrDefault(_ => _.Name == FCurrentTag);
@@ -233,13 +270,47 @@ else if (State.FEditorMode == EditorMode.Edit)
         {
             hTag = new Tag { Name = FCurrentTag };
         }
-        //State.FRecipe.Tags = State.FRecipe.Tags.ToList().Append(new RecipeToTagRelation() { Tag = hTag });
+        State.FRecipe.Tags = State.FRecipe.Tags.Append(new RecipeToTagRelation() { Tag = hTag }).ToList();
 
         FCurrentTag = "";
 
         State.OnChange += StateHasChanged;
         State.NotifyStateChanged();
-        //this.StateHasChanged();
+        this.StateHasChanged();
+    }
+
+    public void SubmitNewIngredient()
+    {
+        if (FCurrentProduct == "" || FIngredients.Any(_ => _.Product.Name == FCurrentProduct)) return;
+
+        var hProduct = FProducts.FirstOrDefault(_ => _.Name == FCurrentProduct);
+        if(hProduct == null)
+        {
+            hProduct = new Product { Name = FCurrentProduct };
+        }
+        var hIngredient = new Ingredient()
+        {
+            Amount = FCurrentAmount,
+            Unit = FCurrentUnit,
+            Product = hProduct,
+        };
+
+        State.FRecipe.Ingredients = State.FRecipe.Ingredients.Append(hIngredient).ToList();
+
+        State.OnChange += StateHasChanged;
+        State.NotifyStateChanged();
+        this.StateHasChanged();
+
+        Console.WriteLine("Ingredients count " + FIngredients.Count);
+    }
+
+    public void DeleteIngredient(Ingredient _Ingredient)
+    {
+        State.FRecipe.Ingredients = State.FRecipe.Ingredients.Where(_ => _.Product.Name != _Ingredient.Product.Name).ToList();
+
+        State.OnChange += StateHasChanged;
+        State.NotifyStateChanged();
+        this.StateHasChanged();
     }
 
     public async Task DragDropOnChange(IFileListEntry[] _Files)
@@ -260,16 +331,24 @@ else if (State.FEditorMode == EditorMode.Edit)
         Console.WriteLine("Images: " + State.FRecipe.Images.Count());
     }
 
-    public void DeleteImage(string hImageData)
+    public void DeleteImage(string _ImageData)
     {
 
-        State.FRecipe.Images = State.FRecipe.Images.ToList().Where(_ => _.ImageData.Substring(0, 100).GetHashCode() != hImageData.Substring(0, 100).GetHashCode());
+        State.FRecipe.Images = State.FRecipe.Images.ToList().Where(_ => _.ImageData.Substring(0, 100).GetHashCode() != _ImageData.Substring(0, 100).GetHashCode());
 
         State.OnChange += StateHasChanged;
         State.NotifyStateChanged();
         this.StateHasChanged();
 
         Console.WriteLine("Images: " + State.FRecipe.Images.Count());
+    }
+
+    public async Task UploadRecipe()
+    {
+        var hRecipe = State.FRecipe;
+        var hReturnValue = 
+            await Http.PostAsJsonAsync<Recipe>(Path.Combine(Nav.BaseUri, "api/Recipes"), hRecipe);
+        Console.WriteLine("New id: " + hReturnValue);
     }
 
     public void Dispose()

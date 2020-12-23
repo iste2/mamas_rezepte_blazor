@@ -14,7 +14,7 @@ namespace MamasRezepte.Server.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.10");
+                .HasAnnotation("ProductVersion", "3.1.9");
 
             modelBuilder.Entity("MamasRezepte.Shared.Models.Category", b =>
                 {
@@ -131,8 +131,8 @@ namespace MamasRezepte.Server.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<byte[]>("ImageData")
-                        .HasColumnType("BLOB");
+                    b.Property<string>("ImageData")
+                        .HasColumnType("TEXT");
 
                     b.Property<long>("RecipeId")
                         .HasColumnType("INTEGER");
@@ -150,10 +150,10 @@ namespace MamasRezepte.Server.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<long?>("RecipeId")
+                    b.Property<long>("RecipeId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<long?>("TagId")
+                    b.Property<long>("TagId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -222,11 +222,15 @@ namespace MamasRezepte.Server.Migrations
                 {
                     b.HasOne("MamasRezepte.Shared.Models.Recipe", "Recipe")
                         .WithMany("Tags")
-                        .HasForeignKey("RecipeId");
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("MamasRezepte.Shared.Models.Tag", "Tag")
                         .WithMany("Recipes")
-                        .HasForeignKey("TagId");
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

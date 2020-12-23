@@ -126,7 +126,7 @@ namespace MamasRezepte.Server.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     RecipeId = table.Column<long>(nullable: false),
-                    ImageData = table.Column<byte[]>(nullable: true)
+                    ImageData = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -145,8 +145,8 @@ namespace MamasRezepte.Server.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    RecipeId = table.Column<long>(nullable: true),
-                    TagId = table.Column<long>(nullable: true)
+                    RecipeId = table.Column<long>(nullable: false),
+                    TagId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -156,13 +156,13 @@ namespace MamasRezepte.Server.Migrations
                         column: x => x.RecipeId,
                         principalTable: "Recipes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_RecipeToTagRelations_Tags_TagId",
                         column: x => x.TagId,
                         principalTable: "Tags",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
