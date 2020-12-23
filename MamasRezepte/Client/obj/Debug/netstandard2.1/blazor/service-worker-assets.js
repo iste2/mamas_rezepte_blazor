@@ -5,6 +5,14 @@
       "url": "_content\/BlazorInputFile\/inputfile.js"
     },
     {
+      "hash": "sha256-wEwhASbSl7R\/aFICWusQUu1ZHqy+VAMvC5CjhmTw2FY=",
+      "url": "_content\/Blazored.Toast\/blazored-toast.css"
+    },
+    {
+      "hash": "sha256-zzSJLCGj8lFnpM7CuhKbhIVfDTz5chJhB609EntEno4=",
+      "url": "_content\/Blazored.Toast\/blazored-toast.min.css"
+    },
+    {
       "hash": "sha256-6jUMhQbEMFPfYWXi\/nQ5YbVZzxCWJpfQ35lQE\/8Xoxc=",
       "url": "Assets\/logo.png"
     },
@@ -13,7 +21,7 @@
       "url": "Assets\/logo.svg"
     },
     {
-      "hash": "sha256-6Wa0taRYZmqFU0gZvOqluK50DtouVKZw0xNoVTVt9w8=",
+      "hash": "sha256-5dNRDCDZXN\/TN3tjksJ3TU1LP7G+ebgRiVq+C1AiG74=",
       "url": "index.html"
     },
     {
@@ -25,7 +33,7 @@
       "url": "manifest.json"
     },
     {
-      "hash": "sha256-8Qyy80pUuq7o4v\/Nki2Z1MjsQ15RGnyouNNXfj4PCBQ=",
+      "hash": "sha256-LzYfR1AuH2P6dIVJOiD8D4reQKjTNNuC2rJiNCWqv4Y=",
       "url": "_framework\/_bin\/MamasRezepte.Client.dll"
     },
     {
@@ -185,6 +193,10 @@
       "url": "_framework\/_bin\/Microsoft.JSInterop.dll"
     },
     {
+      "hash": "sha256-SnlpX7tqR4Or48+LUVR7CMv3xLhjy1JBnmDfQCb2GwM=",
+      "url": "_framework\/_bin\/Blazored.Toast.dll"
+    },
+    {
       "hash": "sha256-PKAmUt6RNaPUtoew7IKkC+Qltb7rCpsKu+Oii9OOMiI=",
       "url": "_framework\/_bin\/MamasRezepte.Shared.dll"
     },
@@ -241,7 +253,7 @@
       "url": "_framework\/_bin\/Microsoft.JSInterop.WebAssembly.dll"
     },
     {
-      "hash": "sha256-6X50dALqGicm+nIbyd\/Ms1jD1lQUPUWq7c\/Z3Jevj7U=",
+      "hash": "sha256-TCM6prqyF67g9Y1QnfhluFUYBuK3nXbpwy5jipw2VeQ=",
       "url": "_framework\/_bin\/MamasRezepte.Client.pdb"
     },
     {
@@ -265,9 +277,9 @@
       "url": "_framework\/blazor.webassembly.js"
     },
     {
-      "hash": "sha256-gkE10xDyu+cdNt5NiBSUTo2RJRIgl4J0TzttmlOEFIc=",
+      "hash": "sha256-27MnRUAoM40Ley7esoqXB6zMKk8RZBSukxmUVwYnlHI=",
       "url": "_framework\/blazor.boot.json"
     }
   ],
-  "version": "kdkB8vhR"
+  "version": "L1GPqt2V"
 };

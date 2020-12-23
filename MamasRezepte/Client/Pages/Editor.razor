@@ -11,6 +11,7 @@
 @inject DataStateEditor State
 @inject HttpClient Http
 @inject NavigationManager Nav
+@inject IToastService Toast
 
 <div style="padding-top: 32px; "></div>
 
@@ -184,6 +185,8 @@ else if (State.FEditorMode == EditorMode.Edit)
 
 <div class="" style="margin-bottom:32px;"></div>
 
+
+
 @* Style image dropzone *@
 <style>
 
@@ -346,9 +349,18 @@ else if (State.FEditorMode == EditorMode.Edit)
     public async Task UploadRecipe()
     {
         var hRecipe = State.FRecipe;
-        var hReturnValue = 
+        var hReturnValue =
             await Http.PostAsJsonAsync<Recipe>(Path.Combine(Nav.BaseUri, "api/Recipes"), hRecipe);
-        Console.WriteLine("New id: " + hReturnValue);
+
+        if(hReturnValue.StatusCode == System.Net.HttpStatusCode.OK)
+        {
+            Toast.ShowSuccess("Das Rezept wurde in die Datenbank eingetragen.", "Speichern erfolgreich");
+        } else
+        {
+            Toast.ShowError(hReturnValue.ToString(), "Da lief etwas schief!");
+            Console.WriteLine(hReturnValue.ToString());
+        }
+
     }
 
     public void Dispose()
