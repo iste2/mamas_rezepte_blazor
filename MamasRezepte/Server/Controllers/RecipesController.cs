@@ -40,10 +40,72 @@ namespace MamasRezepte.Server.Controllers
         {
             if (ModelState.IsValid)
             {
-                FDb.Add(_Value);
                 try
                 {
+                    // save recipe
+                    var hRecipe = new Recipe()
+                    {
+                        Name = _Value.Name,
+                        Subtitle = _Value.Subtitle,
+                        PublishDate = DateTime.Now,
+                        NumberOfPersons = _Value.NumberOfPersons,
+                        Instruction = _Value.Instruction,
+                        CategoryId = _Value.CategoryId,
+                        DurationCategoryId = _Value.DurationCategoryId,
+                        Clicks = 0,
+                    };
+                    FDb.Add(hRecipe);
                     await FDb.SaveChangesAsync();
+                    var hRecipeId = hRecipe.Id;
+                
+                    // save images
+                    foreach(var hImage in _Value.Images)
+                    {
+                        hImage.RecipeId = hRecipeId;
+                        FDb.Add(hImage);
+                    }
+                    await FDb.SaveChangesAsync();
+
+                    // save tags
+                    foreach (var hRecipeToTagRelation in _Value.Tags)
+                    {
+                        var hTagId = hRecipeToTagRelation.Tag.Id;
+                        if (hRecipeToTagRelation.Tag.Id == 0)
+                        {
+                            FDb.Add(hRecipeToTagRelation.Tag);
+                            await FDb.SaveChangesAsync();
+                            hTagId = hRecipeToTagRelation.Tag.Id;
+                        }
+                        var hNewRecipeToTagRelation = new RecipeToTagRelation()
+                        {
+                            RecipeId = hRecipeId,
+                            TagId = hTagId,
+                        };
+                        FDb.Add(hNewRecipeToTagRelation);
+                    }
+                    await FDb.SaveChangesAsync();
+
+                    // save ingredients
+                    foreach (var hIngredient in _Value.Ingredients)
+                    {
+                        var hProductId = hIngredient.Product.Id;
+                        if(hProductId == 0)
+                        {
+                            FDb.Add(hIngredient.Product);
+                            await FDb.SaveChangesAsync();
+                            hProductId = hIngredient.Product.Id;
+                        }
+                        var hNewIngredient = new Ingredient()
+                        {
+                            Amount = hIngredient.Amount,
+                            Unit = hIngredient.Unit,
+                            ProductId = hProductId,
+                            RecipeId = hRecipeId,
+                        };
+                        FDb.Add(hNewIngredient);
+                    }
+                    await FDb.SaveChangesAsync();
+
                     return true;
                 }
                 catch (DbUpdateException)
