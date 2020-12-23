@@ -25,7 +25,7 @@
       "url": "manifest.json"
     },
     {
-      "hash": "sha256-IK1CREGwhpq9JBw71aKKmpH2OSuSPOEtdsRC8naNXWo=",
+      "hash": "sha256-H9VcxCPm6iwP0VURY9RLo\/btbe3tTN1r7bpYzk\/M\/JQ=",
       "url": "_framework\/_bin\/MamasRezepte.Client.dll"
     },
     {
@@ -121,8 +121,20 @@
       "url": "_framework\/_bin\/System.Data.dll"
     },
     {
-      "hash": "sha256-C0KrMmLQQE68cd1+FNwIOW89nNGbOH48hRxQAoSBaaA=",
-      "url": "_framework\/_bin\/BlazorInputFile.dll"
+      "hash": "sha256-bSgsT2x5xMvs8mara5wU+EJwcyHa9GVMU85HwhWcdWM=",
+      "url": "_framework\/_bin\/Microsoft.AspNetCore.Components.Web.dll"
+    },
+    {
+      "hash": "sha256-m7Q+cF5\/ji3OMfdGlCuE8pQ\/iM+kxNHLq\/IEWVvIaOg=",
+      "url": "_framework\/_bin\/Microsoft.AspNetCore.Components.Forms.dll"
+    },
+    {
+      "hash": "sha256-tmnkCmP9OzLUkpQ3LP7PRosi7gt5pyfEZCM6aqAokFI=",
+      "url": "_framework\/_bin\/System.ComponentModel.Annotations.dll"
+    },
+    {
+      "hash": "sha256-LIfCYwg+PHltTK4z3EnbSkA7m2cn8JS4jHVthdKrDF8=",
+      "url": "_framework\/_bin\/System.ComponentModel.DataAnnotations.dll"
     },
     {
       "hash": "sha256-PEg9ghiKSWBTX0jq8pFDvv2Yvw92Y8W0ELtWrSE4fhA=",
@@ -135,6 +147,10 @@
     {
       "hash": "sha256-6gJMwefpsWLHWsEipZp143xn8k2Ea27upnXqjUT6iNI=",
       "url": "_framework\/_bin\/Microsoft.Extensions.Logging.Abstractions.dll"
+    },
+    {
+      "hash": "sha256-C0KrMmLQQE68cd1+FNwIOW89nNGbOH48hRxQAoSBaaA=",
+      "url": "_framework\/_bin\/BlazorInputFile.dll"
     },
     {
       "hash": "sha256-LqwA2Rpm96Ualk0IhLZar87kfRCyKHzHTeTt2jYhm7M=",
@@ -163,6 +179,10 @@
     {
       "hash": "sha256-qAKfFnquY+7UC\/MzLi04rjqEhLzTryCoLg\/S6MxI19I=",
       "url": "_framework\/_bin\/System.Numerics.Vectors.dll"
+    },
+    {
+      "hash": "sha256-5Rcs5kLq5jqSrOGxlvgJVdCigxCOEDJRpCQwS3VAiQA=",
+      "url": "_framework\/_bin\/MamasRezepte.Shared.dll"
     },
     {
       "hash": "sha256-FJ+rEgcx6ljTxwbRXZSUGfrDKpVvOxHCSfNxbnXNn3M=",
@@ -217,24 +237,12 @@
       "url": "_framework\/_bin\/Microsoft.JSInterop.WebAssembly.dll"
     },
     {
-      "hash": "sha256-bSgsT2x5xMvs8mara5wU+EJwcyHa9GVMU85HwhWcdWM=",
-      "url": "_framework\/_bin\/Microsoft.AspNetCore.Components.Web.dll"
-    },
-    {
-      "hash": "sha256-m7Q+cF5\/ji3OMfdGlCuE8pQ\/iM+kxNHLq\/IEWVvIaOg=",
-      "url": "_framework\/_bin\/Microsoft.AspNetCore.Components.Forms.dll"
-    },
-    {
-      "hash": "sha256-tmnkCmP9OzLUkpQ3LP7PRosi7gt5pyfEZCM6aqAokFI=",
-      "url": "_framework\/_bin\/System.ComponentModel.Annotations.dll"
-    },
-    {
-      "hash": "sha256-LIfCYwg+PHltTK4z3EnbSkA7m2cn8JS4jHVthdKrDF8=",
-      "url": "_framework\/_bin\/System.ComponentModel.DataAnnotations.dll"
-    },
-    {
-      "hash": "sha256-2XJFjsQCeeKS2YX8mxwxkU9GWJCD81N2+Iz53xshHiU=",
+      "hash": "sha256-llIE6wSZvW4LKWJ71tTYmgz6nM0Q3fZFjC6gE3G\/mqg=",
       "url": "_framework\/_bin\/MamasRezepte.Client.pdb"
+    },
+    {
+      "hash": "sha256-Os6wgh8cswgQy+hwY8WNvW3jzUPZsMh8YQvi1yNsWuE=",
+      "url": "_framework\/_bin\/MamasRezepte.Shared.pdb"
     },
     {
       "hash": "sha256-mPoqx7XczFHBWk3gRNn0hc9ekG1OvkKY4XiKRY5Mj5U=",
@@ -253,9 +261,9 @@
       "url": "_framework\/blazor.webassembly.js"
     },
     {
-      "hash": "sha256-r3Jc7ZhBxegZOKiKU249OOI3S6fKj+RnEpXHQIIS0c8=",
+      "hash": "sha256-r3vXehwVjbIWv6pj4rR9CUu84jyvTMw6egYsafpzSHM=",
       "url": "_framework\/blazor.boot.json"
     }
   ],
-  "version": "ynQxFYUS"
+  "version": "Z0CLBR+t"
 };

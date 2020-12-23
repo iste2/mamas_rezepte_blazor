@@ -1,34 +1,61 @@
 ﻿@page "/editor"
 
 @using BlazorInputFile
+@using State
+@using Const
+@using MamasRezepte.Shared.Models
+
+@implements IDisposable
+
+@inject DataStateEditor State
 
 <div style="padding-top: 32px; "></div>
 
-<h1 style="margin-bottom:12px; font-weight:bold;">Editor</h1>
+@* Header *@
+@if (State.FEditorMode == EditorMode.Create)
+{
+    <h1 style="margin-bottom:12px; font-weight:bold;">Neues Rezept</h1>
+}
+else if (State.FEditorMode == EditorMode.Edit)
+{
+    <h1 style="margin-bottom:12px; font-weight:bold;">Rezept bearbeiten</h1>
+}
 
+@* Form *@
 <form class="row g-3">
+    @* Name *@
     <div class="col-12">
         <label for="inputName" class="form-label">Name</label>
-        <input type="text" class="form-control" id="inputName">
+        <input @bind="@State.FRecipe.Name" type="text" class="form-control" id="inputName">
     </div>
+
+    @* Subtitle *@
     <div class="col-12">
         <label for="inputSubtitle" class="form-label">Kurzbeschreibung</label>
-        <input type="text" class="form-control" id="inputSubtitle">
+        <input @bind="@State.FRecipe.Subtitle" type="text" class="form-control" id="inputSubtitle">
     </div>
-    <div class="col-12">
-        <label for="inputDuration" class="form-label">Zubereitungsdauer</label>
-        <select id="inputDuration" class="form-select">
-            <option selected>Choose...</option>
-            <option>...</option>
-        </select>
-    </div>
-    <div class="col-12">
-        <label for="inputCategory" class="form-label">Kategorie</label>
-        <select id="inputCategory" class="form-select">
-            <option selected>Choose...</option>
-            <option>...</option>
-        </select>
-    </div>
+
+    @* DurationCategory *@
+    @*
+        <div class="col-12">
+            <label for="inputDuration" class="form-label">Zubereitungsdauer</label>
+            <select @bind="@State.FRecipe.DurationCategory" id="inputDuration" class="form-select">
+                <option selected>Choose...</option>
+                <option value="obj">display</option>
+            </select>
+        </div>*@
+
+    @* Category *@
+    @*
+        <div class="col-12">
+            <label for="inputCategory" class="form-label">Kategorie</label>
+            <select @bind="@State.FRecipe.DurationCategory.Name" id="inputCategory" class="form-select">
+                <option value="@(null)" selected>Choose...</option>
+                <option value="bis zu 30 min">bis zu 30 min</option>
+            </select>
+        </div>*@
+
+    @* Tags *@
     <div class="col-12">
         <label for="inputTags" class="form-label">Tags: </label>
         <input class="form-control" list="datalistOptions" id="inputTags" placeholder="Type to search...">
@@ -41,9 +68,19 @@
         </datalist>
     </div>
     <div class="col-12">
-        <label for="inputPersons" class="form-label">Anzahl Personen</label>
-        <input type="number" class="form-control" id="inputPersons">
+        @foreach (var hTag in State.FRecipe.Tags)
+        {
+            <div class="badge rounded-pill bg-secondary">@hTag.Tag.Name</div>
+        }
     </div>
+
+    @* NumPersons *@
+    <div class="col-12">
+        <label for="inputPersons" class="form-label">Anzahl Personen</label>
+        <input @bind="@State.FRecipe.NumberOfPersons" type="number" class="form-control" id="inputPersons">
+    </div>
+
+    @* Ingredients *@
     <div class="col-12">
         <div class="row">
             <label for="inputAmount" class="form-label">Zutaten: </label>
@@ -69,15 +106,41 @@
         </div>
     </div>
     <div class="col-12">
+        <ul>
+            @foreach (var hIngredient in State.FRecipe.Ingredients)
+            {
+                <li>
+                    @(hIngredient.Amount + " " + hIngredient.Unit + " " + hIngredient.Product.Name + " ")
+                    <a><i class="fa fa-plus-circle fs-3"></i></a>
+                </li>
+            }
+        </ul>
+
+    </div>
+
+    <div class="col-12">
         <label for="inputInstruction" class="form-label">Zubereitung</label>
         <textarea class="form-control" id="inputInstruction" rows="8" />
     </div>
     <div class="col-12">
         <label for="inputImages" class="form-label">Bilder</label>
         <div class="dropzone" id="inputImages">
-            <InputFile OnChange="DragDropOnChange" />
+            <InputFile multiple OnChange="DragDropOnChange" />
             Bilder hochladen
         </div>
+        <ul class="list-group list-group-flush">
+            @foreach (var hImage in State.FRecipe.Images)
+            {
+                var hImageSource = $"data:image/jpeg;base64,{ hImage.ImageData }";
+                <li class="list-group-item" style="margin-top:6px;">
+                    <div class="row align-items-center">
+                        <img src="@hImageSource" class="col-3" alt="image">
+                        <button @onclick="@(() => DeleteImage(@hImage.ImageData))" type="button" class="btn btn-outline-danger col-3"><i class="fa fa-trash fs-3"></i></button>
+                    </div>
+                </li>
+            }
+        </ul>
+            
     </div>
 </form>
 
@@ -116,15 +179,52 @@
     .dropzone-drag {
         background-color: palegreen;
     }
-
 </style>
 
 @code {
 
 
-    public async Task DragDropOnChange(IFileListEntry[] files)
+    protected override void OnInitialized()
+    {
+        State.UpdateEditorMode();
+        State.OnChange += StateHasChanged;
+        Console.WriteLine("Editor opendend for Recipe " + State.FRecipe.Id);
+    }
+
+    public async Task DragDropOnChange(IFileListEntry[] _Files)
+    {
+        foreach (var hFile in _Files)
+        {
+            var hMemStream = new System.IO.MemoryStream();
+            await hFile.Data.CopyToAsync(hMemStream);
+            var hImageBytes = hMemStream.ToArray();
+            var hBase64String = Convert.ToBase64String(hImageBytes);
+            State.FRecipe.Images = State.FRecipe.Images.ToList().Append(new RecipeImage { ImageData = hBase64String });
+        }
+
+        State.OnChange += StateHasChanged;
+        State.NotifyStateChanged();
+        this.StateHasChanged();
+
+        Console.WriteLine("Images: " + State.FRecipe.Images.Count());
+    }
+
+    public void DeleteImage(string hImageData)
     {
 
+        State.FRecipe.Images = State.FRecipe.Images.ToList().Where(_ => _.ImageData.Substring(0, 100).GetHashCode() != hImageData.Substring(0, 100).GetHashCode());
+
+        State.OnChange += StateHasChanged;
+        State.NotifyStateChanged();
+        this.StateHasChanged();
+
+        Console.WriteLine("Images: " + State.FRecipe.Images.Count());
     }
+
+    public void Dispose()
+    {
+        State.OnChange -= StateHasChanged;
+    }
+
 
 }
