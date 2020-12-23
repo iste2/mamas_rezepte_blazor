@@ -27,6 +27,14 @@ namespace MamasRezepte.Server.Controllers
             return await FDb.Tags.ToListAsync();
         }
 
+        // GET: api/<TagsController>/ByUsageFrequency
+        [HttpGet("ByUsageFrequency")]
+        public async Task<List<Tag>> GetByUsageFrequency()
+        {
+            var hGrouped = FDb.RecipeToTagRelations.GroupBy(_ => _.Tag.Id);
+            return await FDb.Tags.OrderByDescending(_ => hGrouped.Single(_0 => _0.Key == _.Id).Count()).ToListAsync();
+        }
+
         // GET api/<TagsController>/5
         [HttpGet("{_Id}")]
         public async Task<Tag> Get(long _Id)
