@@ -1,7 +1,7 @@
 {
   "FilesToCompress": [
     {
-      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\f7lSvBRgKNFPpf3Ojb7HBGppgZmLhNQFsxe7aTnEF28=.hash",
+      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\8Qyy80pUuq7o4v-Nki2Z1MjsQ15RGnyouNNXfj4PCBQ=.hash",
       "Source": "F:\\Programmieren\\dotnet\\mamas_rezepte_blazor\\MamasRezepte\\Client\\obj\\Debug\\netstandard2.1\\blazor\\unlinked\\MamasRezepte.Client.dll",
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/_bin\/MamasRezepte.Client.dll.br"
     },
@@ -201,7 +201,7 @@
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/_bin\/Microsoft.JSInterop.dll.br"
     },
     {
-      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\o0g3zRmuI0RlbA5OffNlJ8dDueJe5Z8goCnmU5DkQlw=.hash",
+      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\PKAmUt6RNaPUtoew7IKkC_Qltb7rCpsKu_Oii9OOMiI=.hash",
       "Source": "F:\\Programmieren\\dotnet\\mamas_rezepte_blazor\\MamasRezepte\\Client\\obj\\Debug\\netstandard2.1\\blazor\\unlinked\\MamasRezepte.Shared.dll",
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/_bin\/MamasRezepte.Shared.dll.br"
     },
@@ -271,12 +271,12 @@
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/_bin\/Microsoft.JSInterop.WebAssembly.dll.br"
     },
     {
-      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\7H2D5XEGFvb7nbaOSCosjNl86IwT_kBXyO9gk-28BFo=.hash",
+      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\6X50dALqGicm_nIbyd-Ms1jD1lQUPUWq7c-Z3Jevj7U=.hash",
       "Source": "F:\\Programmieren\\dotnet\\mamas_rezepte_blazor\\MamasRezepte\\Client\\obj\\Debug\\netstandard2.1\\blazor\\unlinked\\MamasRezepte.Client.pdb",
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/_bin\/MamasRezepte.Client.pdb.br"
     },
     {
-      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\In-PDww3Bws9UU5Lt3ECHkxR_rLI7pMHxEtEgrF8FXQ=.hash",
+      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\979afvBn2a3pWn70HGc7IrI8GPtMIXgwkv_bP1XLZGQ=.hash",
       "Source": "F:\\Programmieren\\dotnet\\mamas_rezepte_blazor\\MamasRezepte\\Client\\obj\\Debug\\netstandard2.1\\blazor\\unlinked\\MamasRezepte.Shared.pdb",
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/_bin\/MamasRezepte.Shared.pdb.br"
     },
@@ -301,12 +301,12 @@
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/blazor.webassembly.js.br"
     },
     {
-      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\hJD06vc3m2Ze7wY8QCOsbMXif7NFuDuSzWC_fTZmoNI=.hash",
+      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\gkE10xDyu_cdNt5NiBSUTo2RJRIgl4J0TzttmlOEFIc=.hash",
       "Source": "F:\\Programmieren\\dotnet\\mamas_rezepte_blazor\\MamasRezepte\\Client\\obj\\Debug\\netstandard2.1\\blazor\\blazor.boot.json",
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/blazor.boot.json.br"
     },
     {
-      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\YDsQ1ax70TERvMZS17wcdV3GjbPVY4OVZ660vJiUUhk=.hash",
+      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\gOSx5--3dy1nMTTrOquGxop1UYaU8EGt9hE2BjJnAT4=.hash",
       "Source": "F:\\Programmieren\\dotnet\\mamas_rezepte_blazor\\MamasRezepte\\Client\\obj\\Debug\\netstandard2.1\\blazor\\service-worker-assets.js",
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\service-worker-assets.js.br"
     }

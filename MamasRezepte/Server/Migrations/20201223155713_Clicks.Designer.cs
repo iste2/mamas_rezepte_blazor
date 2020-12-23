@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MamasRezepte.Server.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20201223144252_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20201223155713_Clicks")]
+    partial class Clicks
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,6 +30,25 @@ namespace MamasRezepte.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("MamasRezepte.Shared.Models.Click", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("RecipeId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipeId");
+
+                    b.ToTable("Clicks");
                 });
 
             modelBuilder.Entity("MamasRezepte.Shared.Models.DurationCategory", b =>
@@ -96,9 +115,6 @@ namespace MamasRezepte.Server.Migrations
                     b.Property<long>("CategoryId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Clicks")
-                        .HasColumnType("INTEGER");
-
                     b.Property<long>("DurationCategoryId")
                         .HasColumnType("INTEGER");
 
@@ -112,7 +128,6 @@ namespace MamasRezepte.Server.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("PublishDate")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Subtitle")
@@ -179,6 +194,15 @@ namespace MamasRezepte.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tags");
+                });
+
+            modelBuilder.Entity("MamasRezepte.Shared.Models.Click", b =>
+                {
+                    b.HasOne("MamasRezepte.Shared.Models.Recipe", "Recipe")
+                        .WithMany("Clicks")
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MamasRezepte.Shared.Models.Ingredient", b =>
