@@ -154,12 +154,20 @@ else if (State.FEditorMode == EditorMode.Edit)
     </div>
 
     @* Images *@
-    <div class="col-12">
-        <label for="inputImages" class="form-label">Bilder</label>
-        <div class="dropzone" id="inputImages">
-            <InputFile multiple OnChange="DragDropOnChange" />
-            Bilder hochladen
+<div class="col-12">
+    <label for="inputImages" class="form-label">Bilder</label>
+    <div class="dropzone" id="inputImages">
+        <InputFile multiple OnChange="DragDropOnChange" />
+        Bilder hochladen
+    </div>
+    @if (FUploadingImage)
+    {
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="@((int)FUploadImageState)" aria-valuemin="0" aria-valuemax="100" style="width: @((int)FUploadImageState)%"></div>
         </div>
+    }
+    @if (State.FRecipe.Images.Any())
+    {
         <ul class="list-group list-group-flush">
             @foreach (var hImage in State.FRecipe.Images)
             {
@@ -172,8 +180,10 @@ else if (State.FEditorMode == EditorMode.Edit)
                 </li>
             }
         </ul>
+    }
 
-    </div>
+
+</div>
 
     <div class="col-12" style="margin-top:16px;">
         <button @onclick="UploadRecipe" type="button" class="btn btn-outline-success" style="width:100%;">
@@ -239,6 +249,9 @@ else if (State.FEditorMode == EditorMode.Edit)
     private List<Product> FProducts { get; set; }
     private List<Ingredient> FIngredients => State.FRecipe.Ingredients.ToList();
 
+
+    private bool FUploadingImage { get; set; }
+    private double FUploadImageState { get; set; }
 
     protected override void OnInitialized()
     {
@@ -318,6 +331,12 @@ else if (State.FEditorMode == EditorMode.Edit)
 
     public async Task DragDropOnChange(IFileListEntry[] _Files)
     {
+        FUploadingImage = true;
+        FUploadImageState = 0;
+        this.StateHasChanged();
+
+        var hLoadingStep = 100 / _Files.Length;
+
         foreach (var hFile in _Files)
         {
             var hMemStream = new System.IO.MemoryStream();
@@ -325,7 +344,12 @@ else if (State.FEditorMode == EditorMode.Edit)
             var hImageBytes = hMemStream.ToArray();
             var hBase64String = Convert.ToBase64String(hImageBytes);
             State.FRecipe.Images = State.FRecipe.Images.ToList().Append(new RecipeImage { ImageData = hBase64String });
+
+            FUploadImageState += hLoadingStep;
+            this.StateHasChanged();
         }
+
+        FUploadingImage = false;
 
         State.OnChange += StateHasChanged;
         State.NotifyStateChanged();
@@ -337,7 +361,7 @@ else if (State.FEditorMode == EditorMode.Edit)
     public void DeleteImage(string _ImageData)
     {
 
-        State.FRecipe.Images = State.FRecipe.Images.ToList().Where(_ => _.ImageData.Substring(0, 100).GetHashCode() != _ImageData.Substring(0, 100).GetHashCode());
+        State.FRecipe.Images = State.FRecipe.Images.ToList().Where(_ => _.ImageData.Substring(0, 500).GetHashCode() != _ImageData.Substring(0, 500).GetHashCode());
 
         State.OnChange += StateHasChanged;
         State.NotifyStateChanged();
