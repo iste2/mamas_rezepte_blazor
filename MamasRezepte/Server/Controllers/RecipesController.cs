@@ -6,6 +6,7 @@ using MamasRezepte.Shared.Helper;
 using MamasRezepte.Shared.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -23,11 +24,28 @@ namespace MamasRezepte.Server.Controllers
 
         // GET: api/<RecipesController>
         [HttpGet]
-        public async Task<List<Recipe>> Get()
+        public async Task<IAsyncEnumerable<Recipe>> Get(string search, string tags, string categories, string durationcategories)
         {
-            return await FDb.Recipes
-                .Include(_ => _.Images)
-                .ToListAsync();
+            var hFilter = FilterConverter.ParseQuery(search, tags, categories, durationcategories);
+
+            if(hFilter == null)
+            {
+                return FDb.Recipes
+                    //.Include(_ => _.Images)
+                    .Include(_ => _.Category)
+                    .Include(_ => _.Tags)
+                    .Include(_ => _.DurationCategory)
+                    .AsAsyncEnumerable();
+            } else
+            {
+                return FDb.Recipes
+                    //.Include(_ => _.Images)
+                    .Include(_ => _.Category)
+                    .Include(_ => _.Tags)
+                    .Include(_ => _.DurationCategory)
+                    .AsAsyncEnumerable();
+            }
+                        
         }
 
         // GET api/<RecipesController>/5
@@ -43,9 +61,8 @@ namespace MamasRezepte.Server.Controllers
         {
             var hClicks = FDb.Clicks.AsEnumerable();
             return FDb.Recipes
-                .Include(_ => _.Images)
+                //.Include(_ => _.Images)
                 .Include(_ => _.Clicks)
-                //.OrderByDescending(_ => _.Name) // FeedCalculator.CalculateScore(hClicks.Where(_0 => _0.RecipeId == _.Id).ToList())
                 .AsAsyncEnumerable();
         }
 
