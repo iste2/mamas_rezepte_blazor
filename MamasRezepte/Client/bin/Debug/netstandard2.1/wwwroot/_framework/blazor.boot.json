@@ -6,7 +6,7 @@
   "linkerEnabled": false,
   "resources": {
     "assembly": {
-      "MamasRezepte.Client.dll": "sha256-qXmKFXVbq50of1ajq5MuWOjg\/YKihZNkDOrKaQLwaKQ=",
+      "MamasRezepte.Client.dll": "sha256-SOSpLpb0+W5Fxi6eVVoL1aCcygtuKOpAvv\/UGGt16YM=",
       "System.Text.Json.dll": "sha256-HQeN+ZfHAERO+uW0fP0J9J3WV1hQ3vUIOWbqGSYBPp8=",
       "System.Runtime.CompilerServices.Unsafe.dll": "sha256-kL\/omZDwqByAi+lPdMeDmr3XjHcn4RVb+LmZ4mut1Yc=",
       "mscorlib.dll": "sha256-BaZPMj95+YNe3G4ckTGD6szZFwZeA2MOHn91zTGKDeU=",
@@ -63,7 +63,7 @@
       "Microsoft.JSInterop.WebAssembly.dll": "sha256-czNf3btAeBW\/vvID5LAfgcsNZ+GM3ssVuPaMflcg0rs="
     },
     "pdb": {
-      "MamasRezepte.Client.pdb": "sha256-4MhHiYkbyRrV+6izNKt0+ySxnC9MY6qtbR\/U4A8XZxo=",
+      "MamasRezepte.Client.pdb": "sha256-N0kgG77DM8oBW+NzszZtFev2LXZQ1XZyJKzT7KZSYYc=",
       "MamasRezepte.Shared.pdb": "sha256-\/HNeWBXXUxfQfCmVUf1GGz7Ngxg+8F7cuckutIOMgMw="
     },
     "runtime": {
