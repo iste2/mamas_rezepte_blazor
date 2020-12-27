@@ -25,6 +25,8 @@ namespace MamasRezepte.Client.State
         public IEnumerable<Click> FClicks { get; set; }
         public IEnumerable<RecipeImage> FImages { get; set; }
         public IEnumerable<RecipeToTagRelation> FRecipeToTagRelations { get; set; }
+        public IEnumerable<Ingredient> FIngredients { get; set; }
+        public IEnumerable<Product> FProducts { get; set; }
 
         public async Task InitializeIndex(NavigationManager _Nav, bool _IncludeClicks = true, bool _IncludeImages = false)
         {
@@ -33,6 +35,18 @@ namespace MamasRezepte.Client.State
             await LoadDurationCategories(_Nav);
 
             await LoadFeed(_Nav, _IncludeClicks: _IncludeClicks, _IncludeImages: _IncludeImages);
+        }
+
+        public async Task LoadMissingData(NavigationManager _Nav)
+        {
+            if (FCategories == null) await LoadCategories(_Nav);
+            if (FDurationCategories == null) await LoadDurationCategories(_Nav);
+            if (FTags == null) await LoadTags(_Nav);
+            if (FClicks == null) await LoadClicks(_Nav);
+            if (FImages == null) await LoadImages(_Nav);
+            if (FRecipeToTagRelations == null) await LoadRecipeToTagRealtions(_Nav);
+            if (FIngredients == null) await LoadIngredients(_Nav);
+            if (FProducts == null) await LoadProducts(_Nav);
         }
 
         public void UpdateFilter(Filter _Filter)
@@ -144,6 +158,26 @@ namespace MamasRezepte.Client.State
             var hHttp = new HttpClient();
 
             FRecipeToTagRelations = await hHttp.GetFromJsonAsync<IEnumerable<RecipeToTagRelation>>(Path.Combine(_Nav.BaseUri, "api/recipetotagrelations"));
+
+            NotifyStateChanged();
+
+        }
+
+        public async Task LoadIngredients(NavigationManager _Nav)
+        {
+            var hHttp = new HttpClient();
+
+            FIngredients = await hHttp.GetFromJsonAsync<IEnumerable<Ingredient>>(Path.Combine(_Nav.BaseUri, "api/ingredients"));
+
+            NotifyStateChanged();
+
+        }
+
+        public async Task LoadProducts(NavigationManager _Nav)
+        {
+            var hHttp = new HttpClient();
+
+            FProducts = await hHttp.GetFromJsonAsync<IEnumerable<Product>>(Path.Combine(_Nav.BaseUri, "api/products"));
 
             NotifyStateChanged();
 

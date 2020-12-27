@@ -1,22 +1,27 @@
 ﻿
 @using Const
 @using MamasRezepte.Shared.Models
+@using MamasRezepte.Client.State
+
+@inject DataStateMain State 
 
 <div class="row" data-masonry='{"percentPosition": true }'>
 
     @foreach (var hElement in FElements)
     {
-        <div class="col col-12 col-sm-6 col-lg-4 mb-4">
-            @if (FImages != null && FImages.Any())
-            {
-                <RecipeCardImage FTitle="@hElement.Name" FImageData="@FImages.FirstOrDefault(_ => _.RecipeId == hElement.Id).ImageData" />
-            }
-            else
-            {
-                <RecipeCardNoImage FTitle="@hElement.Name" FColor="@ColorConsts.RandomColor()" />
-            }
+    <div class="col col-12 col-sm-6 col-lg-4 mb-4">
+        @if (FImages != null && FImages.Any())
+        {
+            Console.WriteLine("WithImage " + hElement.Name);
+            <RecipeCardImage FRecipe="@hElement" FImageData="@FImages.FirstOrDefault(_ => _.RecipeId == hElement.Id).ImageData"/>
+        }
+        else
+        {
+            Console.WriteLine("NoImage " + hElement.Name);
+            <RecipeCardNoImage FTitle="@hElement.Name" FColor="@ColorConsts.RandomColor()" />
+        }
 
-        </div>
+    </div>
     }
 
 

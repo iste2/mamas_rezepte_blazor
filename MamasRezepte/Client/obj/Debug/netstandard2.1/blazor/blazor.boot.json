@@ -6,7 +6,7 @@
   "linkerEnabled": false,
   "resources": {
     "assembly": {
-      "MamasRezepte.Client.dll": "sha256-m0izIwKlJ2ePOB5woR5WdnFFKfr95FaCpgNJYvlqS2s=",
+      "MamasRezepte.Client.dll": "sha256-k4445tIQrkP40i5QvS5GQ24\/FLim\/fi+TnbCF4BSjas=",
       "System.Text.Json.dll": "sha256-HQeN+ZfHAERO+uW0fP0J9J3WV1hQ3vUIOWbqGSYBPp8=",
       "System.Runtime.CompilerServices.Unsafe.dll": "sha256-kL\/omZDwqByAi+lPdMeDmr3XjHcn4RVb+LmZ4mut1Yc=",
       "mscorlib.dll": "sha256-BaZPMj95+YNe3G4ckTGD6szZFwZeA2MOHn91zTGKDeU=",
@@ -47,7 +47,7 @@
       "BlazorInputFile.dll": "sha256-C0KrMmLQQE68cd1+FNwIOW89nNGbOH48hRxQAoSBaaA=",
       "Microsoft.JSInterop.dll": "sha256-LqwA2Rpm96Ualk0IhLZar87kfRCyKHzHTeTt2jYhm7M=",
       "Blazored.Toast.dll": "sha256-SnlpX7tqR4Or48+LUVR7CMv3xLhjy1JBnmDfQCb2GwM=",
-      "MamasRezepte.Shared.dll": "sha256-1Fsk\/9dp7+dUF9\/hydqkzvJy+GOvWvJFc4cSWZ\/\/5OA=",
+      "MamasRezepte.Shared.dll": "sha256-c6Fl38hCHv5\/9D5ZoBY3yOfmiPovK\/V6F7udzX8cXNI=",
       "Microsoft.AspNetCore.Components.WebAssembly.dll": "sha256-FJ+rEgcx6ljTxwbRXZSUGfrDKpVvOxHCSfNxbnXNn3M=",
       "Microsoft.Extensions.DependencyInjection.dll": "sha256-oK1Bjv95fH+hSbogUkJE+xDAI203kJG6lL6Sm\/NuPWg=",
       "Microsoft.Extensions.Primitives.dll": "sha256-y\/FyJQOcW2TOcTp7Iuv8brGBzL5ZP0oJdG7ysK+gtKc=",
@@ -63,8 +63,8 @@
       "Microsoft.JSInterop.WebAssembly.dll": "sha256-czNf3btAeBW\/vvID5LAfgcsNZ+GM3ssVuPaMflcg0rs="
     },
     "pdb": {
-      "MamasRezepte.Client.pdb": "sha256-CUu5A8R6zzHqU4AN0t6dsHRmfn21ccSN1a\/47J+omxA=",
-      "MamasRezepte.Shared.pdb": "sha256-UUxpnwdbKcBiRQDfuVa9nA2\/fCoBrpAMtDpAkpRcUjQ="
+      "MamasRezepte.Client.pdb": "sha256-0gU4QN60l0Jbok3FYKtfr0RKLpyVq+rIP5TMcrCIIsM=",
+      "MamasRezepte.Shared.pdb": "sha256-3OM\/qETdOdjj3BWKRFhJin\/Mbm++Y3\/JS24SPt57wX8="
     },
     "runtime": {
       "dotnet.3.2.0.js": "sha256-mPoqx7XczFHBWk3gRNn0hc9ekG1OvkKY4XiKRY5Mj5U=",
