@@ -24,28 +24,9 @@ namespace MamasRezepte.Server.Controllers
 
         // GET: api/<RecipesController>
         [HttpGet]
-        public async Task<IAsyncEnumerable<Recipe>> Get(string search, string tags, string categories, string durationcategories)
+        public async Task<List<Recipe>> Get()
         {
-            var hFilter = FilterConverter.ParseQuery(search, tags, categories, durationcategories);
-
-            if(hFilter == null)
-            {
-                return FDb.Recipes
-                    //.Include(_ => _.Images)
-                    .Include(_ => _.Category)
-                    .Include(_ => _.Tags)
-                    .Include(_ => _.DurationCategory)
-                    .AsAsyncEnumerable();
-            } else
-            {
-                return FDb.Recipes
-                    //.Include(_ => _.Images)
-                    .Include(_ => _.Category)
-                    .Include(_ => _.Tags)
-                    .Include(_ => _.DurationCategory)
-                    .AsAsyncEnumerable();
-            }
-                        
+            return await FDb.Recipes.ToListAsync();           
         }
 
         // GET api/<RecipesController>/5

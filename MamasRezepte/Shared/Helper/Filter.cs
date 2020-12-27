@@ -14,7 +14,7 @@ namespace MamasRezepte.Shared.Helper
         public List<Tag> FTags { get; set; } = new List<Tag>();
         public string FSearch { get; set; } = "";
 
-        public bool IsEmpty() => !FTags.Any() && !FDurationCategories.Any() && !FCategories.Any() && !FSearch.Any();
+        public bool IsEmpty() => !FTags.Any() && !FDurationCategories.Any() && !FCategories.Any() && FSearch.Length == 0; // maybe wrong result?
 
         public void AddToFilter(object _Object)
         {
@@ -85,6 +85,11 @@ namespace MamasRezepte.Shared.Helper
         public void ClearSearch()
         {
             FSearch = "";
+        }
+
+        public bool HasSearch()
+        {
+            return FSearch != null && FSearch != "";
         }
 
     }

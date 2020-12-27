@@ -47,33 +47,35 @@
 </div>
 
 @* Filter *@
-<div class="collapse @(!FFilterCollapsed ? "show" : "")" style="margin-bottom:32px;margin-top:-32px;" id="collapseExample">
-    <div class="card card-body">
-        @if (FCategories != null && FDurationCategories != null && FTags != null)
-        {
+@if (State.FCategories != null && State.FDurationCategories != null && State.FTags != null && State.FFilter != null)
+{
+    <div class="collapse @(!FFilterCollapsed ? "show" : "")" style="margin-bottom:32px;margin-top:-32px;" id="collapseExample">
+        <div class="card card-body">
+
             <div>
                 <a>Kategorien</a>
-                @foreach (var hElement in FCategories)
+                @foreach (var hElement in State.FCategories)
                 {
-                    <div @onclick="@(() => EditFilter(hElement))" class="badge rounded-pill @(!FFilter.Contains(hElement) ? "bg-secondary" : "")" style="@(FFilter.Contains(hElement) ? "background:orange;" : "")">@hElement.Name</div>
+                    <div @onclick="@(() => EditFilter(hElement))" class="badge rounded-pill @(!State.FFilter.Contains(hElement) ? "bg-secondary" : "")" style="@(State.FFilter.Contains(hElement) ? "background:orange;" : "")">@hElement.Name</div>
                 }
                 <div class="dropdown-divider" style="margin-top:12px;"></div>
                 <a>Dauer</a>
-                @foreach (var hElement in FDurationCategories)
+                @foreach (var hElement in State.FDurationCategories)
                 {
-                    <div @onclick="@(() => EditFilter(hElement))" class="badge rounded-pill @(!FFilter.Contains(hElement) ? "bg-secondary" : "")" style="@(FFilter.Contains(hElement) ? "background:orange;" : "")">@hElement.Name</div>
+                    <div @onclick="@(() => EditFilter(hElement))" class="badge rounded-pill @(!State.FFilter.Contains(hElement) ? "bg-secondary" : "")" style="@(State.FFilter.Contains(hElement) ? "background:orange;" : "")">@hElement.Name</div>
                 }
                 <div class="dropdown-divider" style="margin-top:12px;"></div>
                 <a>Beliebte Tags</a>
-                @foreach (var hElement in FTags)
+                @foreach (var hElement in State.FTags)
                 {
-                    <div @onclick="@(() => EditFilter(hElement))" class="badge rounded-pill @(!FFilter.Contains(hElement) ? "bg-secondary" : "")" style="@(FFilter.Contains(hElement) ? "background:orange;" : "")">@hElement.Name</div>
+                    <div @onclick="@(() => EditFilter(hElement))" class="badge rounded-pill @(!State.FFilter.Contains(hElement) ? "bg-secondary" : "")" style="@(State.FFilter.Contains(hElement) ? "background:orange;" : "")">@hElement.Name</div>
                 }
             </div>
-        }
 
+        </div>
     </div>
-</div>
+}
+
 
 @* Search parameters *@
 @if (!State.FFilter.IsEmpty())
@@ -106,22 +108,15 @@
 }
 
 @* Masonry *@
-@if (FFeed != null)
+@if (State.FFeed != null)
 {
-    <Masonry FElements="FFeed.AsEnumerable()" />
+    <Masonry FElements="State.FFeed" />
 }
 
 
 @code {
 
-    private IEnumerable<Recipe> FFeed { get; set; }
-    private IEnumerable<Category> FCategories { get; set; }
-    private IEnumerable<Tag> FTags { get; set; }
-    private IEnumerable<DurationCategory> FDurationCategories { get; set; }
-
-    private Filter FFilter { get; set; }
     private string FSearch { get; set; }
-
     private bool FFilterCollapsed { get; set; } = true;
 
     protected override void OnInitialized()
@@ -131,72 +126,41 @@
 
     protected override async Task OnInitializedAsync()
     {
-        await LoadFeed();
+        await State.InitializeIndex(Nav);
 
-        FCategories = (await Http.GetFromJsonAsync<IEnumerable<Category>>(Path.Combine(Nav.BaseUri, "api/categories/")))
-        .OrderBy(_ => _.Name);
-
-        FTags = (await Http.GetFromJsonAsync<IEnumerable<Tag>>(Path.Combine(Nav.BaseUri, "api/Tags/ByUsageFrequency")))
-            .OrderBy(_ => _.Name)
-            .Take(15);
-
-        FDurationCategories = await Http.GetFromJsonAsync<IEnumerable<DurationCategory>>(Path.Combine(Nav.BaseUri, "api/durationcategories/"));
-
-        FFilter = new Filter();
+        this.StateHasChanged();
     }
 
     private async Task LoadFeed()
     {
-        if(State.FFilter.IsEmpty())
-        {
-            FFeed = (await Http.GetFromJsonAsync<IEnumerable<Recipe>>(Path.Combine(Nav.BaseUri, "api/recipes/feed")))
-                .OrderByDescending(_ => FeedCalculator.CalculateScore(_.Clicks.ToList())).ToList();
-        } else
-        {
-            FFeed = (await Http.GetFromJsonAsync<IEnumerable<Recipe>>(Path.Combine(Nav.BaseUri, "api/recipes")))
-                .ToList()
-                .Where(_ => _.Name.Contains(State.FFilter.FSearch)
-                    || State.FFilter.FCategories.Any(_0 => _.Category.Name == _0.Name)
-                    || State.FFilter.FDurationCategories.Any(_0 => _.DurationCategory.Name == _0.Name)
-                    || State.FFilter.FTags.Select(_0 => _0.Name).Any(_0 => _.Tags.Select(_1 => _1.Tag.Name).Contains(_0)))
-                //.Where(_ => _.Name.Contains(State.FFilter.FSearch))
-                .ToList();
-        }
+        await State.LoadFeed(Nav);
 
         this.StateHasChanged();
     }
 
     private async Task EditFilter(object _Object)
     {
-        if (!FFilter.Contains(_Object))
+        if (!State.FFilter.Contains(_Object) && _Object != null)
         {
-            FFilter.AddToFilter(_Object);
+            State.FFilter.AddToFilter(_Object);
         }
         else
         {
-            FFilter.RemoveFromFilter(_Object);
+            State.FFilter.RemoveFromFilter(_Object);
         }
 
-        State.UpdateFilter(FFilter);
-
-        LoadFeed();
-
-        State.OnChange += StateHasChanged;
-        State.NotifyStateChanged();
+        await State.LoadFeed(Nav);
         this.StateHasChanged();
+
     }
 
     private async Task ClearSearch()
     {
-        FFilter.ClearFilter();
+        State.FFilter.ClearFilter();
         FSearch = "";
 
-        State.UpdateFilter(FFilter);
+        await State.LoadFeed(Nav);
 
-        LoadFeed();
-
-        State.OnChange += StateHasChanged;
-        State.NotifyStateChanged();
         this.StateHasChanged();
 
     }
