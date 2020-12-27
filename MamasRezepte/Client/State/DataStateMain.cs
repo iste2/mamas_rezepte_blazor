@@ -26,13 +26,13 @@ namespace MamasRezepte.Client.State
         public IEnumerable<RecipeImage> FImages { get; set; }
         public IEnumerable<RecipeToTagRelation> FRecipeToTagRelations { get; set; }
 
-        public async Task InitializeIndex(NavigationManager _Nav)
+        public async Task InitializeIndex(NavigationManager _Nav, bool _IncludeClicks = true, bool _IncludeImages = false)
         {
             await LoadCategories(_Nav);
             await LoadTags(_Nav);
             await LoadDurationCategories(_Nav);
 
-            await LoadFeed(_Nav);
+            await LoadFeed(_Nav, _IncludeClicks: _IncludeClicks, _IncludeImages: _IncludeImages);
         }
 
         public void UpdateFilter(Filter _Filter)
@@ -48,20 +48,10 @@ namespace MamasRezepte.Client.State
 
             FFeed = await hHttp.GetFromJsonAsync<IEnumerable<Recipe>>(Path.Combine(_Nav.BaseUri, "api/recipes"));
 
-            // Include reference objects
-            if(_IncludeClicks)
-            {
-                await LoadClicks(_Nav);
-            }
-
-            if (_IncludeImages)
-            {
-                await LoadImages(_Nav);
-            }
-
             // Filter
             if(FFilter.IsEmpty())
             {
+                if (FClicks == null) await LoadClicks(_Nav);
                 FFeed = FFeed.OrderByDescending(_ => FeedCalculator.CalculateScore(FClicks.Where(_0 => _.Id == _0.RecipeId).ToList()));
             } else
             {
@@ -70,25 +60,25 @@ namespace MamasRezepte.Client.State
                 if (FTags == null) await LoadTags(_Nav);
                 if (FRecipeToTagRelations == null) await LoadRecipeToTagRealtions(_Nav);
                 
-                if(FFilter.HasSearch())
-                {
-                    FFeed = FFeed.Where(_ => 
-                        _.Name.Contains(FFilter.FSearch, StringComparison.OrdinalIgnoreCase)
-                        && FFilter.FCategories.Any(_0 => _0.Id == _.CategoryId)
-                        && FFilter.FDurationCategories.Any(_0 => _0.Id == _.DurationCategoryId)
-                        || FFilter.FTags.Any(_0 => FRecipeToTagRelations.Where(_1 => _1.RecipeId == _.Id).Any(_1 => _1.TagId == _0.Id))
-                    );
-                } else
-                {
-                    FFeed = FFeed.Where(_ =>
-                        FFilter.FCategories.Any(_0 => _0.Id == _.CategoryId)
-                        && FFilter.FDurationCategories.Any(_0 => _0.Id == _.DurationCategoryId)
-                        || FFilter.FTags.Any(_0 => FRecipeToTagRelations.Where(_1 => _1.RecipeId == _.Id).Any(_1 => _1.TagId == _0.Id))
-                    );
-                }
-                
+                FFeed = FFeed.Where(_ => 
+                    (FFilter.HasSearch() ? _.Name.Contains(FFilter.FSearch, StringComparison.OrdinalIgnoreCase) : true)
+                    && (FFilter.FCategories.Any() ? FFilter.FCategories.Any(_0 => _0.Id == _.CategoryId) : true)
+                    && (FFilter.FDurationCategories.Any() ? FFilter.FDurationCategories.Any(_0 => _0.Id == _.DurationCategoryId) : true)
+                    && (FFilter.FTags.Any() ? FFilter.FTags.Any(_0 => FRecipeToTagRelations.Where(_1 => _1.RecipeId == _.Id).Any(_1 => _1.TagId == _0.Id)) : true)
+                );
+
             }
-            
+
+            if(_IncludeImages)
+            {
+                await LoadImages(_Nav);
+            }
+
+            Console.WriteLine("Feed:");
+            foreach (var hRecipe in FFeed)
+            {
+                Console.WriteLine(" - " + hRecipe.Name);
+            }
 
             NotifyStateChanged();
 

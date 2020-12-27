@@ -110,7 +110,7 @@
 @* Masonry *@
 @if (State.FFeed != null)
 {
-    <Masonry FElements="State.FFeed" />
+    <Masonry FElements="State.FFeed" FImages="State.FImages" />
 }
 
 
@@ -126,14 +126,14 @@
 
     protected override async Task OnInitializedAsync()
     {
-        await State.InitializeIndex(Nav);
+        await State.InitializeIndex(Nav, _IncludeImages: true);
 
         this.StateHasChanged();
     }
 
     private async Task LoadFeed()
     {
-        await State.LoadFeed(Nav);
+        await State.LoadFeed(Nav, _IncludeImages: true);
 
         this.StateHasChanged();
     }
@@ -149,7 +149,7 @@
             State.FFilter.RemoveFromFilter(_Object);
         }
 
-        await State.LoadFeed(Nav);
+        await State.LoadFeed(Nav, _IncludeImages: true);
         this.StateHasChanged();
 
     }
@@ -159,7 +159,7 @@
         State.FFilter.ClearFilter();
         FSearch = "";
 
-        await State.LoadFeed(Nav);
+        await State.LoadFeed(Nav, _IncludeImages: true);
 
         this.StateHasChanged();
 
