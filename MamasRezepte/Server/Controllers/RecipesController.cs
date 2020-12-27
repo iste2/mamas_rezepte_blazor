@@ -6,6 +6,7 @@ using MamasRezepte.Shared.Helper;
 using MamasRezepte.Shared.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -25,9 +26,7 @@ namespace MamasRezepte.Server.Controllers
         [HttpGet]
         public async Task<List<Recipe>> Get()
         {
-            return await FDb.Recipes
-                .Include(_ => _.Images)
-                .ToListAsync();
+            return await FDb.Recipes.ToListAsync();           
         }
 
         // GET api/<RecipesController>/5
@@ -43,9 +42,8 @@ namespace MamasRezepte.Server.Controllers
         {
             var hClicks = FDb.Clicks.AsEnumerable();
             return FDb.Recipes
-                .Include(_ => _.Images)
+                //.Include(_ => _.Images)
                 .Include(_ => _.Clicks)
-                //.OrderByDescending(_ => _.Name) // FeedCalculator.CalculateScore(hClicks.Where(_0 => _0.RecipeId == _.Id).ToList())
                 .AsAsyncEnumerable();
         }
 

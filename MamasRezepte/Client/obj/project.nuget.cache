@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Q2lXacpEag/6zDdVhDqw7OO3TS/VjtUV8rcdeCUpeBDVdwBYwbaNs7v59UUS9RCpAcVgAUox+mgpDirvv5bvgw==",
+  "dgSpecHash": "9vYx5Lvux/fE9T5UJNpVqJh74KR9es7DQySGeRHB+5AZhDJTQpCZSSYWx3Amqr5eFX61cRrqi6zDsUqBYldJ6A==",
   "success": true,
   "projectFilePath": "F:\\Programmieren\\dotnet\\mamas_rezepte_blazor\\MamasRezepte\\Client\\MamasRezepte.Client.csproj",
   "expectedPackageFiles": [
@@ -34,6 +34,7 @@
     "C:\\Users\\Lukas\\.nuget\\packages\\microsoft.extensions.primitives\\3.1.6\\microsoft.extensions.primitives.3.1.6.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\microsoft.jsinterop\\3.1.6\\microsoft.jsinterop.3.1.6.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\microsoft.jsinterop.webassembly\\3.2.1\\microsoft.jsinterop.webassembly.3.2.1.nupkg.sha512",
+    "C:\\Users\\Lukas\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",

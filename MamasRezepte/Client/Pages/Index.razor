@@ -5,95 +5,176 @@
 @using MamasRezepte.Shared.Models
 @using MamasRezepte.Shared.Helper
 @using System.IO
+@using Newtonsoft.Json
+
+@implements IDisposable
 
 @inject HttpClient Http
 @inject NavigationManager Nav
 @inject IToastService Toast
+@inject DataStateMain State
 
 <div style="padding-top: 32px; "></div>
 
-@* Headline *@
-@*
-    <div style="margin-bottom: 32px;">
-        <h1 style="margin-bottom:12px; font-weight:bold;">Mamas Rezepte</h1>
-        <p style="color:gray; font-weight:bold;"> Hier sind all die leckeren Rezepte von Mama gesammelt. Suche nach bestimmten Rezepten oder durchstöbere den Feed. Guten Appetit! :)</p>
-    </div>*@
-
-<div class="row d-flex justify-content-center" style="margin-bottom:48px;">
-    <div class="col-12 col-sm-4">
-        <div class="d-flex justify-content-center">
-            <img src="/Assets/logo.png" alt="" style="height:150px;">
+@if (State.FFilter.IsEmpty())
+{
+    <div class="row d-flex justify-content-center" style="margin-bottom:48px;">
+        <div class="col-12 col-sm-4">
+            <div class="d-flex justify-content-center">
+                <img src="/Assets/logo.png" alt="" style="height:150px;">
+            </div>
+        </div>
+        <div class="col-12 col-sm-8">
+            <h1 class="text-center text-sm-start" style="margin-bottom:12px; font-weight:bold;width:100%;">Mamas Rezepte</h1>
+            @*<p class="text-center text-sm-start" style="color:gray; font-weight:bold; width:100%;"> Hier sind all die leckeren Rezepte von Mama gesammelt. Suche nach bestimmten Rezepten oder durchstöbere den Feed. Guten Appetit! :)</p>*@
         </div>
     </div>
-    <div class="col-12 col-sm-8">
-        <h1 style="margin-bottom:12px; font-weight:bold;">Mamas Rezepte</h1>
-        <p style="color:gray; font-weight:bold;"> Hier sind all die leckeren Rezepte von Mama gesammelt. Suche nach bestimmten Rezepten oder durchstöbere den Feed. Guten Appetit! :)</p>
-    </div>
-</div>
+}
+
 
 @* SearchBar *@
 <div style="margin-bottom: 64px;">
     <div class="p-2 rounded rounded-pill shadow mb-4">
         <div class="input-group">
-            <input type="search" placeholder="Wonach suchst du?" aria-describedby="button-addon1" class="form-control border-0">
+            <input @bind="@FSearch" type="search" placeholder="Wonach suchst du?" aria-describedby="button-addon1" class="form-control border-0">
             <div class="input-group-append">
-                <button id="button-addon1" type="submit" class="btn btn-link" style="color:orange;"><i class="fa fa-search"></i></button>
-                <button id="button-addon2" rimary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample" class="btn btn-link" style="color:orange;"><i class="fa fa-filter"></i></button>
+                <button @onclick="@(() => EditFilter(FSearch))" id="button-addon1" type="submit" class="btn btn-link" style="color:orange;"><i class="fa fa-search"></i></button>
+                @*<button id="button-addon2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample" class="btn btn-link" style="color:orange;"><i class="fa fa-filter"></i></button>*@
+                <button @onclick="CollapseFilter" id="button-addon2" type="button" class="btn btn-link" style="color:orange;"><i class="fa fa-filter"></i></button>
             </div>
         </div>
     </div>
 </div>
 
 @* Filter *@
-<div class="collapse" style="margin-bottom:32px;margin-top:-32px;" id="collapseExample">
-    <div class="card card-body">
-        <div>
-            <p>Kategorien</p>
-            @foreach (var hElement in Categories)
-            {
-                <div class="badge rounded-pill bg-secondary">@hElement</div>
-            }
-            <p>Tags</p>
-            @foreach (var hElement in Tags)
-            {
-                <div class="badge rounded-pill bg-secondary">@hElement</div>
-            }
+@if (State.FCategories != null && State.FDurationCategories != null && State.FTags != null && State.FFilter != null)
+{
+    <div class="collapse @(!FFilterCollapsed ? "show" : "")" style="margin-bottom:32px;margin-top:-32px;" id="collapseExample">
+        <div class="card card-body">
+
+            <div>
+                <a>Kategorien</a>
+                @foreach (var hElement in State.FCategories)
+                {
+                    <div @onclick="@(() => EditFilter(hElement))" class="badge rounded-pill @(!State.FFilter.Contains(hElement) ? "bg-secondary" : "")" style="@(State.FFilter.Contains(hElement) ? "background:orange;" : "")">@hElement.Name</div>
+                }
+                <div class="dropdown-divider" style="margin-top:12px;"></div>
+                <a>Dauer</a>
+                @foreach (var hElement in State.FDurationCategories)
+                {
+                    <div @onclick="@(() => EditFilter(hElement))" class="badge rounded-pill @(!State.FFilter.Contains(hElement) ? "bg-secondary" : "")" style="@(State.FFilter.Contains(hElement) ? "background:orange;" : "")">@hElement.Name</div>
+                }
+                <div class="dropdown-divider" style="margin-top:12px;"></div>
+                <a>Beliebte Tags</a>
+                @foreach (var hElement in State.FTags)
+                {
+                    <div @onclick="@(() => EditFilter(hElement))" class="badge rounded-pill @(!State.FFilter.Contains(hElement) ? "bg-secondary" : "")" style="@(State.FFilter.Contains(hElement) ? "background:orange;" : "")">@hElement.Name</div>
+                }
+            </div>
+
+        </div>
+    </div>
+}
+
+
+@* Search parameters *@
+@if (!State.FFilter.IsEmpty())
+{
+    <div class="" style="margin-bottom:32px; margin-top:-16px; padding-left:12px; padding-right:12px;">
+        <div class="row text-end">
+            <a @onclick="ClearSearch" class="pull-right clickable" style="color:dimgrey;"><i class="fa fa-times"></i></a>
         </div>
 
+        <div class="row">
+            <div class="col-12">
+                <h2>Suche nach "@(State.FFilter.FSearch)"</h2>
+            </div>
+            <div class="col-12">
+                @foreach (var hCategory in State.FFilter.FCategories)
+                {
+                    <div @onclick="@(() => EditFilter(hCategory))" class="badge rounded-pill" style="background:orange;">@hCategory.Name</div>
+                }
+                @foreach (var hDurationCategory in State.FFilter.FDurationCategories)
+                {
+                    <div @onclick="@(() => EditFilter(hDurationCategory))" class="badge rounded-pill" style="background:orange;">@hDurationCategory.Name</div>
+                }
+                @foreach (var hTag in State.FFilter.FTags)
+                {
+                    <div @onclick="@(() => EditFilter(hTag))" class="badge rounded-pill" style="background:orange;">@hTag.Name</div>
+                }
+            </div>
+        </div>
     </div>
-</div>
-
+}
 
 @* Masonry *@
-@if (FFeed != null)
+@if (State.FFeed != null)
 {
-    <Masonry FElements="FFeed.AsEnumerable()" />
+    <Masonry FElements="State.FFeed" FImages="State.FImages" />
 }
 
 
 @code {
 
-    private List<string> Elements = new List<string> {
-        "Soße", "Hamburger", "Spinat", "Gulasch", "Fritten", "Fischstäbchen", "Frikadellen", "Kartoffelsuppe", "Entenbrust", "Blutwurst",
-        "Kartoffelsalat", "Erbsensalat", "Fondue", "Lachs", "Nudeln",
-        "Soße", "Hamburger", "Spinat", "Gulasch", "Fritten", "Fischstäbchen", "Frikadellen", "Kartoffelsuppe", "Entenbrust", "Blutwurst",
-        "Kartoffelsalat", "Erbsensalat", "Fondue", "Lachs", "Nudeln",
-    };
+    private string FSearch { get; set; }
+    private bool FFilterCollapsed { get; set; } = true;
 
-    private List<string> Categories = new List<string> {
-        "Hauptspeise", "Vorspeise", "Nachspeise", "Kuchen und Gebäck", "Salate", "Beilagen"
-    };
-
-    private List<string> Tags = new List<string> {
-        "Alltag", "Festtag", "Weihnachten", "einfach", "schwierig"
-    };
-
-    private IEnumerable<Recipe> FFeed { get; set; }
+    protected override void OnInitialized()
+    {
+        State.OnChange += StateHasChanged;
+    }
 
     protected override async Task OnInitializedAsync()
     {
-        FFeed = (await Http.GetFromJsonAsync<IEnumerable<Recipe>>(Path.Combine(Nav.BaseUri, "api/recipes/feed")))
-            .OrderByDescending(_ => FeedCalculator.CalculateScore(_.Clicks.ToList()));
+        await State.InitializeIndex(Nav, _IncludeImages: true);
+
+        this.StateHasChanged();
     }
+
+    private async Task LoadFeed()
+    {
+        await State.LoadFeed(Nav, _IncludeImages: true);
+
+        this.StateHasChanged();
+    }
+
+    private async Task EditFilter(object _Object)
+    {
+        if (!State.FFilter.Contains(_Object) && _Object != null)
+        {
+            State.FFilter.AddToFilter(_Object);
+        }
+        else
+        {
+            State.FFilter.RemoveFromFilter(_Object);
+        }
+
+        await State.LoadFeed(Nav, _IncludeImages: true);
+        this.StateHasChanged();
+
+    }
+
+    private async Task ClearSearch()
+    {
+        State.FFilter.ClearFilter();
+        FSearch = "";
+
+        await State.LoadFeed(Nav, _IncludeImages: true);
+
+        this.StateHasChanged();
+
+    }
+
+    private void CollapseFilter()
+    {
+        FFilterCollapsed = !FFilterCollapsed;
+        this.StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        State.OnChange -= StateHasChanged;
+    }
+
 
 }
