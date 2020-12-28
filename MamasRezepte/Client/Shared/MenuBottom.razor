@@ -1,19 +1,51 @@
 ﻿
+@using MamasRezepte.Client.State
+
+@inject DataStateDetail StateDetail
+
+@implements IDisposable
 
 <nav class="navbar fixed-bottom navbar-light border-top-2" style="background:white;border-top:1px solid orange;">
     <div class="container-fluid justify-content-center" style="">
         <ul class="nav justify-content-around" style="width:100%;max-width:750px;">
             <li class="nav-item">
-                <a class="nav-link active" style="color:orange;"><i class="fa fa-compass fs-3"></i></a>
+                <NavLink class="nav-link" href="/" Match="NavLinkMatch.All"><i class="fa fa-compass fs-3"></i></NavLink>
             </li>
             <li class="nav-item">
-                <a class="nav-link" style="color:orange;"><i class="fa fa-plus-circle fs-3"></i></a>
+                <NavLink class="@(StateDetail.FRecipe == null ? "nav-link disabled" : "nav-link")" href="@(StateDetail.FRecipe != null ? $"/rezept/{ StateDetail.FRecipe.Id }" : "/rezept")" Match="NavLinkMatch.Prefix"><i class="fa fa-utensils fs-3"></i></NavLink>
+            </li>
+            <li class="nav-item">
+                <NavLink class="nav-link" href="/editor" Match="NavLinkMatch.Prefix"><i class="fa fa-plus-circle fs-3"></i></NavLink>
             </li>
         </ul>
     </div>
 </nav>
 
+<style>
+    .nav-link {
+        opacity: 0.5;
+        color:orange;
+    }
+
+    .nav-link.active {
+        opacity: 1.0;
+        color:orange;
+    }
+</style>
+
 
 @code {
+
+
+
+    protected override void OnInitialized()
+    {
+        StateDetail.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        StateDetail.OnChange -= StateHasChanged;
+    }
 
 }
