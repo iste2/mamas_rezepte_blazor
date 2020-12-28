@@ -34,3 +34,18 @@ jobs:
     - name: Publish
       run: dotnet publish
       working-directory: ${{env.work-dir}}
+    -name: Upload Shared Build Artifact
+     uses: actions/upload-artifact@v2
+     with:
+      name: MamasRezepte.Shared
+      path: /home/runner/work/mamas_rezepte_blazor/mamas_rezepte_blazor/MamasRezepte/Shared/bin/Debug/netstandard2.1/publish/
+    -name: Upload Client Build Artifact
+     uses: actions/upload-artifact@v2
+     with:
+      name: MamasRezepte.Client
+      path: /home/runner/work/mamas_rezepte_blazor/mamas_rezepte_blazor/MamasRezepte/Client/bin/Debug/netstandard2.1/publish/
+    -name: Upload Server Build Artifact
+     uses: actions/upload-artifact@v2
+     with:
+      name: MamasRezepte.Server
+      path: /home/runner/work/mamas_rezepte_blazor/mamas_rezepte_blazor/MamasRezepte/Server/bin/Debug/netstandard2.1/publish/
