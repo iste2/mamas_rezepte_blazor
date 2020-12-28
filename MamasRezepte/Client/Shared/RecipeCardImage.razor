@@ -20,38 +20,15 @@
     [Parameter]
     public Recipe FRecipe { get; set; }
 
-    [Parameter]
-    public string FImageData { get; set; }
+    //[Parameter]
+    //public string FImageData { get; set; }
 
-    //private string FImageData => State.FImages.FirstOrDefault(_ => _.RecipeId == FRecipe.Id).ImageData;
+    private string FImageData => State.FImages.FirstOrDefault(_ => _.RecipeId == FRecipe.Id).ImageData;
 
     private string FImageSrc => $"data:image/jpeg;base64,{ FImageData }";
 
-    public async Task OpenRecipe()
+    public void OpenRecipe()
     {
-        /*
-        await State.LoadMissingData(Nav);
-        
-        // assemble recipe
-        FRecipe.Images = State.FImages.Where(_ => _.RecipeId == FRecipe.Id).ToList();
-        FRecipe.Category = State.FCategories.FirstOrDefault(_ => _.Id == FRecipe.CategoryId);
-        FRecipe.DurationCategory = State.FDurationCategories.FirstOrDefault(_ => _.Id == FRecipe.DurationCategoryId);
-        FRecipe.Tags = State.FRecipeToTagRelations.Where(_ => _.RecipeId == FRecipe.Id).ToList();
-        foreach (var hRecipeToTagRelation in FRecipe.Tags)
-        {
-            hRecipeToTagRelation.Tag = State.FTags.FirstOrDefault(_ => _.Id == hRecipeToTagRelation.TagId);
-        }
-        FRecipe.Clicks = State.FClicks.Where(_ => _.RecipeId == FRecipe.Id);
-        FRecipe.Ingredients = State.FIngredients.Where(_ => _.RecipeId == FRecipe.Id).ToList();
-        foreach (var hIngredient in FRecipe.Ingredients)
-        {
-            hIngredient.Product = State.FProducts.FirstOrDefault(_ => _.Id == hIngredient.ProductId);
-        }
-
-        // set detail state
-        DetailState.SetRecipe(FRecipe);
-        */
-
         Nav.NavigateTo(Path.Combine(Nav.BaseUri, "rezept/", FRecipe.Id+""));
     }
 

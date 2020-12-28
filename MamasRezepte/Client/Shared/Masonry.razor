@@ -10,10 +10,10 @@
     @foreach (var hElement in FElements)
     {
     <div class="col col-12 col-sm-6 col-lg-4 mb-4">
-        @if (FImages != null && FImages.Any())
+        @if (State.FImages != null && State.FImages.Any())
         {
             Console.WriteLine("WithImage " + hElement.Name);
-            <RecipeCardImage FRecipe="@hElement" FImageData="@FImages.FirstOrDefault(_ => _.RecipeId == hElement.Id).ImageData"/>
+            <RecipeCardImage FRecipe="@hElement" />
         }
         else
         {
@@ -32,8 +32,8 @@
     [Parameter]
     public IEnumerable<Recipe> FElements { get; set; }
 
-    [Parameter]
-    public IEnumerable<RecipeImage> FImages { get; set; }
+    //[Parameter]
+    //public IEnumerable<RecipeImage> FImages { get; set; }
 
     [Parameter]
     public int FNumCols { get; set; }
