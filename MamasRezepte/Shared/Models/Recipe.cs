@@ -15,12 +15,12 @@ namespace MamasRezepte.Shared.Models
         public long DurationCategoryId { get; set; }
         public DurationCategory DurationCategory { get; set; }
         public int NumberOfPersons { get; set; }
-        public List<Ingredient> Ingredients { get; set; }
+        public IEnumerable<Ingredient> Ingredients { get; set; }
         public long CategoryId { get; set; }
         public Category Category { get; set; }
-        public List<RecipeToTagRelation> Tags { get; set; }
+        public IEnumerable<RecipeToTagRelation> Tags { get; set; }
         public DateTime PublishDate { get; set; }
-        public List<Click> Clicks { get; set; }
+        public IEnumerable<Click> Clicks { get; set; }
 
     }
 }

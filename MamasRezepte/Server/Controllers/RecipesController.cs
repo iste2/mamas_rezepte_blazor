@@ -33,7 +33,16 @@ namespace MamasRezepte.Server.Controllers
         [HttpGet("{_Id}")]
         public async Task<Recipe> Get(long _Id)
         {
-            return await FDb.Recipes.FindAsync(_Id);
+            return await FDb.Recipes
+                .Include(_ => _.Images)
+                .Include(_ => _.Tags)
+                    .ThenInclude(_ => _.Tag)
+                .Include(_ => _.Ingredients)
+                    .ThenInclude(_ => _.Product)
+                .Include(_ => _.Category)
+                .Include(_ => _.DurationCategory)
+                .Include(_ => _.Clicks)
+                .FirstOrDefaultAsync(_ => _.Id == _Id);
         }
 
         // GET api/<RecipesController>/Feed

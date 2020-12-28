@@ -1,9 +1,16 @@
 ﻿
+@using MamasRezepte.Shared.Models
+@using MamasRezepte.Client.State
+@using System.IO;
 
-<div class="card shadow-sm" style="border:hidden;">
+@inject NavigationManager Nav
+@inject DataStateMain State
+@inject DataStateDetail DetailState
+
+<div @onclick="OpenRecipe" class="card shadow-sm" style="border:hidden;">
     <img src="@FImageSrc" class="card-img-top" alt="" style="max-height:150px;  object-fit:cover;">
     <div class="card-body">
-        <h6 class="card-title">@FTitle</h6>
+        <h6 class="card-title">@FRecipe.Name</h6>
     </div>
 </div>
 
@@ -11,11 +18,18 @@
 @code {
 
     [Parameter]
-    public string FTitle { get; set; }
+    public Recipe FRecipe { get; set; }
 
-    [Parameter]
-    public string FImageData { get; set; }
+    //[Parameter]
+    //public string FImageData { get; set; }
+
+    private string FImageData => State.FImages.FirstOrDefault(_ => _.RecipeId == FRecipe.Id).ImageData;
 
     private string FImageSrc => $"data:image/jpeg;base64,{ FImageData }";
+
+    public void OpenRecipe()
+    {
+        Nav.NavigateTo(Path.Combine(Nav.BaseUri, "rezept/", FRecipe.Id+""));
+    }
 
 }

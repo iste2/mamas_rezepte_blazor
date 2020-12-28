@@ -22,6 +22,7 @@ namespace MamasRezepte.Client
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddScoped<DataStateEditor>();
             builder.Services.AddScoped<DataStateMain>();
+            builder.Services.AddScoped<DataStateDetail>();
             builder.Services.AddBlazoredToast();
             
 
