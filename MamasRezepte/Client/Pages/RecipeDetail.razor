@@ -52,7 +52,7 @@
 
     @* "Subline" *@
     <div style="margin-bottom: 12px;">
-        <span class="" style="color:gray; font-size:12px;">@(State.FRecipe.Clicks.Count()) Aufrufe  -  @(State.FRecipe.PublishDate.Date)</span>
+        <span class="" style="color:gray; font-size:12px;">@(State.FRecipe.Clicks.Count()) Aufrufe  -  @(State.FRecipe.PublishDate.Date.ToString("d"))</span>
     </div>
 
     <div style="margin-bottom: 16px;">
@@ -118,13 +118,18 @@
 
     protected override async Task OnInitializedAsync()
     {
+        // get recipe
         var hRecipe = await Http.GetFromJsonAsync<Recipe>(Path.Combine(Nav.BaseUri, "api/recipes", FId + ""));
+
+        // add click
+        await Http.PostAsJsonAsync<Click>(Path.Combine(Nav.BaseUri, "api/clicks"), new Click { RecipeId = hRecipe.Id, Time = DateTime.Now });
 
         State.SetRecipe(hRecipe);
         FNumPersons = hRecipe.NumberOfPersons;
 
         this.StateHasChanged();
     }
+
 
     public void EditNumPersons(int _Add)
     {
