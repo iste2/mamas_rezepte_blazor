@@ -29,6 +29,14 @@ namespace MamasRezepte.Client.State
                 Images = new List<RecipeImage>(),
                 Ingredients = new List<Ingredient>(),
             };
+
+            NotifyStateChanged();
+        }
+
+        public void SetRecipe(Recipe _Recipe)
+        {
+            FRecipe = _Recipe;
+            NotifyStateChanged();
         }
 
         public void UpdateEditorMode()

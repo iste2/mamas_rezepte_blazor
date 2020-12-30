@@ -24,7 +24,9 @@ namespace MamasRezepte.Server.Controllers
         [HttpGet]
         public async Task<List<RecipeToTagRelation>> Get()
         {
-            return await FDb.RecipeToTagRelations.ToListAsync();
+            return await FDb.RecipeToTagRelations
+                .Include(_ => _.Tag)
+                .ToListAsync();
         }
 
         // GET api/<RecipeToTagRelationsController>/5

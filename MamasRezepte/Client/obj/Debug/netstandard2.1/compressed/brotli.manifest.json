@@ -1,7 +1,7 @@
 {
   "FilesToCompress": [
     {
-      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\MdPOKS9uUTlda1Mt9UMrOb1KG8U_xDdSYNSXcg7rLUQ=.hash",
+      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\A0P1g50qqQiOiEI_PoiGXAvdyhcKoIgi5-Qfar3XS7E=.hash",
       "Source": "F:\\Programmieren\\dotnet\\mamas_rezepte_blazor\\MamasRezepte\\Client\\obj\\Debug\\netstandard2.1\\blazor\\unlinked\\MamasRezepte.Client.dll",
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/_bin\/MamasRezepte.Client.dll.br"
     },
@@ -276,7 +276,7 @@
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/_bin\/Microsoft.JSInterop.WebAssembly.dll.br"
     },
     {
-      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\uVfWK5kDUxGuZ5zpB7xPA3lxLsoxTU1h5ZWYjTl3YGA=.hash",
+      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\y3DLPvQSfK2KbT1in_YElRikXx5-FOudyPZV13T8tmM=.hash",
       "Source": "F:\\Programmieren\\dotnet\\mamas_rezepte_blazor\\MamasRezepte\\Client\\obj\\Debug\\netstandard2.1\\blazor\\unlinked\\MamasRezepte.Client.pdb",
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/_bin\/MamasRezepte.Client.pdb.br"
     },
@@ -306,12 +306,12 @@
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/blazor.webassembly.js.br"
     },
     {
-      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\aTR-h7gGi0alj0f6c4dJqgE2yUF0vweHNnO-Mf5edGQ=.hash",
+      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\UQZGqzy20D7tW0X27oVyXxVsvpXvhZoT9VqvsPAH-Ss=.hash",
       "Source": "F:\\Programmieren\\dotnet\\mamas_rezepte_blazor\\MamasRezepte\\Client\\obj\\Debug\\netstandard2.1\\blazor\\blazor.boot.json",
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/blazor.boot.json.br"
     },
     {
-      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\yJDKpcQF7zU767WaPcygJFdnGmMc7PZOEvxlcyELgvk=.hash",
+      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\TuNO8tEI3sXCePTMFDCJdtC_dtbDBDcVs9pVICnI-UU=.hash",
       "Source": "F:\\Programmieren\\dotnet\\mamas_rezepte_blazor\\MamasRezepte\\Client\\obj\\Debug\\netstandard2.1\\blazor\\service-worker-assets.js",
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\service-worker-assets.js.br"
     }

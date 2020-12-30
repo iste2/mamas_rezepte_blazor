@@ -67,6 +67,7 @@ namespace MamasRezepte.Server.Controllers
                     // save recipe
                     var hRecipe = new Recipe()
                     {
+                        Id = _Value.Id,
                         Name = _Value.Name,
                         Subtitle = _Value.Subtitle,
                         PublishDate = DateTime.Now,
@@ -74,8 +75,17 @@ namespace MamasRezepte.Server.Controllers
                         Instruction = _Value.Instruction,
                         CategoryId = _Value.CategoryId,
                         DurationCategoryId = _Value.DurationCategoryId,
+                        Tags = _Value.Tags.ToList(),
+                        Ingredients = _Value.Ingredients.ToList(),
                     };
-                    FDb.Add(hRecipe);
+                    if(FDb.Recipes.Any(_ => _.Id == hRecipe.Id))
+                    {
+                        FDb.Entry(hRecipe).State = EntityState.Modified;
+                    } else
+                    {
+                        FDb.Add(hRecipe);
+                    }
+                    
                     await FDb.SaveChangesAsync();
                     var hRecipeId = hRecipe.Id;
                 
@@ -83,54 +93,70 @@ namespace MamasRezepte.Server.Controllers
                     foreach(var hImage in _Value.Images)
                     {
                         hImage.RecipeId = hRecipeId;
-                        FDb.Add(hImage);
+                        if (FDb.Recipes.Any(_ => _.Id == hImage.Id))
+                        {
+                            FDb.Entry(hImage).State = EntityState.Modified;
+                        }
+                        else
+                        {
+                            FDb.Add(hImage);
+                        }
                     }
                     await FDb.SaveChangesAsync();
 
                     // save tags
                     foreach (var hRecipeToTagRelation in _Value.Tags)
                     {
-                        var hTagId = hRecipeToTagRelation.Tag.Id;
-                        if (hRecipeToTagRelation.Tag.Id == 0)
+                        // ensure tag exists
+                        if (!FDb.Tags.Any(_ => _.Name == hRecipeToTagRelation.Tag.Name))
                         {
                             FDb.Add(hRecipeToTagRelation.Tag);
                             await FDb.SaveChangesAsync();
-                            hTagId = hRecipeToTagRelation.Tag.Id;
+                            hRecipeToTagRelation.TagId = hRecipeToTagRelation.Tag.Id;
                         }
-                        var hNewRecipeToTagRelation = new RecipeToTagRelation()
+                        // add if tag is not assigned to recipe
+                        if(!FDb.RecipeToTagRelations.Any(_ => _.RecipeId == hRecipeId && _.TagId == hRecipeToTagRelation.Tag.Id))
                         {
-                            RecipeId = hRecipeId,
-                            TagId = hTagId,
-                        };
-                        FDb.Add(hNewRecipeToTagRelation);
+                            hRecipeToTagRelation.TagId = hRecipeToTagRelation.Tag.Id;
+                            hRecipeToTagRelation.RecipeId = hRecipeId;
+
+                            hRecipeToTagRelation.Tag = null;
+
+                            FDb.Add(hRecipeToTagRelation);
+                            await FDb.SaveChangesAsync();
+                        }
+                        
                     }
-                    await FDb.SaveChangesAsync();
+                    
 
                     // save ingredients
                     foreach (var hIngredient in _Value.Ingredients)
                     {
-                        var hProductId = hIngredient.Product.Id;
-                        if(hProductId == 0)
+                        if (!FDb.Products.Any(_ => _.Name == hIngredient.Product.Name))
                         {
                             FDb.Add(hIngredient.Product);
                             await FDb.SaveChangesAsync();
-                            hProductId = hIngredient.Product.Id;
+                            hIngredient.ProductId = hIngredient.Product.Id;
                         }
-                        var hNewIngredient = new Ingredient()
+
+                        if(!FDb.Ingredients.Any(_ =>_.RecipeId == hRecipeId && _.Amount == hIngredient.Amount && _.Unit == hIngredient.Unit && _.ProductId == hIngredient.ProductId))
                         {
-                            Amount = hIngredient.Amount,
-                            Unit = hIngredient.Unit,
-                            ProductId = hProductId,
-                            RecipeId = hRecipeId,
-                        };
-                        FDb.Add(hNewIngredient);
+                            hIngredient.ProductId = hIngredient.Product.Id;
+                            hIngredient.RecipeId = hRecipeId;
+
+                            hIngredient.Product = null;
+
+                            FDb.Add(hIngredient);
+                            await FDb.SaveChangesAsync();
+                        }
                     }
-                    await FDb.SaveChangesAsync();
+                    
 
                     return true;
                 }
-                catch (DbUpdateException)
+                catch (DbUpdateException hException)
                 {
+                    Console.WriteLine(hException);
                     return false;
                 }
             }

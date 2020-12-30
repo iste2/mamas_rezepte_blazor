@@ -7,6 +7,7 @@
 @implements IDisposable
 
 @inject DataStateDetail State
+@inject DataStateEditor EditorState
 @inject HttpClient Http
 @inject NavigationManager Nav
 
@@ -34,14 +35,8 @@
         </a>
     </div>
 
-
-    @* Headline *@
-    <div style="margin-bottom: 16px;margin-top:12px;">
-        <h1 style="font-weight:bold;">@State.FRecipe.Name</h1>
-    </div>
-
     @* Badges *@
-    <div style="margin-bottom: 32px;">
+    <div style="margin-bottom: 12px; margin-top:12px;">
         <div class="badge rounded-pill bg-secondary">@(State.FRecipe.Category.Name)</div>
         <div class="badge rounded-pill bg-secondary">@(State.FRecipe.DurationCategory.Name)</div>
         @foreach (var hTag in State.FRecipe.Tags)
@@ -50,9 +45,34 @@
         }
     </div>
 
+    @* Headline *@
+    <div style="margin-bottom: 6px;margin-top:12px;">
+        <h1 style="font-weight:bold;">@State.FRecipe.Name</h1>
+    </div>
+
+    @* "Subline" *@
+    <div style="margin-bottom: 12px;">
+        <span class="" style="color:gray; font-size:12px;">@(State.FRecipe.Clicks.Count()) Aufrufe  -  @(State.FRecipe.PublishDate.Date)</span>
+    </div>
+
+    <div style="margin-bottom: 16px;">
+        <span style="color:gray;">@(State.FRecipe.Subtitle)</span>
+    </div>
+
+    @* Button bar *@
+<div class="row justify-content-center" style="margin-bottom: 16px;">
+    <a class="col text-center" style="color:gray"><i class="fa fa-thumbs-up fs-3"></i></a>
+    <a class="col text-center" style="color:gray"><i class="fa fa-share fs-3"></i></a>
+    <a class="col text-center" style="color:gray"><i class="fa fa-download fs-3"></i></a>
+    <a @onclick="@(() => EditRecipe())" class="col text-center" style="color:gray"><i class="fa fa-cog fs-3"></i></a>
+</div>
+
+    <div style="border-top: 1px solid grey; margin-left:-12px; margin-right:-12px; margin-bottom:16px;">
+    </div>
+
     @* Ingredients *@
     <div class="row">
-        <h3>Zutaten für <button type="button" class="btn btn-link" style="color:orange;"><i class="fa fa-minus"></i></button> 4 <button type="button" class="btn btn-link" style="color:orange;"><i class="fa fa-plus"></i></button> Personen</h3>
+        <h3>Zutaten für <a @onclick="@(() => EditNumPersons(-1))" style="color:orange; margin:4px;"><i class="fa fa-minus"></i></a> @FNumPersons <a @onclick="@(() => EditNumPersons(1))" style="color:orange; margin:4px;"><i class="fa fa-plus"></i></a> Personen</h3>
     </div>
     <div class="row justify-content-center" style="margin-bottom:32px;">
         <div class="col">
@@ -61,9 +81,9 @@
                 {
                     <li class="list-group-item row">
                         <div class="col-2"></div>
-                        <div class="col-6">
+                        <div class="col">
                             <input class="form-check-input me-1" type="checkbox" value="" aria-label="">
-                            <a>@($"{ hIngredient.Amount } { hIngredient.Unit } { hIngredient.Product.Name }")</a>
+                            <a>@($"{ hIngredient.Amount * FNumPersons / State.FRecipe.NumberOfPersons  } { hIngredient.Unit } { hIngredient.Product.Name }")</a>
                         </div>
                     </li>
                 }
@@ -71,11 +91,15 @@
         </div>
     </div>
 
+    <div style="border-top: 1px solid grey; margin-left:-12px; margin-right:-12px; margin-bottom:16px;">
+    </div>
+
     @* Instruction *@
     <h3>Zubereitung</h3>
-    <p class="text-break">
-        @(State.FRecipe.Instruction)
-    </p>
+    @foreach(var hParagraph in State.FRecipe.Instruction.Split("\n"))
+    {
+        <p class="text-break">@hParagraph</p>
+    }
 }
 
 
@@ -84,6 +108,8 @@
 
     [Parameter]
     public long FId { get; set; }
+
+    public int FNumPersons { get; set; }
 
     protected override void OnInitialized()
     {
@@ -95,8 +121,21 @@
         var hRecipe = await Http.GetFromJsonAsync<Recipe>(Path.Combine(Nav.BaseUri, "api/recipes", FId + ""));
 
         State.SetRecipe(hRecipe);
+        FNumPersons = hRecipe.NumberOfPersons;
 
         this.StateHasChanged();
+    }
+
+    public void EditNumPersons(int _Add)
+    {
+        FNumPersons += _Add;
+        this.StateHasChanged();
+    }
+
+    public void EditRecipe()
+    {
+        EditorState.SetRecipe(State.FRecipe);
+        Nav.NavigateTo(Path.Combine(Nav.BaseUri, "/editor"));
     }
 
     public void Dispose()
