@@ -7,6 +7,7 @@
 @inject DataStateMain State
 @inject DataStateDetail DetailState
 
+
 <div @onclick="OpenRecipe" class="card shadow-sm" style="border:hidden;">
     <img src="@FImageSrc" class="card-img-top" alt="" style="max-height:150px;  object-fit:cover;">
     <div class="card-body">
@@ -23,9 +24,14 @@
     //[Parameter]
     //public string FImageData { get; set; }
 
-    private string FImageData => State.FImages.FirstOrDefault(_ => _.RecipeId == FRecipe.Id).ImageData;
+    private string FImageData => State.FImages.FirstOrDefault(_ => _.RecipeId == FRecipe.Id)?.ImageData;
 
-    private string FImageSrc => $"data:image/jpeg;base64,{ FImageData }";
+    private string FImageSrc => $"data:image/jpeg;base64,{ FImageData ?? "" }";
+
+    protected override void OnInitialized()
+    {
+        State.NotifyStateChanged();
+    }
 
     public void OpenRecipe()
     {
