@@ -22,6 +22,7 @@ jobs:
       working-directory: ${{env.work-dir}}
     - name: Publish with dotnet
       run: dotnet publish --configuration Release --output build
+      working-directory: ${{env.work-dir}}
     - name: Deploy to Github Pages
       uses: JamesIves/github-pages-deploy-action@releases/v3
       with:
