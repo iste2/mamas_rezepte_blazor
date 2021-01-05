@@ -8,13 +8,13 @@ jobs:
   publish_mamasrezepte:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: Build and deploy the Docker image
-      env: 
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        APP_NAME: ${{ 'mamasrezepte' }}
-      run: |
-        cd ./MamasRezepte
-        docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
-        heroku container:push web -a $APP_NAME
-        heroku container:release web -a $APP_NAME
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build, push and deploy Docker image
+        id: heroku
+        uses: jctaveras/heroku-deploy@v2.1.1
+        with:
+          email: ${{ secrets.HEROKU_EMAIL }}
+          api_key: ${{ secrets.HEROKU_API_KEY }}
+          app_name: ${{ secrets.HEROKU_APP_NAME }}
+          dockerfile_path: './MamasRezepte'
