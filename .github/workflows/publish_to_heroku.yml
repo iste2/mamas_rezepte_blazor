@@ -15,8 +15,8 @@ jobs:
           HEROKU_USER_NAME: ${{ secrets.HEROKU_EMAIL }}
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
+        working-directory: ./MamasRezepte
         run: |
-          cd ./ASPNetCoreLabs/HerokuContainer
           docker login --username=$HEROKU_USER_NAME --password=$HEROKU_API_KEY registry.heroku.com
           heroku container:push web -a $APP_NAME
           heroku container:release web -a $APP_NAME
