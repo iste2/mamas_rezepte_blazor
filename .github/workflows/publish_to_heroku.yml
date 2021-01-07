@@ -18,7 +18,6 @@ jobs:
         working-directory: ./MamasRezepte
         run: |
           docker login --username=$HEROKU_USER_NAME --password=$HEROKU_API_KEY registry.heroku.com
-          heroku stack:set heroku-20
           heroku container:push web -a $APP_NAME
           heroku container:release web -a $APP_NAME
           
