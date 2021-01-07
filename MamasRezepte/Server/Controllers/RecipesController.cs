@@ -85,7 +85,7 @@ namespace MamasRezepte.Server.Controllers
                     {
                         FDb.Add(hRecipe);
                     }
-                    
+
                     await FDb.SaveChangesAsync();
                     var hRecipeId = hRecipe.Id;
                 

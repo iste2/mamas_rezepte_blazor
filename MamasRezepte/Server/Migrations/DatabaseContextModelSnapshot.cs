@@ -32,6 +32,38 @@ namespace MamasRezepte.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Name = "Fleisch und Geflügel"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Name = "Fisch und Meeresfrüchte"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Name = "Suppen und Eintöpfe"
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            Name = "Salate und Snacks"
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            Name = "Dessert und Süßspeisen"
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            Name = "Kuchen und Gebäck"
+                        });
                 });
 
             modelBuilder.Entity("MamasRezepte.Shared.Models.Click", b =>
@@ -67,6 +99,23 @@ namespace MamasRezepte.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DurationCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Name = "weniger als 30 min."
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Name = "30 - 60 min."
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Name = "mehr als 60 min."
+                        });
                 });
 
             modelBuilder.Entity("MamasRezepte.Shared.Models.Ingredient", b =>
