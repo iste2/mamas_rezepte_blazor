@@ -344,5 +344,3 @@ F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Server\bin\Debug\netco
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Server\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Server\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Server\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
-F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Server\obj\Debug\netcoreapp3.1\MamasRezepte.Server.csproj.CoreCompileInputs.cache
-F:\Programmieren\dotnet\mamas_rezepte_blazor\MamasRezepte\Server\obj\Debug\netcoreapp3.1\MamasRezepte.Server.MvcApplicationPartsAssemblyInfo.cache
