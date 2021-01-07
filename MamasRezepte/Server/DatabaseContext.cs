@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace MamasRezepte.Server
@@ -22,8 +23,15 @@ namespace MamasRezepte.Server
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder
-                .UseSqlite("Data Source=Database.db");
+            //optionsBuilder
+            //    .UseSqlite("Data Source=Database.db");
+            var hConnectionStringBuilder = new StringBuilder();
+            hConnectionStringBuilder.Append(String.Format("Host={0};", "localhost"));
+            hConnectionStringBuilder.Append(String.Format("Database={0};", "MamasRezepte"));
+            hConnectionStringBuilder.Append(String.Format("Username={0};", "postgres"));
+            hConnectionStringBuilder.Append(String.Format("Password={0};", "admin"));
+
+            optionsBuilder.UseNpgsql(hConnectionStringBuilder.ToString());
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

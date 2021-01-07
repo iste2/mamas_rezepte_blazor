@@ -31,8 +31,7 @@ namespace MamasRezepte.Server.Controllers
         [HttpGet("ByUsageFrequency")]
         public async Task<List<Product>> GetByUsageFrequency()
         {
-            var hGrouped = FDb.Ingredients.GroupBy(_ => _.ProductId);
-            return await FDb.Products.OrderByDescending(_ => hGrouped.Single(_0 => _0.Key == _.Id).Count()).ToListAsync();
+            return await FDb.Products.OrderByDescending(_ => FDb.Ingredients.Where(_0 => _.Id == _0.ProductId).Count()).ToListAsync();
         }
 
         // GET api/<ProductsController>/5
