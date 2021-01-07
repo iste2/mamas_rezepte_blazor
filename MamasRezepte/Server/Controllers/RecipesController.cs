@@ -64,7 +64,7 @@ namespace MamasRezepte.Server.Controllers
             {
                 try
                 {
-                    // save recipe
+                    // save recipe (id)
                     var hRecipe = new Recipe()
                     {
                         Id = _Value.Id,
@@ -85,7 +85,7 @@ namespace MamasRezepte.Server.Controllers
                     {
                         FDb.Add(hRecipe);
                     }
-                    
+
                     await FDb.SaveChangesAsync();
                     var hRecipeId = hRecipe.Id;
                 
@@ -150,13 +150,14 @@ namespace MamasRezepte.Server.Controllers
                             await FDb.SaveChangesAsync();
                         }
                     }
-                    
+
 
                     return true;
                 }
                 catch (DbUpdateException hException)
                 {
-                    Console.WriteLine(hException);
+                    Console.Error.WriteLine(hException.Message.ToString());
+                    Console.Error.WriteLine(hException.InnerException.Message.ToString());
                     return false;
                 }
             }
