@@ -83,7 +83,7 @@ else if (State.FEditorMode == EditorMode.Edit)
     <div class="col-12">
         @foreach (var hTag in FSelectedTags)
         {
-            <div class="badge rounded-pill bg-secondary">@hTag.Name</div>
+            <div class="badge rounded-pill bg-secondary">@hTag.Name <i @onclick="@(() => DeleteTag(hTag))" class="fa fa-times"/></div>
         }
     </div>
 
@@ -313,6 +313,16 @@ else if (State.FEditorMode == EditorMode.Edit)
         this.StateHasChanged();
     }
 
+    public void DeleteTag(Tag _Tag)
+    {
+        State.FRecipe.Tags = State.FRecipe.Tags.ToList();
+        ((List<RecipeToTagRelation>)(State.FRecipe.Tags)).RemoveAll(_ => _.Tag.Name == _Tag.Name);
+
+        State.OnChange += StateHasChanged;
+        State.NotifyStateChanged();
+        this.StateHasChanged();
+    }
+
     public void SubmitNewIngredient()
     {
         if (FCurrentProduct == "" || FIngredients.Any(_ => _.Product.Name == FCurrentProduct)) return;
@@ -329,22 +339,19 @@ else if (State.FEditorMode == EditorMode.Edit)
             Product = hProduct,
         };
 
-        if(!State.FRecipe.Ingredients.Any(_ => _.Amount == hIngredient.Amount && _.Unit == hIngredient.Unit && _.ProductId == hIngredient.ProductId))
-        {
-            State.FRecipe.Ingredients = State.FRecipe.Ingredients.Append(hIngredient).ToList();
-        }
-
+        State.FRecipe.Ingredients = State.FRecipe.Ingredients.Append(hIngredient).ToList();
 
         State.OnChange += StateHasChanged;
         State.NotifyStateChanged();
         this.StateHasChanged();
 
-        Console.WriteLine("Ingredients count " + FIngredients.Count);
     }
 
     public void DeleteIngredient(Ingredient _Ingredient)
     {
-        State.FRecipe.Ingredients = State.FRecipe.Ingredients.Where(_ => _.Product.Name != _Ingredient.Product.Name).ToList();
+
+        State.FRecipe.Ingredients = State.FRecipe.Ingredients.ToList();
+        ((List<Ingredient>)(State.FRecipe.Ingredients)).RemoveAll(_ => _.Product.Name == _Ingredient.Product.Name);
 
         State.OnChange += StateHasChanged;
         State.NotifyStateChanged();
@@ -361,14 +368,15 @@ else if (State.FEditorMode == EditorMode.Edit)
 
         foreach (var hFile in _Files)
         {
+            FUploadImageState += hLoadingStep;
+            this.StateHasChanged();
+
             var hMemStream = new System.IO.MemoryStream();
             await hFile.Data.CopyToAsync(hMemStream);
             var hImageBytes = hMemStream.ToArray();
             var hBase64String = Convert.ToBase64String(hImageBytes);
             State.FRecipe.Images = State.FRecipe.Images.ToList().Append(new RecipeImage { ImageData = hBase64String });
 
-            FUploadImageState += hLoadingStep;
-            this.StateHasChanged();
         }
 
         FUploadingImage = false;
@@ -383,7 +391,9 @@ else if (State.FEditorMode == EditorMode.Edit)
     public void DeleteImage(string _ImageData)
     {
 
-        State.FRecipe.Images = State.FRecipe.Images.ToList().Where(_ => _.ImageData.Substring(0, 500).GetHashCode() != _ImageData.Substring(0, 500).GetHashCode());
+        State.FRecipe.Images = State.FRecipe.Images.ToList();
+        ((List<RecipeImage>)(State.FRecipe.Images)).RemoveAll(_ => _.ImageData.Substring(0, 500).GetHashCode() == _ImageData.Substring(0, 500).GetHashCode());
+        //.Where(_ => _.ImageData.Substring(0, 500).GetHashCode() != _ImageData.Substring(0, 500).GetHashCode()).ToList();
 
         State.OnChange += StateHasChanged;
         State.NotifyStateChanged();
@@ -397,8 +407,16 @@ else if (State.FEditorMode == EditorMode.Edit)
         var hRecipe = State.FRecipe; // TODO filter for double entries
         HttpResponseMessage hReturnValue;
 
-        hReturnValue =
+        if(State.FEditorMode == EditorMode.Create)
+        {
+            hReturnValue =
                     await Http.PostAsJsonAsync<Recipe>(Path.Combine(Nav.BaseUri, "api/Recipes"), hRecipe);
+        } else
+        {
+            hReturnValue =
+                    await Http.PutAsJsonAsync<Recipe>(Path.Combine(Nav.BaseUri, "api/Recipes/", hRecipe.Id+""), hRecipe);
+        }
+
 
 
         if(hReturnValue.StatusCode == System.Net.HttpStatusCode.OK)

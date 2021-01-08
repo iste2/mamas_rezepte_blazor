@@ -169,9 +169,108 @@ namespace MamasRezepte.Server.Controllers
         public async Task<bool> Put(long _Id, [FromBody] Recipe _Value)
         {
             if (_Id != _Value.Id) return false;
-            FDb.Entry(_Value).State = EntityState.Modified;
-            await FDb.SaveChangesAsync();
-            return true;
+
+            try
+            {
+                var hRecipe = new Recipe()
+                {
+                    Id = _Value.Id,
+                    Name = _Value.Name,
+                    Subtitle = _Value.Subtitle,
+                    PublishDate = DateTime.Now,
+                    NumberOfPersons = _Value.NumberOfPersons,
+                    Instruction = _Value.Instruction,
+                    CategoryId = _Value.CategoryId,
+                    DurationCategoryId = _Value.DurationCategoryId,
+                    Tags = _Value.Tags.ToList(),
+                    Ingredients = _Value.Ingredients.ToList(),
+                };
+                FDb.Entry(hRecipe).State = EntityState.Modified;
+                await FDb.SaveChangesAsync();
+
+                // add images
+                foreach(var hImage in _Value.Images)
+                {
+                    if(hImage.Id == 0)
+                    {
+                        FDb.Add(hImage);
+                    }
+                }
+                await FDb.SaveChangesAsync();
+
+                // delete images
+                var hDbImages = FDb.RecipeImages.Where(_ => _.RecipeId == _Value.Id).ToList();
+                foreach(var hDbImage in hDbImages)
+                {
+                    if(!_Value.Images.Any(_ => _.Id == hDbImage.Id))
+                    {
+                        FDb.RecipeImages.Remove(hDbImage);
+                        await FDb.SaveChangesAsync();
+                    }
+                }
+
+                // add tags
+                foreach(var hTag in _Value.Tags)
+                {
+                    if(hTag.Tag.Id == 0)
+                    {
+                        FDb.Add(hTag.Tag);
+                        await FDb.SaveChangesAsync();
+                    }
+                    if (hTag.Id == 0)
+                    {
+                        hTag.RecipeId = _Value.Id;
+                        FDb.Add(hTag);
+                        await FDb.SaveChangesAsync();
+                    }
+                }
+                
+
+                // delete tags
+                var hDbTags = FDb.RecipeToTagRelations.Where(_ => _.RecipeId == _Value.Id).ToList();
+                foreach(var hDbTag in hDbTags)
+                {
+                    if(!_Value.Tags.Any(_ => _.TagId == hDbTag.TagId))
+                    {
+                        FDb.RecipeToTagRelations.Remove(hDbTag);
+                        await FDb.SaveChangesAsync();
+                    }
+                }
+
+                // add ingredients
+                foreach(var hIngredient in _Value.Ingredients)
+                {
+                    if(hIngredient.Product.Id == 0)
+                    {
+                        FDb.Add(hIngredient.Product);
+                        await FDb.SaveChangesAsync();
+                    }
+                    if(hIngredient.Id == 0)
+                    {
+                        hIngredient.RecipeId = _Value.Id;
+                        FDb.Add(hIngredient);
+                        await FDb.SaveChangesAsync();
+                    }
+                }
+
+                // delete ingredient
+                var hDbIngredients = FDb.Ingredients.Where(_ => _.RecipeId == _Value.Id).ToList();
+                foreach(var hDbIngredient in hDbIngredients)
+                {
+                    if(!_Value.Ingredients.Any(_ => _.Id == hDbIngredient.Id))
+                    {
+                        FDb.Ingredients.Remove(hDbIngredient);
+                        await FDb.SaveChangesAsync();
+                    }
+                }
+
+                return true;
+            } catch(DbUpdateException _Exception)
+            {
+                return false;
+            }
+
+            
         }
 
         // DELETE api/<RecipesController>/5
