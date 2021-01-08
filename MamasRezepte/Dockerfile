@@ -13,6 +13,9 @@ FROM build AS testing
 WORKDIR /src/Server
 RUN dotnet build
 
+# use stack heroku-20
+FROM heroku/heroku:20
+
 # publish
 FROM build AS publish
 WORKDIR /src/Server
