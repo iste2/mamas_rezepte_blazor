@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "9vYx5Lvux/fE9T5UJNpVqJh74KR9es7DQySGeRHB+5AZhDJTQpCZSSYWx3Amqr5eFX61cRrqi6zDsUqBYldJ6A==",
+  "dgSpecHash": "CQ7gO9Qpw54P4LhVZta3PmvfulwgZlQWVfco02uOsK0gAlF68FZqvwrx+9nZok/WfquGOjYkmeQZ1EY6TXwZAQ==",
   "success": true,
   "projectFilePath": "F:\\Programmieren\\dotnet\\mamas_rezepte_blazor\\MamasRezepte\\Client\\MamasRezepte.Client.csproj",
   "expectedPackageFiles": [
@@ -37,6 +37,7 @@
     "C:\\Users\\Lukas\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512",
+    "C:\\Users\\Lukas\\.nuget\\packages\\system.drawing.common\\5.0.0\\system.drawing.common.5.0.0.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\system.net.http.json\\3.2.0\\system.net.http.json.3.2.0.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",

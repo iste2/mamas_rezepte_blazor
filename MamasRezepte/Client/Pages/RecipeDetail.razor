@@ -3,6 +3,7 @@
 @using MamasRezepte.Client.State
 @using MamasRezepte.Shared.Models
 @using System.IO
+@using System.Drawing
 
 @implements IDisposable
 
@@ -21,7 +22,7 @@
                 var hActive = State.FRecipe.Images.FirstOrDefault() == hImageData;
 
                 <div class="carousel-item @(hActive ? "active" : "")">
-                    <img src="@($"data:image/jpeg;base64,{ hImageData.ImageData }")" class="card-img-top" alt="" style="max-height:250px;  object-fit:cover;">
+                    <img src="@($"data:image/jpeg;base64,{ hImageData.ImageData }")" class="" alt="" style="max-height:@(FSliderHeight)px;  object-fit:cover;">
                 </div>
             }
         </div>
@@ -60,12 +61,12 @@
     </div>
 
     @* Button bar *@
-<div class="row justify-content-center" style="margin-bottom: 16px;">
-    <a class="col text-center" style="color:gray"><i class="fa fa-thumbs-up fs-3"></i></a>
-    <a class="col text-center" style="color:gray"><i class="fa fa-share fs-3"></i></a>
-    <a class="col text-center" style="color:gray"><i class="fa fa-download fs-3"></i></a>
-    <a @onclick="@(() => EditRecipe())" class="col text-center" style="color:gray"><i class="fa fa-cog fs-3"></i></a>
-</div>
+    <div class="row justify-content-center" style="margin-bottom: 16px;">
+        <a class="col text-center" style="color:gray"><i class="fa fa-thumbs-up fs-3"></i></a>
+        <a class="col text-center" style="color:gray"><i class="fa fa-share fs-3"></i></a>
+        <a class="col text-center" style="color:gray"><i class="fa fa-download fs-3"></i></a>
+        <a @onclick="@(() => EditRecipe())" class="col text-center" style="color:gray"><i class="fa fa-edit fs-3"></i></a>
+    </div>
 
     <div style="border-top: 1px solid grey; margin-left:-12px; margin-right:-12px; margin-bottom:16px;">
     </div>
@@ -110,6 +111,7 @@
     public long FId { get; set; }
 
     public int FNumPersons { get; set; }
+    public int FSliderHeight { get; set; } = 250;
 
     protected override void OnInitialized()
     {
@@ -120,6 +122,16 @@
     {
         // get recipe
         var hRecipe = await Http.GetFromJsonAsync<Recipe>(Path.Combine(Nav.BaseUri, "api/recipes", FId + ""));
+        /*
+        foreach(var hBase64 in hRecipe.Images)
+        {
+            byte[] hImageBytes = Convert.FromBase64String(hBase64.ImageData);
+            using (var hMs = new MemoryStream(hImageBytes))
+            {
+                var hImage = Image.FromStream(hMs);
+                FSliderHeight = Math.Min(FSliderHeight, hImage.Height);
+            }
+        }*/
 
         // add click
         await Http.PostAsJsonAsync<Click>(Path.Combine(Nav.BaseUri, "api/clicks"), new Click { RecipeId = hRecipe.Id, Time = DateTime.Now });
