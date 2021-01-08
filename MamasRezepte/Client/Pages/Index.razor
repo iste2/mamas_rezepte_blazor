@@ -18,14 +18,14 @@
 
 @if (State.FFilter.IsEmpty())
 {
-    <div class="row d-flex justify-content-center" style="margin-bottom:48px;">
-        <div class="col-12 col-sm-4">
+    <div class="row d-flex justify-content-center align-items-center" style="margin-bottom:32px;">
+        @*<div class="col-4 col-sm-4 align-items-center">
             <div class="d-flex justify-content-center">
-                <img src="/Assets/logo.png" alt="" style="height:150px;">
+                <img src="/Assets/logo.png" alt="" style="height:50px;">
             </div>
-        </div>
-        <div class="col-12 col-sm-8">
-            <h1 class="text-center text-sm-start" style="margin-bottom:12px; font-weight:bold;width:100%;">Mamas Rezepte</h1>
+        </div>*@
+        <div class="col-12 align-items-center">
+            <h1 class="text-center" style="font-weight:bold;width:100%;font-family:Lobster;font-size:32px;">Mamas Rezepte</h1>
             @*<p class="text-center text-sm-start" style="color:gray; font-weight:bold; width:100%;"> Hier sind all die leckeren Rezepte von Mama gesammelt. Suche nach bestimmten Rezepten oder durchstöbere den Feed. Guten Appetit! :)</p>*@
         </div>
     </div>
@@ -33,7 +33,7 @@
 
 
 @* SearchBar *@
-<div style="margin-bottom: 64px;">
+<div style="margin-bottom: 48px;">
     <div class="p-2 rounded rounded-pill shadow mb-4">
         <div class="input-group">
             <input @bind="@FSearch" type="search" placeholder="Wonach suchst du?" aria-describedby="button-addon1" class="form-control border-0">
