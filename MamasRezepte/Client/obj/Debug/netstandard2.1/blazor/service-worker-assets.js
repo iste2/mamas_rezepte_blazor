@@ -21,6 +21,10 @@
       "url": "Assets\/logo.svg"
     },
     {
+      "hash": "sha256-CnNnN2y1pJvD8MRhwjDAvymDJB83VplD\/\/nMJtX5JbY=",
+      "url": "Assets\/logo_wide.png"
+    },
+    {
       "hash": "sha256-Hoz2RZjxj9B\/MB2XxdY8y6nG+1VGiZ22H5ah7vntBAI=",
       "url": "index.html"
     },
@@ -33,7 +37,7 @@
       "url": "manifest.json"
     },
     {
-      "hash": "sha256-N04RTnhvFa9jhz2dzKeT08Kja0CTA4TFkcPzkWU5wLI=",
+      "hash": "sha256-WhJxp+zx6lfJRVM2tAG3flFLOYWNN3FCGRbc01DO00Q=",
       "url": "_framework\/_bin\/MamasRezepte.Client.dll"
     },
     {
@@ -253,7 +257,7 @@
       "url": "_framework\/_bin\/Microsoft.JSInterop.WebAssembly.dll"
     },
     {
-      "hash": "sha256-\/\/x8lXRsH\/b9zSMRNa5W4p3UqGHAeGoT3GISZeMXaIk=",
+      "hash": "sha256-\/vgDyGM4Ezhjzxna+N123oadZiLzny9WD3VANIKv58I=",
       "url": "_framework\/_bin\/MamasRezepte.Client.pdb"
     },
     {
@@ -277,9 +281,9 @@
       "url": "_framework\/blazor.webassembly.js"
     },
     {
-      "hash": "sha256-2Xc7txI76Yu21c+Ekv4JamcELH6FOu4YnLjnqvYCbjc=",
+      "hash": "sha256-OWPe5ymkXpdv0\/yRpOvkoCTB25NqTGuCX0mgaTWsJcM=",
       "url": "_framework\/blazor.boot.json"
     }
   ],
-  "version": "zRMn8wCc"
+  "version": "ExuCPzp5"
 };
