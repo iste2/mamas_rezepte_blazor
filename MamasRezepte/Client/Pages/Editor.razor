@@ -22,7 +22,17 @@
 }
 else if (State.FEditorMode == EditorMode.Edit)
 {
-    <h1 style="margin-bottom:12px; font-weight:bold;">Rezept bearbeiten</h1>
+    <div class="row g-3 d-flex" style="width:100%;">
+        <div class="col">
+            <h1 style="margin-bottom:12px; font-weight:bold;">Rezept bearbeiten</h1>
+        </div>
+        <div class="col text-end align-items-center">
+            <button @onclick="NewRecipe" type="button" class="btn btn-outline-secondary" style="">
+                Neues Rezept
+            </button>
+        </div>
+    </div>
+    
 }
 
 @* Form *@
@@ -83,7 +93,7 @@ else if (State.FEditorMode == EditorMode.Edit)
     <div class="col-12">
         @foreach (var hTag in FSelectedTags)
         {
-            <div class="badge rounded-pill bg-secondary">@hTag.Name <i @onclick="@(() => DeleteTag(hTag))" class="fa fa-times"/></div>
+            <div class="badge rounded-pill bg-secondary">@hTag.Name <i @onclick="@(() => DeleteTag(hTag))" class="fa fa-times" /></div>
         }
     </div>
 
@@ -132,7 +142,7 @@ else if (State.FEditorMode == EditorMode.Edit)
                 <label for="inputProduct" class="form-label">Zutat</label>
                 <input @bind="FCurrentProduct" class="form-control" list="datalistOptions1" id="inputProduct" placeholder="Type to search...">
                 <datalist id="datalistOptions1">
-                    @if(FProducts != null)
+                    @if (FProducts != null)
                     {
                         var hProducts =
                             FCurrentProduct != null && FCurrentProduct != "" ? FProducts.Where(_ => _.Name.Contains(FCurrentProduct)).Take(5) : FProducts.Take(5);
@@ -168,42 +178,51 @@ else if (State.FEditorMode == EditorMode.Edit)
     </div>
 
     @* Images *@
-<div class="col-12">
-    <label for="inputImages" class="form-label">Bilder</label>
-    <div class="dropzone" id="inputImages">
-        <InputFile multiple OnChange="DragDropOnChange" />
-        Bilder hochladen
-    </div>
-    @if (FUploadingImage)
-    {
-        <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="@((int)FUploadImageState)" aria-valuemin="0" aria-valuemax="100" style="width: @((int)FUploadImageState)%"></div>
+    <div class="col-12">
+        <label for="inputImages" class="form-label">Bilder</label>
+        <div class="dropzone" id="inputImages">
+            <InputFile multiple OnChange="DragDropOnChange" />
+            Bilder hochladen
         </div>
-    }
-    @if (State.FRecipe.Images.Any())
-    {
-        <ul class="list-group list-group-flush">
-            @foreach (var hImage in State.FRecipe.Images)
-            {
-                var hImageSource = $"data:image/jpeg;base64,{ hImage.ImageData }";
-                <li class="list-group-item" style="margin-top:6px;">
-                    <div class="row align-items-center mt-1">
-                        <img src="@hImageSource" class="col-3" alt="image">
-                        <button @onclick="@(() => DeleteImage(@hImage.ImageData))" type="button" class="btn btn-outline-danger col-3"><i class="fa fa-trash fs-3"></i></button>
-                    </div>
-                </li>
-            }
-        </ul>
-    }
+        @if (FUploadingImage)
+        {
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="@((int)FUploadImageState)" aria-valuemin="0" aria-valuemax="100" style="width: @((int)FUploadImageState)%"></div>
+            </div>
+        }
+        @if (State.FRecipe.Images.Any())
+        {
+            <ul class="list-group list-group-flush">
+                @foreach (var hImage in State.FRecipe.Images)
+                {
+                    var hImageSource = $"data:image/jpeg;base64,{ hImage.ImageData }";
+                    <li class="list-group-item" style="margin-top:6px;">
+                        <div class="row align-items-center mt-1">
+                            <img src="@hImageSource" class="col-3" alt="image">
+                            <button @onclick="@(() => DeleteImage(@hImage.ImageData))" type="button" class="btn btn-outline-danger col-3"><i class="fa fa-trash fs-3"></i></button>
+                        </div>
+                    </li>
+                }
+            </ul>
+        }
 
-
-</div>
+    </div>
 
     <div class="col-12" style="margin-top:16px;">
         <button @onclick="UploadRecipe" type="button" class="btn btn-outline-success" style="width:100%;">
             @(State.FEditorMode == EditorMode.Edit ? "Änderungen speichern" : "Rezept speichern")
         </button>
     </div>
+
+    @if(State.FEditorMode == EditorMode.Edit)
+    {
+        <div class="col-12" style="margin-top:16px;">
+            <button @onclick="DeleteRecipe" type="button" class="btn btn-outline-danger" style="width:100%;">
+                Rezept löschen
+            </button>
+        </div>
+    }
+    
 
 </div>
 
@@ -341,6 +360,10 @@ else if (State.FEditorMode == EditorMode.Edit)
 
         State.FRecipe.Ingredients = State.FRecipe.Ingredients.Append(hIngredient).ToList();
 
+        FCurrentAmount = 0;
+        FCurrentProduct = "";
+        FCurrentUnit = "";
+
         State.OnChange += StateHasChanged;
         State.NotifyStateChanged();
         this.StateHasChanged();
@@ -422,12 +445,43 @@ else if (State.FEditorMode == EditorMode.Edit)
         if(hReturnValue.StatusCode == System.Net.HttpStatusCode.OK)
         {
             Toast.ShowSuccess("Das Rezept wurde in die Datenbank eingetragen.", "Speichern erfolgreich");
+
+            State.ResetRecipe();
+            this.StateHasChanged();
         } else
         {
             Toast.ShowError(hReturnValue.ToString(), "Da lief etwas schief!");
             Console.WriteLine(hReturnValue.ToString());
         }
 
+    }
+
+    public async void DeleteRecipe()
+    {
+        var hRecipe = State.FRecipe;
+        HttpResponseMessage hReturnValue;
+
+        hReturnValue = await Http.DeleteAsync(Path.Combine(Nav.BaseUri, "api/Recipes/", hRecipe.Id + ""));
+
+        if (hReturnValue.StatusCode == System.Net.HttpStatusCode.OK)
+        {
+            Toast.ShowSuccess("Das Rezept wurde gelöscht.", "Speichern erfolgreich");
+
+            State.ResetRecipe();
+            this.StateHasChanged();
+        }
+        else
+        {
+            Toast.ShowError(hReturnValue.ToString(), "Da lief etwas schief!");
+            Console.WriteLine(hReturnValue.ToString());
+        }
+    }
+
+    public void NewRecipe()
+    {
+        State.ResetRecipe();
+        State.UpdateEditorMode();
+        this.StateHasChanged();
     }
 
     public void Dispose()

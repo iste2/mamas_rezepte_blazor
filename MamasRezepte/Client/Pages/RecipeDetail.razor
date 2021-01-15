@@ -22,7 +22,7 @@
                 var hActive = State.FRecipe.Images.FirstOrDefault() == hImageData;
 
                 <div class="carousel-item @(hActive ? "active" : "")">
-                    <img src="@($"data:image/jpeg;base64,{ hImageData.ImageData }")" class="" alt="" style="max-height:@(FSliderHeight)px;  object-fit:cover;">
+                    <img src="@($"data:image/jpeg;base64,{ hImageData.ImageData }")" class="card-img-top" alt="" style="max-height:@(FSliderHeight)px;  object-fit:cover;">
                 </div>
             }
         </div>

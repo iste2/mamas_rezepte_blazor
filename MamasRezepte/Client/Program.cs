@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MamasRezepte.Client.State;
 using Blazored.Toast;
+using MamasRezepte.Client.Helper;
 
 namespace MamasRezepte.Client
 {
@@ -23,6 +24,7 @@ namespace MamasRezepte.Client
             builder.Services.AddScoped<DataStateEditor>();
             builder.Services.AddScoped<DataStateMain>();
             builder.Services.AddScoped<DataStateDetail>();
+            builder.Services.AddScoped<BrowserService>();
             builder.Services.AddBlazoredToast();
             
 

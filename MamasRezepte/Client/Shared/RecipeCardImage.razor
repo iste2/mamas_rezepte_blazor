@@ -8,10 +8,17 @@
 @inject DataStateDetail DetailState
 
 
-<div @onclick="OpenRecipe" class="card shadow-sm" style="border:hidden;">
+<div class="card shadow-sm" style="border:hidden;" @onclick="OpenRecipe">
     <img src="@FImageSrc" class="card-img-top" alt="" style="max-height:150px;  object-fit:cover;">
     <div class="card-body">
-        <h6 class="card-title" style="">@FRecipe.Name</h6>
+        <h5 class="card-title" style="">@FRecipe.Name</h5>
+        <p class="card-text">@FRecipe.Subtitle</p>
+        <div class="badge rounded-pill bg-secondary">@FRecipe.Category.Name</div>
+        <div class="badge rounded-pill bg-secondary">@FRecipe.DurationCategory.Name</div>
+        @foreach (var hTag in FRecipe.Tags)
+        {
+            <div class="badge rounded-pill bg-secondary">@hTag.Tag.Name</div>
+        }
     </div>
 </div>
 
@@ -26,7 +33,7 @@
 
     private string FImageData => State.FImages.FirstOrDefault(_ => _.RecipeId == FRecipe.Id)?.ImageData;
 
-    private string FImageSrc => $"data:image/jpeg;base64,{ FImageData ?? "" }";
+    private string FImageSrc => $"data:image/jpeg;base64,{ FRecipe.Images?.FirstOrDefault()?.ImageData ?? "" }";
 
     protected override void OnInitialized()
     {

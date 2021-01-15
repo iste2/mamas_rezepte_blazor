@@ -35,7 +35,7 @@
 
 @* SearchBar *@
 <div style="margin-bottom: 48px;">
-    <div class="p-2 rounded rounded-pill shadow mb-4">
+    <div class="p-2 rounded rounded-pill shadow-sm mb-4">
         <div class="input-group">
             <input @bind="@FSearch" type="search" placeholder="Wonach suchst du?" aria-describedby="button-addon1" class="form-control border-0">
             <div class="input-group-append">
@@ -127,14 +127,14 @@
 
     protected override async Task OnInitializedAsync()
     {
-        await State.InitializeIndex(Nav, _IncludeImages: true);
+        await State.InitializeIndex(Nav, _IncludeImages: false);
 
         this.StateHasChanged();
     }
 
     private async Task LoadFeed()
     {
-        await State.LoadFeed(Nav, _IncludeImages: true);
+        await State.LoadFeed(Nav, _IncludeImages: false);
 
         this.StateHasChanged();
     }
