@@ -26,7 +26,16 @@ namespace MamasRezepte.Server.Controllers
         [HttpGet]
         public async Task<List<Recipe>> Get()
         {
-            return await FDb.Recipes.ToListAsync();           
+            return await FDb.Recipes
+                .Include(_ => _.Images)
+                .Include(_ => _.Tags)
+                    .ThenInclude(_ => _.Tag)
+                .Include(_ => _.Ingredients)
+                    .ThenInclude(_ => _.Product)
+                .Include(_ => _.Category)
+                .Include(_ => _.DurationCategory)
+                .Include(_ => _.Clicks)
+                .ToListAsync();           
         }
 
         // GET api/<RecipesController>/5
@@ -75,16 +84,10 @@ namespace MamasRezepte.Server.Controllers
                         Instruction = _Value.Instruction,
                         CategoryId = _Value.CategoryId,
                         DurationCategoryId = _Value.DurationCategoryId,
-                        Tags = _Value.Tags.ToList(),
-                        Ingredients = _Value.Ingredients.ToList(),
+                        //Tags = _Value.Tags.ToList(),
+                        //Ingredients = _Value.Ingredients.ToList(),
                     };
-                    if(FDb.Recipes.Any(_ => _.Id == hRecipe.Id))
-                    {
-                        FDb.Entry(hRecipe).State = EntityState.Modified;
-                    } else
-                    {
-                        FDb.Add(hRecipe);
-                    }
+                    FDb.Add(hRecipe);
 
                     await FDb.SaveChangesAsync();
                     var hRecipeId = hRecipe.Id;
@@ -275,7 +278,7 @@ namespace MamasRezepte.Server.Controllers
 
         // DELETE api/<RecipesController>/5
         [HttpDelete("{_Id}")]
-        public async Task<bool> Delete(int _Id)
+        public async Task<bool> Delete(long _Id)
         {
             var hValue = await FDb.Recipes.FindAsync(_Id);
             if (hValue == null) return false;

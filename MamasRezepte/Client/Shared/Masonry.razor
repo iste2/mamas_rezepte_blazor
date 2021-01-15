@@ -2,30 +2,53 @@
 @using Const
 @using MamasRezepte.Shared.Models
 @using MamasRezepte.Client.State
+@using MamasRezepte.Client.Helper 
 
 @inject DataStateMain State 
+@inject BrowserService BrowserService
 
-<div class="row" data-masonry='{"percentPosition": true }'>
+@*<div class="row" data-masonry='{"percentPosition": true}'>
 
     @foreach (var hElement in FElements)
     {
-    <div class="col col-12 col-sm-6 col-lg-4 mb-4">
-        @if (State.FImages != null && State.FImages.Any())
-        {
-            Console.WriteLine("WithImage " + hElement.Name);
+        <div class="col-sm-6 col-lg-4 mb-4">
+        
             <RecipeCardImage FRecipe="@hElement" />
-        }
-        else
-        {
-            Console.WriteLine("NoImage " + hElement.Name);
-            <RecipeCardNoImage FTitle="@hElement.Name" FColor="@ColorConsts.RandomColor()" />
-        }
+            
+        </div>
 
-    </div>
     }
 
+</div>*@
+
+<div class="masonry-layout" data-masonry='{"percentPosition": true}'>
+
+    @foreach (var hElement in FElements)
+    {
+        <div class="masonry-layout-panel">
+
+            <RecipeCardImage FRecipe="@hElement" />
+
+        </div>
+
+    }
 
 </div>
+
+<style>
+
+    .masonry-layout {
+        column-count: @(ColumnCount() + "");
+        column-gap: 0;
+    }
+
+    .masonry-layout-panel {
+        break-inside: avoid;
+        max-width: @((1/ColumnCount()) + "%");
+        padding: 5px;
+    }
+
+</style>
 
 @code {
 
@@ -37,5 +60,28 @@
 
     [Parameter]
     public int FNumCols { get; set; }
+
+    public int FScreenWidth { get; set; } = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var hDimension = await BrowserService.GetDimensions();
+        FScreenWidth = hDimension.Width;
+        
+    }
+
+    public int ColumnCount()
+    {
+        if(FScreenWidth <= 540)
+        {
+            return 1;
+        } else if(FScreenWidth <= 720)
+        {
+            return 2;
+        } else
+        {
+            return 3;
+        }
+    }
 
 }

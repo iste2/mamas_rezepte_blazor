@@ -42,11 +42,11 @@ namespace MamasRezepte.Client.State
             if (FCategories == null) await LoadCategories(_Nav);
             if (FDurationCategories == null) await LoadDurationCategories(_Nav);
             if (FTags == null) await LoadTags(_Nav);
-            if (FClicks == null) await LoadClicks(_Nav);
-            if (FImages == null) await LoadImages(_Nav);
-            if (FRecipeToTagRelations == null) await LoadRecipeToTagRealtions(_Nav);
-            if (FIngredients == null) await LoadIngredients(_Nav);
-            if (FProducts == null) await LoadProducts(_Nav);
+            //if (FClicks == null) await LoadClicks(_Nav);
+            //if (FImages == null) await LoadImages(_Nav);
+            //if (FRecipeToTagRelations == null) await LoadRecipeToTagRealtions(_Nav);
+            //if (FIngredients == null) await LoadIngredients(_Nav);
+            //if (FProducts == null) await LoadProducts(_Nav);
         }
 
         public void UpdateFilter(Filter _Filter)
@@ -66,7 +66,7 @@ namespace MamasRezepte.Client.State
             if(FFilter.IsEmpty())
             {
                 if (FClicks == null) await LoadClicks(_Nav);
-                FFeed = FFeed.OrderByDescending(_ => FeedCalculator.CalculateScore(FClicks.Where(_0 => _.Id == _0.RecipeId).ToList()));
+                FFeed = FFeed.OrderByDescending(_ => FeedCalculator.CalculateScore(FClicks.Where(_0 => _.Id == _0.RecipeId).ToList())).ToList();
             } else
             {
                 if (FCategories == null) await LoadCategories(_Nav);
@@ -81,11 +81,6 @@ namespace MamasRezepte.Client.State
                     && (FFilter.FTags.Any() ? FFilter.FTags.Any(_0 => FRecipeToTagRelations.Where(_1 => _1.RecipeId == _.Id).Any(_1 => _1.TagId == _0.Id)) : true)
                 );
 
-            }
-
-            if(_IncludeImages)
-            {
-                await LoadImages(_Nav);
             }
 
             Console.WriteLine("Feed:");
