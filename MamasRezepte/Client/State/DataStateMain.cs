@@ -3,6 +3,7 @@ using MamasRezepte.Shared.Models;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -37,18 +38,6 @@ namespace MamasRezepte.Client.State
             await LoadFeed(_Nav, _IncludeClicks: _IncludeClicks, _IncludeImages: _IncludeImages);
         }
 
-        public async Task LoadMissingData(NavigationManager _Nav)
-        {
-            if (FCategories == null) await LoadCategories(_Nav);
-            if (FDurationCategories == null) await LoadDurationCategories(_Nav);
-            if (FTags == null) await LoadTags(_Nav);
-            //if (FClicks == null) await LoadClicks(_Nav);
-            //if (FImages == null) await LoadImages(_Nav);
-            //if (FRecipeToTagRelations == null) await LoadRecipeToTagRealtions(_Nav);
-            //if (FIngredients == null) await LoadIngredients(_Nav);
-            //if (FProducts == null) await LoadProducts(_Nav);
-        }
-
         public void UpdateFilter(Filter _Filter)
         {
             FFilter = _Filter;
@@ -60,28 +49,33 @@ namespace MamasRezepte.Client.State
         {
             var hHttp = new HttpClient();
 
-            FFeed = await hHttp.GetFromJsonAsync<IEnumerable<Recipe>>(Path.Combine(_Nav.BaseUri, "api/recipes"));
+            var hStopwatch = new Stopwatch();
+            hStopwatch.Start();
+
+            FFeed = await hHttp.GetFromJsonAsync<List<Recipe>>(Path.Combine(_Nav.BaseUri, "api/recipes"));
+
+            hStopwatch.Stop();
+            Console.WriteLine("Fetching feed took " + hStopwatch.ElapsedMilliseconds + "ms");
+            hStopwatch.Reset();
+            hStopwatch.Start();
 
             // Filter
-            if(FFilter.IsEmpty())
+            if (FFilter.IsEmpty())
             {
-                if (FClicks == null) await LoadClicks(_Nav);
-                FFeed = FFeed.OrderByDescending(_ => FeedCalculator.CalculateScore(FClicks.Where(_0 => _.Id == _0.RecipeId).ToList())).ToList();
+                FFeed = FFeed.OrderByDescending(_ => FeedCalculator.CalculateScore(_.Clicks.ToList())).ToList();
+                
             } else
             {
-                if (FCategories == null) await LoadCategories(_Nav);
-                if (FDurationCategories == null) await LoadDurationCategories(_Nav);
-                if (FTags == null) await LoadTags(_Nav);
-                if (FRecipeToTagRelations == null) await LoadRecipeToTagRealtions(_Nav);
-                
                 FFeed = FFeed.Where(_ => 
                     (FFilter.HasSearch() ? _.Name.Contains(FFilter.FSearch, StringComparison.OrdinalIgnoreCase) : true)
                     && (FFilter.FCategories.Any() ? FFilter.FCategories.Any(_0 => _0.Id == _.CategoryId) : true)
                     && (FFilter.FDurationCategories.Any() ? FFilter.FDurationCategories.Any(_0 => _0.Id == _.DurationCategoryId) : true)
                     && (FFilter.FTags.Any() ? FFilter.FTags.Any(_0 => FRecipeToTagRelations.Where(_1 => _1.RecipeId == _.Id).Any(_1 => _1.TagId == _0.Id)) : true)
                 );
-
             }
+
+            hStopwatch.Stop();
+            Console.WriteLine("Ordering feed took " + hStopwatch.ElapsedMilliseconds + "ms");
 
             Console.WriteLine("Feed:");
             foreach (var hRecipe in FFeed)
