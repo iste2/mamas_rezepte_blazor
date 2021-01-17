@@ -204,8 +204,8 @@ namespace MamasRezepte.Server.Controllers
                     Instruction = _Value.Instruction,
                     CategoryId = _Value.CategoryId,
                     DurationCategoryId = _Value.DurationCategoryId,
-                    Tags = _Value.Tags.ToList(),
-                    Ingredients = _Value.Ingredients.ToList(),
+                    //Tags = _Value.Tags.ToList(),
+                    //Ingredients = _Value.Ingredients.ToList(),
                 };
                 FDb.Entry(hRecipe).State = EntityState.Modified;
                 await FDb.SaveChangesAsync();
@@ -242,6 +242,8 @@ namespace MamasRezepte.Server.Controllers
                     if (hTag.Id == 0)
                     {
                         hTag.RecipeId = _Value.Id;
+                        hTag.TagId = hTag.Tag.Id;
+                        hTag.Tag = null;
                         FDb.Add(hTag);
                         await FDb.SaveChangesAsync();
                     }
@@ -270,6 +272,8 @@ namespace MamasRezepte.Server.Controllers
                     if(hIngredient.Id == 0)
                     {
                         hIngredient.RecipeId = _Value.Id;
+                        hIngredient.ProductId = hIngredient.Product.Id;
+                        hIngredient.Product = null;
                         FDb.Add(hIngredient);
                         await FDb.SaveChangesAsync();
                     }
