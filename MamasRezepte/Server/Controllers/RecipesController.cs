@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using MamasRezepte.Shared.Helper;
@@ -26,16 +27,34 @@ namespace MamasRezepte.Server.Controllers
         [HttpGet]
         public async Task<List<Recipe>> Get()
         {
-            return await FDb.Recipes
-                .Include(_ => _.Images)
-                .Include(_ => _.Tags)
-                    .ThenInclude(_ => _.Tag)
-                .Include(_ => _.Ingredients)
-                    .ThenInclude(_ => _.Product)
-                .Include(_ => _.Category)
-                .Include(_ => _.DurationCategory)
-                .Include(_ => _.Clicks)
-                .ToListAsync();           
+            var hRecipes = FDb.Recipes.ToList();
+            foreach(var hRecipe in hRecipes)
+            {
+                hRecipe.Images = FDb.RecipeImages.Where(_ => _.RecipeId == hRecipe.Id)
+                    .Select(_0 => new RecipeImage { Id = _0.Id, ImageData = _0.ImageData, RecipeId = _0.RecipeId }).ToList();
+                hRecipe.Tags = FDb.RecipeToTagRelations.Where(_ => _.RecipeId == hRecipe.Id)
+                    .Select(_0 => new RecipeToTagRelation { Id = _0.Id, TagId = _0.TagId, RecipeId = _0.RecipeId }).ToList();
+                foreach(var hTag in hRecipe.Tags)
+                {
+                    var hHTag = FDb.Tags.FirstOrDefault(_ => _.Id == hTag.TagId);
+                    hTag.Tag = new Tag { Id = hHTag.Id, Name = hHTag.Name };
+                }
+                hRecipe.Ingredients = FDb.Ingredients.Where(_ => _.RecipeId == hRecipe.Id)
+                    .Select(_0 => new Ingredient { Id = _0.Id, Amount = _0.Amount, Unit = _0.Unit, ProductId = _0.ProductId, RecipeId = _0.RecipeId }).ToList();
+                foreach (var hIngredient in hRecipe.Ingredients)
+                {
+                    var hProduct = FDb.Products.FirstOrDefault(_ => _.Id == hIngredient.ProductId);
+                    hIngredient.Product = new Product { Id = hProduct.Id, Name = hProduct.Name };
+                }
+                var hCategory = FDb.Categories.FirstOrDefault(_ => hRecipe.CategoryId == _.Id);
+                hRecipe.Category = new Category { Id = hCategory.Id, Name = hCategory.Name };
+                var hDurationCategory = FDb.DurationCategories.FirstOrDefault(_ => hRecipe.DurationCategoryId == _.Id);
+                hRecipe.DurationCategory = new DurationCategory { Id = hDurationCategory.Id, Name = hDurationCategory.Name };
+                hRecipe.Clicks = FDb.Clicks.Where(_ => _.RecipeId == hRecipe.Id)
+                    .Select(_0 => new Click { Id = _0.Id, Time = _0.Time, RecipeId = _0.RecipeId }).ToList();
+            }
+
+            return hRecipes;
         }
 
         // GET api/<RecipesController>/5
