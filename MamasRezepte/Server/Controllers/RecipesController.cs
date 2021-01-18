@@ -234,12 +234,15 @@ namespace MamasRezepte.Server.Controllers
                 // add tags
                 foreach(var hTag in _Value.Tags)
                 {
-                    if(hTag.Tag.Id == 0)
+                    if(hTag.Tag.Id == 0 && !FDb.Tags.Any(_ => _.Name == hTag.Tag.Name))
                     {
                         FDb.Add(hTag.Tag);
                         await FDb.SaveChangesAsync();
+                    }  else
+                    {
+                        hTag.Tag.Id = FDb.Tags.FirstOrDefault(_ => _.Name == hTag.Tag.Name).Id;
                     }
-                    if (hTag.Id == 0)
+                    if (hTag.Id == 0 && !FDb.RecipeToTagRelations.Where(_ => _.RecipeId == _Value.Id).Any(_ => _.Tag.Name == hTag.Tag.Name))
                     {
                         hTag.RecipeId = _Value.Id;
                         hTag.TagId = hTag.Tag.Id;
@@ -251,10 +254,10 @@ namespace MamasRezepte.Server.Controllers
                 
 
                 // delete tags
-                var hDbTags = FDb.RecipeToTagRelations.Where(_ => _.RecipeId == _Value.Id).ToList();
+                var hDbTags = FDb.RecipeToTagRelations.Where(_ => _.RecipeId == _Value.Id).Include(_ => _.Tag).ToList();
                 foreach(var hDbTag in hDbTags)
                 {
-                    if(!_Value.Tags.Any(_ => _.TagId == hDbTag.TagId))
+                    if(!_Value.Tags.Any(_ => _.Tag.Name == hDbTag.Tag.Name))
                     {
                         FDb.RecipeToTagRelations.Remove(hDbTag);
                         await FDb.SaveChangesAsync();
@@ -264,7 +267,7 @@ namespace MamasRezepte.Server.Controllers
                 // add ingredients
                 foreach(var hIngredient in _Value.Ingredients)
                 {
-                    if(hIngredient.Product.Id == 0)
+                    if(hIngredient.Product.Id == 0 && !FDb.Products.Any(_ => _.Name == hIngredient.Product.Name))
                     {
                         FDb.Add(hIngredient.Product);
                         await FDb.SaveChangesAsync();
@@ -280,10 +283,10 @@ namespace MamasRezepte.Server.Controllers
                 }
 
                 // delete ingredient
-                var hDbIngredients = FDb.Ingredients.Where(_ => _.RecipeId == _Value.Id).ToList();
+                var hDbIngredients = FDb.Ingredients.Where(_ => _.RecipeId == _Value.Id).Include(_ => _.Product).ToList();
                 foreach(var hDbIngredient in hDbIngredients)
                 {
-                    if(!_Value.Ingredients.Any(_ => _.Id == hDbIngredient.Id))
+                    if(!_Value.Ingredients.Any(_ => _.Product.Name == hDbIngredient.Product.Name))
                     {
                         FDb.Ingredients.Remove(hDbIngredient);
                         await FDb.SaveChangesAsync();
