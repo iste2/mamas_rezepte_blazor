@@ -70,7 +70,7 @@ namespace MamasRezepte.Client.State
                     (FFilter.HasSearch() ? _.Name.Contains(FFilter.FSearch, StringComparison.OrdinalIgnoreCase) : true)
                     && (FFilter.FCategories.Any() ? FFilter.FCategories.Any(_0 => _0.Id == _.CategoryId) : true)
                     && (FFilter.FDurationCategories.Any() ? FFilter.FDurationCategories.Any(_0 => _0.Id == _.DurationCategoryId) : true)
-                    && (FFilter.FTags.Any() ? FFilter.FTags.Any(_0 => FRecipeToTagRelations.Where(_1 => _1.RecipeId == _.Id).Any(_1 => _1.TagId == _0.Id)) : true)
+                    && (FFilter.FTags.Any() ? FFilter.FTags.Any(_0 => _.Tags.Any(_1 => _1.TagId == _0.Id)) : true)
                 );
             }
 

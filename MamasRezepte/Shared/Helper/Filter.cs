@@ -21,15 +21,15 @@ namespace MamasRezepte.Shared.Helper
             if (Contains(_Object)) return;
             if (_Object is Category)
             {
-                FCategories.Add(_Object as Category);
+                FCategories.Add((Category)_Object);
             }
             else if (_Object is DurationCategory)
             {
-                FDurationCategories.Add(_Object as DurationCategory);
+                FDurationCategories.Add((DurationCategory)_Object);
             }
             else if (_Object is Tag)
             {
-                FTags.Add(_Object as Tag);
+                FTags.Add((Tag)_Object);
             }
             else if (_Object is string)
             {
